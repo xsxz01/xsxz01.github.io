@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>【web前端技术】dicebear一句话生成头像</title>
+    <link href="/2022/06/28/%E3%80%90web%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF%E3%80%91dicebear%E4%B8%80%E5%8F%A5%E8%AF%9D%E7%94%9F%E6%88%90%E5%A4%B4%E5%83%8F/"/>
+    <url>/2022/06/28/%E3%80%90web%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF%E3%80%91dicebear%E4%B8%80%E5%8F%A5%E8%AF%9D%E7%94%9F%E6%88%90%E5%A4%B4%E5%83%8F/</url>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>dicebear是一个专为程序开发者和设计者提供生成头像的Javascript库。你可以选择使用HTTP-API来快速的调用官方的服务生成头像，也可以引入npm包来调用代码生成头像。</p><p><img src="https://img-blog.csdnimg.cn/0066236935954ce498030febc70f10b4.png" alt="dicebear一句话生成头像"></p><hr><h1 id="一、dicebear体验"><a href="#一、dicebear体验" class="headerlink" title="一、dicebear体验"></a>一、dicebear体验</h1><p>官方提供了一个在线测试的小例子，网址是<br><code>https://avatars.dicebear.com/</code><br>打开后如下图所示，左边是关于该库的一些文档资料，右边是生成头像的demo<br><img src="https://img-blog.csdnimg.cn/b0ed4a666e374854845e9973f0c41954.png" alt="在线体验"></p><h1 id="二、使用步骤"><a href="#二、使用步骤" class="headerlink" title="二、使用步骤"></a>二、使用步骤</h1><h2 id="1-使用Http-API直接调用"><a href="#1-使用Http-API直接调用" class="headerlink" title="1.使用Http-API直接调用"></a>1.使用Http-API直接调用</h2><p>官方提供的接口如下</p><figure class="highlight javascript"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-attr">https</span>:<span class="hljs-comment">//avatars.dicebear.com/api/:sprites/:seed.svg</span><br></code></pre></td></tr></table></figure><p>在你的请求中，需要将<code>:sprites</code>替换为<code>male</code>, <code>female</code>, <code>human</code>, <code>identicon</code>, <code>initials</code>, <code>bottts</code>, <code>avataaars</code>, <code>jdenticon</code>, <code>gridy</code> 或者 <code>micah</code>，<code>:seed</code>替换成任意的字符，但是不要是你个人的敏感信息。<br>此外，还支持指定一些特定的选项。比如，要指定一个蓝色的背景</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-attr">https</span>:<span class="hljs-comment">//avatars.dicebear.com/api/male/john.svg?background=%230000ff</span><br></code></pre></td></tr></table></figure><p>或者要指定头像中人物的表情</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-attr">https</span>:<span class="hljs-comment">//avatars.dicebear.com/api/male/john.svg?mood[]=happy&amp;mood[]=sad</span><br></code></pre></td></tr></table></figure><p>你也可以指定API的版本</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-attr">https</span>:<span class="hljs-comment">//avatars.dicebear.com/4.6/api/:sprites/:seed.svg</span><br></code></pre></td></tr></table></figure><p>当前支持的版本有<code>4.4</code>, <code>4.5</code>, <code>4.6</code>, <code>4.7</code>, <code>4.8</code> 和 <code>4.9</code>.</p><h2 id="2-使用npm将dicebear安装到你的项目"><a href="#2-使用npm将dicebear安装到你的项目" class="headerlink" title="2.使用npm将dicebear安装到你的项目"></a>2.使用npm将dicebear安装到你的项目</h2><p>安装下面的两个包</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">npm install --save @dicebear/avatars<br>npm install --save @dicebear/avatars-male-sprites<br></code></pre></td></tr></table></figure><p>然后使用下面的代码来生成头像</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; createAvatar &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@dicebear/avatars&#x27;</span>;<br><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> style <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@dicebear/avatars-identicon-sprites&#x27;</span>;<br><br><span class="hljs-keyword">let</span> svg = <span class="hljs-title function_">createAvatar</span>(style, &#123;<br>  <span class="hljs-attr">seed</span>: <span class="hljs-string">&#x27;custom-seed&#x27;</span>,<br>  <span class="hljs-comment">// ... and other options</span><br>&#125;);<br></code></pre></td></tr></table></figure><hr><h1 id="相关内容"><a href="#相关内容" class="headerlink" title="相关内容"></a>相关内容</h1><p>以上就是本文的所有主要内容。通过本文，你可以了解到怎么调用dicebear来生成头像。此外，还有一些别的东西，如果你有兴趣，可以详细了解了解，最好阅读源码，以提升自己的编程水平。</p><h3 id="1-官方开源HTTP-API项目"><a href="#1-官方开源HTTP-API项目" class="headerlink" title="1. 官方开源HTTP-API项目"></a>1. 官方开源HTTP-API项目</h3><p>在前面有一部分是直接调用官方的HTTP-API，但是官方也提供了这个项目的源码，GitHub开源地址<br><code>https://github.com/dicebear/api/</code><br>你可以在这定制你自己的HTTP-API</p><h3 id="2-命令行模式"><a href="#2-命令行模式" class="headerlink" title="2. 命令行模式"></a>2. 命令行模式</h3><p>命令行模式实际上感觉并不是很方便，所以官方描述很少，但你如果感兴趣可以看一下，地址<code>https://avatars.dicebear.com/integrations/cli</code></p><h3 id="3-Serverless部署"><a href="#3-Serverless部署" class="headerlink" title="3. Serverless部署"></a>3. Serverless部署</h3><p>这个是基于Cloudflare的Serverless框架的部署。一个免费的账户拥有10w次请求可以使用，是一个不错的选择。如果你对他感兴趣，可以去以下网站<code>https://avatars.dicebear.com/integrations/serverless#installation</code><br>如果后面有机会，本人会发布相关的文章。</p><h3 id="4-生成头像的风格"><a href="#4-生成头像的风格" class="headerlink" title="4. 生成头像的风格"></a>4. 生成头像的风格</h3><p>官方在文档中给出了生成头像的风格，如果你要生成头像的话，请到以下网站来选择你所需要的风格<br><code>https://avatars.dicebear.com/styles</code><br><img src="https://img-blog.csdnimg.cn/c2e12da5ad5c4729ae5bb86a13ebf9dd.png" alt="style"></p><h3 id="5-头像生成选项"><a href="#5-头像生成选项" class="headerlink" title="5. 头像生成选项"></a>5. 头像生成选项</h3><p>生成头像有几个可选项，可以指定生成头像的类型，详细请看<code>https://avatars.dicebear.com/docs/options</code><br><img src="https://img-blog.csdnimg.cn/46e26ddb11c941669344aab87e52b69e.png" alt="option"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>前端</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>dicebear</tag>
+      
+      <tag>头像生成</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>vue+node+webpack前端自动化部署</title>
     <link href="/2022/06/09/vue-node-webpack%E5%89%8D%E7%AB%AF%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/"/>
     <url>/2022/06/09/vue-node-webpack%E5%89%8D%E7%AB%AF%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/</url>
