@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://blog.iotlearn.cn/2022/07/01/%E3%80%90Python%E7%88%AC%E8%99%AB%20%E2%80%A2%20selenium%E3%80%91selenium4%E6%96%B0%E7%89%88%E6%9C%AC%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</loc>
+    <lastmod>2022-07-01</lastmod>
+  </url>
+  <url>
     <loc>https://blog.iotlearn.cn/2022/06/28/%E3%80%90web%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF%E3%80%91dicebear%E4%B8%80%E5%8F%A5%E8%AF%9D%E7%94%9F%E6%88%90%E5%A4%B4%E5%83%8F/</loc>
     <lastmod>2022-06-28</lastmod>
   </url>
