@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://blog.iotlearn.cn/2022/07/07/%E3%80%90Python%E2%80%A2%E5%9B%BE%E7%89%87%E8%AF%86%E5%88%AB%E3%80%91pytesseract%E5%BF%AB%E9%80%9F%E8%AF%86%E5%88%AB%E6%8F%90%E5%8F%96%E5%9B%BE%E7%89%87%E4%B8%AD%E7%9A%84%E6%96%87%E5%AD%97/</loc>
+    <lastmod>2022-07-07</lastmod>
+  </url>
+  <url>
     <loc>https://blog.iotlearn.cn/2022/04/07/js%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91-%E5%93%8D%E5%BA%94%E5%BC%8F%E7%94%BB%E5%BB%8AGallery%E6%8F%92%E4%BB%B6-Justified-Gallery/</loc>
     <lastmod>2022-07-06</lastmod>
   </url>
