@@ -1,0 +1,588 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="广龙宇">
+  <meta name="keywords" content="前端博客,JavaScript,html5,css3,Jquery,NodeJs,Ubuntu">
+  
+    <meta name="description" content="众所周知，现在开发Java程序一般使用的是Jetbrains公司的宇宙级IDE——IntelliJ IDEA，他对Java的支持非常完美，简直是符合人体工程学的设计理念。本次介绍最新版本的宇宙级代码编辑器VSCode（Visual Studio Code），以及如何配置Java环境。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用VSCode配置Java环境">
+<meta property="og:url" content="https://blog.iotlearn.cn/2022/05/27/%E4%BD%BF%E7%94%A8VSCode%E9%85%8D%E7%BD%AEJava%E7%8E%AF%E5%A2%83/index.html">
+<meta property="og:site_name" content="广龙宇">
+<meta property="og:description" content="众所周知，现在开发Java程序一般使用的是Jetbrains公司的宇宙级IDE——IntelliJ IDEA，他对Java的支持非常完美，简直是符合人体工程学的设计理念。本次介绍最新版本的宇宙级代码编辑器VSCode（Visual Studio Code），以及如何配置Java环境。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img1.baidu.com/it/u=1138210100,1932143168&fm=253&fmt=auto&app=138&f=PNG?w=500&h=291">
+<meta property="article:published_time" content="2022-05-27T05:28:01.000Z">
+<meta property="article:modified_time" content="2023-11-24T08:42:14.080Z">
+<meta property="article:author" content="广龙宇">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img1.baidu.com/it/u=1138210100,1932143168&fm=253&fmt=auto&app=138&f=PNG?w=500&h=291">
+  
+  
+  <title>使用VSCode配置Java环境 - 广龙宇</title>
+
+  <link  rel="stylesheet" href="https://unpkg.com/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://unpkg.com/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.3/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"blog.iotlearn.cn","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>广龙宇</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/">
+                <i class="iconfont icon-briefcase"></i>
+                常用工具
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="使用VSCode配置Java环境">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      广龙宇
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-05-27 13:28" pubdate>
+        2022年5月27日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.3k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      28 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">使用VSCode配置Java环境</h1>
+            
+            <div class="markdown-body">
+              <p>众所周知，现在开发Java程序一般使用的是Jetbrains公司的宇宙级IDE——IntelliJ IDEA，他对Java的支持非常完美，简直是符合人体工程学的设计理念。<br>本次介绍最新版本的宇宙级代码编辑器VSCode（Visual Studio Code），以及如何配置Java环境。</p>
+<span id="more"></span>
+<h1 id="常见的Java开发工具对比"><a href="#常见的Java开发工具对比" class="headerlink" title="常见的Java开发工具对比"></a>常见的Java开发工具对比</h1><h2 id="eclipse"><a href="#eclipse" class="headerlink" title="eclipse"></a>eclipse</h2><p><img src="https://img2.baidu.com/it/u=91355798,3954706045&fm=253&fmt=auto&app=138&f=PNG?w=800&h=426" srcset="/img/loading.gif" lazyload alt="eclipse"><br>Eclipse 是一个开放源代码的、基于Java的可扩展开发平台。就其本身而言，它只是一个框架和一组服务，用于通过插件组件构建开发环境。幸运的是，Eclipse 附带了一个标准的插件集，包括Java开发工具（Java Development Kit，JDK）。</p>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>安装简单</li>
+<li>文件小</li>
+<li>可扩展性强 <h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3></li>
+<li>工具太老了，以至于现在的课程一般不会选择使用它</li>
+<li>Bug比较多，资料也不好找</li>
+</ul>
+<h2 id="IntelliJ-IDEA"><a href="#IntelliJ-IDEA" class="headerlink" title="IntelliJ IDEA"></a>IntelliJ IDEA</h2><p><img src="https://img0.baidu.com/it/u=3089044358,909437572&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=313" srcset="/img/loading.gif" lazyload alt="IntelliJ IDEA"><br>IDEA 全称 IntelliJ IDEA，是java编程语言开发的集成环境。IntelliJ在业界被公认为最好的java开发工具，尤其在智能代码助手、代码自动提示、重构、JavaEE支持、各类版本工具(git、svn等)、JUnit、CVS整合、代码分析、 创新的GUI设计等方面的功能可以说是超常的。IDEA是JetBrains公司的产品，这家公司总部位于捷克共和国的首都布拉格，开发人员以严谨著称的东欧程序员为主。它的旗舰版本还支持HTML，CSS，PHP，MySQL，Python等。免费版只支持Java,Kotlin等少数语言。</p>
+<p>总的来说，本软件用的人多，更符合开发人员的需求，如果我要做Java开发，我更愿意用它。</p>
+<h3 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>可以自动提示</li>
+<li>好用</li>
+<li>可以适合于任何Java开发环境</li>
+</ul>
+<h3 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li>太重量级</li>
+<li>收费</li>
+<li>只支持Java</li>
+</ul>
+<h2 id="Visual-Studio-Code"><a href="#Visual-Studio-Code" class="headerlink" title="Visual Studio Code"></a>Visual Studio Code</h2><p><img src="https://img2.baidu.com/it/u=1610309039,11415548&fm=253&fmt=auto&app=138&f=JPEG?w=890&h=500" srcset="/img/loading.gif" lazyload alt="Visual Studio Code"><br>Visual Studio Code（简称“VS Code”  ）是Microsoft在2015年4月30日Build开发者大会上正式宣布一个运行于 Mac OS X、Windows和 Linux 之上的，针对于编写现代Web和云应用的跨平台源代码编辑器，可在桌面上运行，并且可用于Windows，macOS和Linux。它具有对JavaScript，TypeScript和Node.js的内置支持，并具有丰富的其他语言（例如C++，C＃，Java，Python，PHP，Go）和运行时（例如.NET和Unity）扩展的生态系统。</p>
+<p>要我说的话，这玩意儿其实更适合作为前端开发的工具，但是微软野心很大，最新的新闻说，VSCode已经全面支持Java开发了，因此体验一下。</p>
+<h1 id="VSCode安装"><a href="#VSCode安装" class="headerlink" title="VSCode安装"></a>VSCode安装</h1><h2 id="下载安装包"><a href="#下载安装包" class="headerlink" title="下载安装包"></a>下载安装包</h2><p>VS Code的官网： <a target="_blank" rel="noopener" href="https://code.visualstudio.com/">https://code.visualstudio.com/</a></p>
+<p>在官网下载速度太慢，只有几十 Kb&#x2F;s,要下载几十分钟。</p>
+<p>但是，只要将下载链接中的“az764295.vo.msecnd.net” 替换为国内镜像地址“vscode.cdn.azure.cn”，下载速度直接飙升至几十 Mb&#x2F;s。</p>
+<p>如将官网下载链接：<a target="_blank" rel="noopener" href="https://az764295.vo.msecnd.net/stable/dfd34e8260c270da74b5c2d86d61aee4b6d56977/VSCodeUserSetup-x64-1.66.2.exe">https://az764295.vo.msecnd.net/stable/dfd34e8260c270da74b5c2d86d61aee4b6d56977/VSCodeUserSetup-x64-1.66.2.exe</a></p>
+<p>改成：</p>
+<p><a target="_blank" rel="noopener" href="https://vscode.cdn.azure.cn/stable/dfd34e8260c270da74b5c2d86d61aee4b6d56977/VSCodeUserSetup-x64-1.66.2.exe">https://vscode.cdn.azure.cn/stable/dfd34e8260c270da74b5c2d86d61aee4b6d56977/VSCodeUserSetup-x64-1.66.2.exe</a></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>一路下一步，next，安装，即可，安装很简单，建议勾上Add to path。</p>
+<h1 id="配置Java环境"><a href="#配置Java环境" class="headerlink" title="配置Java环境"></a>配置Java环境</h1><h2 id="下载JDK"><a href="#下载JDK" class="headerlink" title="下载JDK"></a>下载JDK</h2><p>下载地址：<a target="_blank" rel="noopener" href="https://www.oracle.com/java/technologies/downloads/">https://www.oracle.com/java/technologies/downloads/</a></p>
+<p><img src="https://iotpics.oss-accelerate.aliyuncs.com/img/20220527134929.png" srcset="/img/loading.gif" lazyload alt="下载JDK"></p>
+<p>安装也是一路下一步即可，如果有需要请求改JDK的安装路径，前提是你能找得到。</p>
+<h2 id="配置JDK"><a href="#配置JDK" class="headerlink" title="配置JDK"></a>配置JDK</h2><ol>
+<li>打开“此电脑”。在右边的“此电脑”上右键，查看属性，然后点击高级设置，如下图所示</li>
+</ol>
+<p><img src="https://iotpics.oss-accelerate.aliyuncs.com/img/20220527135209.png" srcset="/img/loading.gif" lazyload><br>2. 打开环境变量，如下图所示</p>
+<p><img src="https://iotpics.oss-accelerate.aliyuncs.com/img/20220527135320.png" srcset="/img/loading.gif" lazyload><br>3. 在“系统变量”中找到变量名为 Path 的变量，点击“编辑”按钮（找不到则点击“新建”按钮）</p>
+<p><img src="https://iotpics.oss-accelerate.aliyuncs.com/img/20220527135438.png" srcset="/img/loading.gif" lazyload><br>4. 在“变量名”文本框中输入 Path ，在“变量值”文本框中输入 JDK 的 bin 目录的安装路径 E:\jdk\jdk1.8.0_152\bin ，然后点击确定按钮完成配置。<br>5. 新建环境变量，在“变量名”文本框中输入 JAVA_HOME ，在“变量值”文本框中输入 JDK 的安装路径 E:\jdk\jdk1.8.0_152 ，单击“确定”按钮完成配置。<br>6. 命令提示符输入java -veriosn，如下图所示，就算安装成功了，老套路。</p>
+<p><img src="https://iotpics.oss-accelerate.aliyuncs.com/img/20220527135632.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="配置VSCode"><a href="#配置VSCode" class="headerlink" title="配置VSCode"></a>配置VSCode</h1><ol>
+<li>首先安装Java相关的插件，下图的所有我安装的插件，都安装好。</li>
+</ol>
+<p><img src="https://iotpics.oss-accelerate.aliyuncs.com/img/20220527135843.png" srcset="/img/loading.gif" lazyload><br><strong>注意：</strong>你最好安装的是JDK11，而不是JDK8，JDK8虽然都在推荐使用，但是很多程序已经不推荐使用了，就比如说springboot 3，建议更新。</p>
+<h1 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h1><ol>
+<li>点击加号</li>
+</ol>
+<p><img src="https://iotpics.oss-accelerate.aliyuncs.com/img/20220527143353.png" srcset="/img/loading.gif" lazyload><br>2. 选择构建工具，选Spring Boot</p>
+<p><img src="https://iotpics.oss-accelerate.aliyuncs.com/img/20220527143446.png" srcset="/img/loading.gif" lazyload><br>3. 选择Maven</p>
+<p><img src="https://iotpics.oss-accelerate.aliyuncs.com/img/20220527143635.png" srcset="/img/loading.gif" lazyload><br>4. 接下来是配置包名等步骤，这里不再赘述，给出要配置的选项</p>
+<p><img src="https://iotpics.oss-accelerate.aliyuncs.com/img/20220527143805.png" srcset="/img/loading.gif" lazyload><br>这里需要配置的就是图中的内容，可自行选择。</p>
+<p><strong>注意：</strong>如果你选择spring boot版本是3的话，不要选Java8的版本，至少需要11才可以运行。</p>
+<ol start="5">
+<li>打开项目文件夹</li>
+</ol>
+<p><img src="https://iotpics.oss-accelerate.aliyuncs.com/img/20220527143958.png" srcset="/img/loading.gif" lazyload><br>直接用vscode打开项目，就是图中的样子。</p>
+<h1 id="hello-world"><a href="#hello-world" class="headerlink" title="hello world"></a>hello world</h1><h2 id="界面操作"><a href="#界面操作" class="headerlink" title="界面操作"></a>界面操作</h2><ol>
+<li>源码视图，里面是以文件存放的。可以看出工程的结构</li>
+</ol>
+<p><img src="https://iotpics.oss-accelerate.aliyuncs.com/img/20220527144108.png" srcset="/img/loading.gif" lazyload alt="源码视图"></p>
+<ol start="2">
+<li>项目视图，本视图就相当于idea中的文件</li>
+</ol>
+<p><img src="https://iotpics.oss-accelerate.aliyuncs.com/img/20220527144326.png" srcset="/img/loading.gif" lazyload alt="项目视图"><br>图中，1到4分别是创建java项目，导出jar包，配置Java版本和配置classpath，是不是比idea简单多了<br><img src="https://iotpics.oss-accelerate.aliyuncs.com/img/20220527144450.png" srcset="/img/loading.gif" lazyload alt="项目视图"></p>
+<ol start="3">
+<li>Maven操作视图</li>
+</ol>
+<p><img src="https://iotpics.oss-accelerate.aliyuncs.com/img/20220527144722.png" srcset="/img/loading.gif" lazyload alt="Maven操作视图"><br>可以看出这里和idea是一样的</p>
+<ol start="4">
+<li>Spring boot操作视图</li>
+</ol>
+<p><img src="https://iotpics.oss-accelerate.aliyuncs.com/img/20220527144804.png" srcset="/img/loading.gif" lazyload alt="Spring boot操作视图"><br>这里主要是管理Springboot的启动关闭等，如果要启动，点击三角箭头即可，运行则点小地球。</p>
+<h2 id="修改application-yml文件"><a href="#修改application-yml文件" class="headerlink" title="修改application.yml文件"></a>修改application.yml文件</h2><p>打开yml文件，然后改成以下内容</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">spring:</span><br> <span class="hljs-attr">devtools:</span><br>  <span class="hljs-attr">restart:</span><br>   <span class="hljs-attr">enabled:</span> <span class="hljs-literal">true</span> <span class="hljs-comment"># default: false 启用热部署</span><br><br><span class="hljs-attr">test:</span><br> <span class="hljs-attr">project_name:</span> <span class="hljs-string">test</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="新建TestController-java"><a href="#新建TestController-java" class="headerlink" title="新建TestController.java"></a>新建TestController.java</h2><p>按照图中提示来新建TestController.java<br><img src="https://iotpics.oss-accelerate.aliyuncs.com/img/20220527145053.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="修改Hello-World"><a href="#修改Hello-World" class="headerlink" title="修改Hello World"></a>修改Hello World</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> cn.iotlearn.test.test.controller;<br><br><span class="hljs-keyword">import</span> org.springframework.beans.factory.annotation.Value;<br><span class="hljs-keyword">import</span> org.springframework.stereotype.Controller;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.GetMapping;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;<br><br><span class="hljs-meta">@Controller</span><br><span class="hljs-meta">@RequestMapping(&quot;/test&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TestController</span> &#123;<br>    <span class="hljs-meta">@Value(&quot;$&#123;test.project_name&#125;&quot;)</span><br>    <span class="hljs-keyword">private</span> String projectName;<br>    <span class="hljs-meta">@GetMapping(&quot;/test&quot;)</span><br>    <span class="hljs-meta">@ResponseBody</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">test</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;hello &quot;</span> + <span class="hljs-built_in">this</span>.projectName;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="运行项目，查看结果"><a href="#运行项目，查看结果" class="headerlink" title="运行项目，查看结果"></a>运行项目，查看结果</h2><p>点击Springboot视图里面的运行按钮以后，打开网页，访问</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">http:<span class="hljs-regexp">//</span>localhost:<span class="hljs-number">8080</span><span class="hljs-regexp">/test/</span>test<br></code></pre></td></tr></table></figure>
+<p>就可以看到结果如下图所示<br><img src="https://iotpics.oss-accelerate.aliyuncs.com/img/20220527145328.png" srcset="/img/loading.gif" lazyload></p>
+<p>这样就大功告成了。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Java%E7%BC%96%E7%A8%8B/">Java编程</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Java/">Java</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/05/30/Bootstrap5%E5%AE%B9%E5%99%A8/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Bootstrap5容器</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/05/21/VSCode%E7%BC%96%E8%AF%91%E5%8D%95%E6%96%87%E4%BB%B6%E5%8F%8A%E5%A4%9A%E6%96%87%E4%BB%B6%E6%96%B9%E6%B3%95/">
+                        <span class="hidden-mobile">VSCode编译单文件及多文件方法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="twikoo"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      Fluid.utils.createScript('https://cdnjs.cloudflare.com/ajax/libs/twikoo/1.5.10/twikoo.all.min.js', function() {
+        var options = Object.assign(
+          {"envId":"https://twikoo-comment-amber.vercel.app/","region":null,"path":"window.location.pathname"},
+          {
+            el: '#twikoo',
+            path: 'window.location.pathname',
+            onCommentLoaded: function() {
+              Fluid.plugins.initFancyBox('#twikoo .tk-content img:not(.tk-owo-emotion)');
+            }
+          }
+        )
+        twikoo.init(options)
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        晋ICP备19013417号-1
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://unpkg.com/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://unpkg.com/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://unpkg.com/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://unpkg.com/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://unpkg.com/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://unpkg.com/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

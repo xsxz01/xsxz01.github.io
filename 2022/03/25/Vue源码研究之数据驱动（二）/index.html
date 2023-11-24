@@ -1,0 +1,560 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="广龙宇">
+  <meta name="keywords" content="前端博客,JavaScript,html5,css3,Jquery,NodeJs,Ubuntu">
+  
+    <meta name="description" content="对虚拟dom有一种猜想，那就是将节点用json表示，然后再写一个render函数进行渲染，感觉vue的源码就是这样的。我研究vue源码主要的目的就是想要制作一个符合我自己想法的低代码的设计器，可以使我的项目变得更加适合更多人玩，让他们也体验到前端开发的乐趣。本次将实现把之前的内容使用构造函数来实现，使用的时候就和vue一样只要创建一个对象，调用构造函数就可以实现数据模板替换的功能。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue源码研究之数据驱动（二）">
+<meta property="og:url" content="https://blog.iotlearn.cn/2022/03/25/Vue%E6%BA%90%E7%A0%81%E7%A0%94%E7%A9%B6%E4%B9%8B%E6%95%B0%E6%8D%AE%E9%A9%B1%E5%8A%A8%EF%BC%88%E4%BA%8C%EF%BC%89/index.html">
+<meta property="og:site_name" content="广龙宇">
+<meta property="og:description" content="对虚拟dom有一种猜想，那就是将节点用json表示，然后再写一个render函数进行渲染，感觉vue的源码就是这样的。我研究vue源码主要的目的就是想要制作一个符合我自己想法的低代码的设计器，可以使我的项目变得更加适合更多人玩，让他们也体验到前端开发的乐趣。本次将实现把之前的内容使用构造函数来实现，使用的时候就和vue一样只要创建一个对象，调用构造函数就可以实现数据模板替换的功能。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.iotlearn.cn/images/20220318/vuebanner.jpg">
+<meta property="article:published_time" content="2022-03-25T09:09:35.000Z">
+<meta property="article:modified_time" content="2023-11-24T05:48:48.823Z">
+<meta property="article:author" content="广龙宇">
+<meta property="article:tag" content="vue">
+<meta property="article:tag" content="源码">
+<meta property="article:tag" content="数据驱动">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://blog.iotlearn.cn/images/20220318/vuebanner.jpg">
+  
+  
+  <title>Vue源码研究之数据驱动（二） - 广龙宇</title>
+
+  <link  rel="stylesheet" href="https://unpkg.com/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://unpkg.com/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.3/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"blog.iotlearn.cn","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>广龙宇</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/">
+                <i class="iconfont icon-briefcase"></i>
+                常用工具
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Vue源码研究之数据驱动（二）">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      广龙宇
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-03-25 17:09" pubdate>
+        2022年3月25日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      6.6k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      55 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Vue源码研究之数据驱动（二）</h1>
+            
+            <div class="markdown-body">
+              <p>对虚拟dom有一种猜想，那就是将节点用json表示，然后再写一个render函数进行渲染，感觉vue的源码就是这样的。<br>我研究vue源码主要的目的就是想要制作一个符合我自己想法的低代码的设计器，可以使我的项目变得更加适合更多人玩，让他们也体验到前端开发的乐趣。<br>本次将实现把之前的内容使用构造函数来实现，使用的时候就和vue一样只要创建一个对象，调用构造函数就可以实现数据模板替换的功能。</p>
+<span id="more"></span>
+<h1 id="定义函数"><a href="#定义函数" class="headerlink" title="定义函数"></a>定义函数</h1><p>写个名字叫LikeVue的函数，接收一个options，用来传入接收的参数，这里应当知道一个原则</p>
+<ul>
+<li>内部数据用_开头，只读数据用$开头<figure class="highlight js"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">LikeVue</span>(<span class="hljs-params">options</span>) &#123;<br>	<span class="hljs-comment">// 内部数据用_开头，只读数据用$开头</span><br>	<span class="hljs-variable language_">this</span>.<span class="hljs-property">_data</span> = options.<span class="hljs-property">data</span>;<br>	<span class="hljs-variable language_">this</span>.<span class="hljs-property">$el</span> = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(options.<span class="hljs-property">el</span>);<br>	<span class="hljs-variable language_">this</span>.<span class="hljs-property">_el</span> = options.<span class="hljs-property">el</span>;<br>	<span class="hljs-variable language_">this</span>.<span class="hljs-property">_parent</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">$el</span>.<span class="hljs-property">parentNode</span>;<br>	<span class="hljs-variable language_">this</span>.<span class="hljs-property">_methods</span> = options.<span class="hljs-property">methods</span>;<br>	<span class="hljs-comment">// this.compiler(this.$el, this._data);</span><br>	<span class="hljs-comment">// this.update()</span><br>	<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">render</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
+这样就把options取到了，并且放到了_data里面。其中使用_parent主要是用来保存父节点的，这样在更新<strong>替换</strong>节点的时候就可以直接用<em>this._parent</em>来操作了。这里还使用_methods来保存写的method，用来保存写的方法，当然现在是用不到的，在后面才会用到。<br>接下来就是写三个函数，分别是compiler，update，render，其中compiler是用来把模板替换成真实的dom，update是用来更新dom，render是用来渲染dom。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 编译</span><br><span class="hljs-title class_">LikeVue</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">compiler</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">tmpNode, data</span>) &#123;<br>	<span class="hljs-keyword">let</span> rPattern = <span class="hljs-regexp">/\&#123;\&#123;(.*?)\&#125;\&#125;/g</span>;<br>	<span class="hljs-keyword">let</span> childNodes = tmpNode.<span class="hljs-property">childNodes</span>;<br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> index = <span class="hljs-number">0</span>; index &lt; childNodes.<span class="hljs-property">length</span>; index++) &#123;<br>		<span class="hljs-comment">/**</span><br><span class="hljs-comment">		 * nodeType 1:元素节点 3:文本节点</span><br><span class="hljs-comment">		 */</span><br>		<span class="hljs-keyword">if</span> (childNodes[index].<span class="hljs-property">nodeType</span> == <span class="hljs-number">1</span>) &#123;<br>			<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">compiler</span>(childNodes[index], data);<br>		&#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (childNodes[index].<span class="hljs-property">nodeType</span> == <span class="hljs-number">3</span>) &#123;<br>			<span class="hljs-keyword">let</span> txt = childNodes[index].<span class="hljs-property">nodeValue</span>;<br>			txt = txt.<span class="hljs-title function_">replace</span>(rPattern, <span class="hljs-keyword">function</span>(<span class="hljs-params">match, key</span>) &#123;<br>				key = key.<span class="hljs-title function_">trim</span>();<br>				<span class="hljs-keyword">let</span> value = <span class="hljs-title function_">getPropByPath</span>(data, key);<br>				<span class="hljs-keyword">return</span> value;<br>			&#125;);<br>			childNodes[index].<span class="hljs-property">nodeValue</span> = txt;<br>		&#125;<br>	&#125;<br>&#125;<br><span class="hljs-comment">// 渲染</span><br><span class="hljs-title class_">LikeVue</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">render</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>	<span class="hljs-keyword">let</span> realDom = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">_el</span>).<span class="hljs-title function_">cloneNode</span>(<span class="hljs-literal">true</span>);<br>	<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">compiler</span>(realDom, <span class="hljs-variable language_">this</span>.<span class="hljs-property">_data</span>);<br>	<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">update</span>(realDom);<br>&#125;<br><span class="hljs-comment">// 更新</span><br><span class="hljs-title class_">LikeVue</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">update</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">realDom</span>) &#123;<br>	<span class="hljs-variable language_">this</span>.<span class="hljs-property">_parent</span>.<span class="hljs-title function_">replaceChild</span>(realDom, <span class="hljs-variable language_">this</span>.<span class="hljs-property">$el</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+这样就把整个流程分为了三个阶段，编译，渲染，更新。</li>
+</ul>
+<h1 id="读取多级属性"><a href="#读取多级属性" class="headerlink" title="读取多级属性"></a>读取多级属性</h1><p>现在来解决一个上次尚未解决的问题，就是在读取prop的时候，就简单的用了*data[key]*的方式，这个方式其实是个简单的方式，太简单了，以至于无法读取多级属性，比如这么一个对象，</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> obj = &#123;<br>    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;张三&#x27;</span>,<br>    <span class="hljs-attr">age</span>: <span class="hljs-number">18</span>,<br>    <span class="hljs-attr">address</span>: &#123;<br>        <span class="hljs-attr">city</span>: <span class="hljs-string">&#x27;北京&#x27;</span>,<br>        <span class="hljs-attr">street</span>: <span class="hljs-string">&#x27;朝阳&#x27;</span><br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<p>我如果要读取<em>obj.address.street</em>就不能读取到对应的数据了，因此我们需要一个能够读取多级属性的方法。<br>要想做到这件事，最基本的想法应该是将这个字符串拆分成数组，然后逐级读取，这样就可以读取到多级属性了。这应该就是一般能够想到的办法，不过还有其他想法，就比如用栈来实现读取多级属性。我这里的话给出三种实现，用栈实现的方法后面再给出，这三种是用js的方法做的，也有用到函数<em>柯里化</em>的方法做的。因此很有学习的必要。</p>
+<h2 id="利用es6的reduce实现"><a href="#利用es6的reduce实现" class="headerlink" title="利用es6的reduce实现"></a>利用es6的reduce实现</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">getPropByPath</span>(<span class="hljs-params">obj, path</span>) &#123;<br>    <span class="hljs-keyword">return</span> path.<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;.&#x27;</span>).<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">acc, cur</span>) =&gt;</span> acc[cur], obj);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>reduce() 方法接收一个函数作为累加器，数组中的每个值（从左到右）开始缩减，最终计算为一个值。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js">arr.<span class="hljs-title function_">reduce</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">prev,cur,index,arr</span>)&#123;<br>...<br>&#125;, init);<br></code></pre></td></tr></table></figure>
+<p><em>arr</em> 表示原数组；<br><em>prev</em> 表示上一次调用回调时的返回值，或者初始值 init;<br><em>cur</em> 表示当前正在处理的数组元素；<br><em>index</em> 表示当前正在处理的数组元素的索引，若提供 init 值，则索引为0，否则索引为1；<br><em>init</em> 表示初始值。<br>方法很快，很容易就能解决这个问题，推荐使用。</p>
+<h2 id="利用函数柯里化实现"><a href="#利用函数柯里化实现" class="headerlink" title="利用函数柯里化实现"></a>利用函数柯里化实现</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">createGetValueByPath</span>(<span class="hljs-params">path</span>) &#123;<br>    <span class="hljs-keyword">let</span> paths = path.<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;.&#x27;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">getPropByPath</span> (obj) &#123;<br>        <span class="hljs-keyword">let</span> res = obj;<br>        <span class="hljs-keyword">let</span> prop;<br>        <span class="hljs-keyword">while</span>(prop = paths.<span class="hljs-title function_">shift</span>()) &#123;<br>            res = res[prop];<br>        &#125;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>这是一种从视频里面学到的方法，减少了函数调用次数，提高了性能。主要用在做优化的地方，vue的源码中有多处使用该方法来优化，也正是因为这样，所以vue的性能从来不拉跨，因此也是要学会的一种方法。<br>这种方法调用的时候与上面的方法是稍微有点区别的，</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> getPropByPath = <span class="hljs-title function_">createGetValueByPath</span>(<span class="hljs-string">&#x27;address.city&#x27;</span>);<br><span class="hljs-keyword">let</span> prop = <span class="hljs-title function_">getPropByPath</span>(obj);<br></code></pre></td></tr></table></figure>
+<h2 id="函数柯里化的简化版"><a href="#函数柯里化的简化版" class="headerlink" title="函数柯里化的简化版"></a>函数柯里化的简化版</h2><p>最后是函数柯里化的简化版，省去了创建函数的过程，因此可以直接调用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">getPropByPath</span> (obj) &#123;<br>    <span class="hljs-keyword">let</span> paths = path.<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;.&#x27;</span>);<br>    <span class="hljs-keyword">let</span> res = obj;<br>    <span class="hljs-keyword">let</span> prop;<br>    <span class="hljs-keyword">while</span>(prop = paths.<span class="hljs-title function_">shift</span>()) &#123;<br>        res = res[prop];<br>    &#125;<br>    <span class="hljs-keyword">return</span> res;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>这里的话纯纯属于一种笨办法了，如果我不知道*reduce()<em>的话我第一个想到的就会是这个办法，相比之下，还是</em>reduce()*更加简洁明了。</p>
+<h1 id="虚拟DOM"><a href="#虚拟DOM" class="headerlink" title="虚拟DOM"></a>虚拟DOM</h1><p>虚拟DOM主要是考虑到两个问题</p>
+<ol>
+<li>如何把一个虚拟DOM转换成真实DOM</li>
+<li>如何把一个真实DOM转换成虚拟DOM<br>对于一个学过后端技术的人来说，理解这些会比较方便，在Java中，如果你想把一个对象转成json或者把json转成对象，如果你有经验的话，一定知道有一种技术叫序列化，在这里的话我觉得应该叫这种技术“序列化”会很贴切。一个对象，很容易抽象成json数据，再转成字符串，这样就非常有利于存储和操作了。<br>当然，这种直接转成json的效果是不存在的，因此只能是我们自己写，不然也不会有Vue的发明了。<br><img src="/../images/20220325/3.jpg" srcset="/img/loading.gif" lazyload alt="对象能转json 但是dom节点却不可以"><h2 id="虚拟DOM的实现"><a href="#虚拟DOM的实现" class="headerlink" title="虚拟DOM的实现"></a>虚拟DOM的实现</h2>首先是将DOM节点转化成json<br>例如，<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;Hello&quot;</span> /&gt;</span><br></code></pre></td></tr></table></figure>
+将该节点转化成json以后就成了<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>    type<span class="hljs-punctuation">:</span><span class="hljs-string">&quot;1&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-comment">// 1 元素 ， 3 文本节点 对应nodeType</span><br>    tag<span class="hljs-punctuation">:</span><span class="hljs-string">&quot;div&quot;</span><span class="hljs-punctuation">,</span><br>    title<span class="hljs-punctuation">:</span><span class="hljs-string">&quot;hello&quot;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+如果是文本节点的话<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>this is a paragraph<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br></code></pre></td></tr></table></figure>
+将这个标签转化为json<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>    type<span class="hljs-punctuation">:</span><span class="hljs-string">&quot;3&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-comment">// 1 元素 ， 3 文本节点 对应nodeType</span><br>    tag<span class="hljs-punctuation">:</span><span class="hljs-string">&quot;p&quot;</span><span class="hljs-punctuation">,</span><br>    content<span class="hljs-punctuation">:</span><span class="hljs-string">&quot;this is a paragraph&quot;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+当然，这目前来说只是我的一个想法，如果有多级节点，例如<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>hello 1<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br></code></pre></td></tr></table></figure>
+将其转为json<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>    type<span class="hljs-punctuation">:</span><span class="hljs-string">&quot;1&quot;</span><span class="hljs-punctuation">,</span><br>    tag<span class="hljs-punctuation">:</span><span class="hljs-string">&quot;div&quot;</span><span class="hljs-punctuation">,</span><br>    children<span class="hljs-punctuation">:</span><span class="hljs-punctuation">[</span><br>        <span class="hljs-punctuation">&#123;</span><br>            type<span class="hljs-punctuation">:</span><span class="hljs-string">&quot;1&quot;</span><span class="hljs-punctuation">,</span><br>            content<span class="hljs-punctuation">:</span><span class="hljs-string">&quot;hello 1&quot;</span><br>        <span class="hljs-punctuation">&#125;</span><br>    <span class="hljs-punctuation">]</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+这样基本上就可以实现虚拟DOM了，如果是虚拟DOM要转成真实DOM的话，那就将这个过程反过来就好了。<h2 id="虚拟DOM的实现-1"><a href="#虚拟DOM的实现-1" class="headerlink" title="虚拟DOM的实现"></a>虚拟DOM的实现</h2>为了实现这个虚拟DOM，我先是抽象了一个节点类——VNode<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">VNode</span>&#123;<br>    <span class="hljs-comment">/***</span><br><span class="hljs-comment">     * 构造函数</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> tag  标签名</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> children 子节点</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> text 文本</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> type 类型</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> data 数据</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">tag, data, children, text, type</span>) &#123;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">tag</span> = tag &amp;&amp; tag.<span class="hljs-title function_">toLowerCase</span>();<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">data</span> = data;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">children</span> = [];<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">text</span> = text;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">type</span> = type;<br>    &#125;<br>    <span class="hljs-title function_">appendChild</span>(<span class="hljs-params">vnode</span>) &#123;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">children</span>.<span class="hljs-title function_">push</span>(vnode);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+该类的type就是元素的nodeType，根据他判断节点类型，children是子节点的数组，text是文本节点的内容，tag是标签名，data是保存元素属性的一个数组。<br>然后写了个根据节点来生成VNode的函数——createVNode，用递归来实现将真实DOM转换成虚拟的VNode，也就是虚拟DOM。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">/***</span><br><span class="hljs-comment"> * 使用递归遍历DOM元素，生成虚拟DOM，</span><br><span class="hljs-comment"> * Vue使用的栈结构，后面学习到的时候写</span><br><span class="hljs-comment"> * */</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">createVNode</span>(<span class="hljs-params">node</span>) &#123;<br>    <span class="hljs-keyword">let</span> nodeType = node.<span class="hljs-property">nodeType</span>;<br>    <span class="hljs-keyword">let</span> _vnode = <span class="hljs-literal">null</span>;<br>    <span class="hljs-keyword">if</span>(nodeType === <span class="hljs-number">1</span>)&#123;<br>        <span class="hljs-comment">// node.attributes是个伪数组，因此需要将其转为数组</span><br>        <span class="hljs-keyword">let</span> _attrObj = &#123;&#125;;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; node.<span class="hljs-property">attributes</span>.<span class="hljs-property">length</span>; i++)&#123;<br>            _attrObj[node.<span class="hljs-property">attributes</span>[i].<span class="hljs-property">name</span>] = node.<span class="hljs-property">attributes</span>[i].<span class="hljs-property">value</span>;<br>        &#125;<br>        _vnode = <span class="hljs-keyword">new</span> <span class="hljs-title class_">VNode</span>(node.<span class="hljs-property">tagName</span>, _attrObj, [], <span class="hljs-literal">undefined</span>, nodeType);<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; node.<span class="hljs-property">childNodes</span>.<span class="hljs-property">length</span>; i++)&#123;<br>            _vnode.<span class="hljs-title function_">appendChild</span>(<span class="hljs-title function_">createVNode</span>(node.<span class="hljs-property">childNodes</span>[i]));<br>        &#125;<br>    &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(nodeType === <span class="hljs-number">3</span>)&#123;<br>        _vnode = <span class="hljs-keyword">new</span> <span class="hljs-title class_">VNode</span>(<span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>, node.<span class="hljs-property">textContent</span>, nodeType);<br>    &#125;<br>    <span class="hljs-keyword">return</span> _vnode;<br>&#125;<br></code></pre></td></tr></table></figure>
+然后写了个demo来测试一下效果。</li>
+</ol>
+<p><strong>html部分</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;root&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ul li&quot;</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>3<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;hello&quot;</span>&gt;</span>hello 1<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>hello 2<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p><strong>js部分</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> root = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&quot;#root&quot;</span>);<br><span class="hljs-keyword">let</span> vroot = <span class="hljs-title function_">createVNode</span>(root);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(vroot);<br></code></pre></td></tr></table></figure>
+<p><strong>结果</strong><br><img src="/../images/20220325/4.jpg" srcset="/img/loading.gif" lazyload alt="输出id为root的节点的虚拟DOM"><br>可以看到确实是成功了，但是有个小问题，有的节点中间夹杂着<em>\n</em>节点，这个问题后面在解决他，暂时先不管。<br>然后写了个将虚拟DOM转成真实DOM的函数——parseVNode，用递归来实现将虚拟DOM转换成真实DOM，也就是真实DOM。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">parseVNode</span>(<span class="hljs-params">vnode</span>) &#123;<br>    <span class="hljs-keyword">let</span> nodeType = vnode.<span class="hljs-property">type</span>;<br>    <span class="hljs-keyword">let</span> _node = <span class="hljs-literal">null</span>;<br>    <span class="hljs-keyword">if</span>(nodeType === <span class="hljs-number">1</span>)&#123;<br>        _node = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(vnode.<span class="hljs-property">tag</span>);<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> key <span class="hljs-keyword">in</span> vnode.<span class="hljs-property">data</span>)&#123;<br>            _node.<span class="hljs-title function_">setAttribute</span>(key, vnode.<span class="hljs-property">data</span>[key]);<br>        &#125;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; vnode.<span class="hljs-property">children</span>.<span class="hljs-property">length</span>; i++)&#123;<br>            _node.<span class="hljs-title function_">appendChild</span>(<span class="hljs-title function_">parseVNode</span>(vnode.<span class="hljs-property">children</span>[i]));<br>        &#125;<br>    &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(nodeType === <span class="hljs-number">3</span>)&#123;<br>        _node = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createTextNode</span>(vnode.<span class="hljs-property">text</span>);<br>    &#125;<br>    <span class="hljs-keyword">return</span> _node;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>传入一个VNode类型的对象，通过遍历虚拟DOM来创建元素，并返回一个真实DOM元素。<br>同样，也是写个demo测试一下效果，就用上面的例子。<br><strong>html部分</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;root&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ul li&quot;</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>3<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;hello&quot;</span>&gt;</span>hello 1<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>hello 2<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p><strong>js部分</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> root = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&quot;#root&quot;</span>);<br><span class="hljs-keyword">let</span> vroot = <span class="hljs-title function_">createVNode</span>(root);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(vroot);<br></code></pre></td></tr></table></figure>
+<p><strong>结果</strong><br><img src="/../images/20220325/5.jpg" srcset="/img/loading.gif" lazyload alt="将获取到的root的虚拟DOM转化成真实的DOM，并输出到控制台"><br>可以看出，输出的节点与root节点一模一样，这个parseVNode就算完成了。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                      <a class="hover-with-bg" href="/categories/vue/">vue</a>
+                    
+                      <a class="hover-with-bg" href="/categories/vue/%E6%BA%90%E7%A0%81/">源码</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/vue/">vue</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%BA%90%E7%A0%81/">源码</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E6%8D%AE%E9%A9%B1%E5%8A%A8/">数据驱动</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/03/27/Matter-js%E4%B9%8BAxes%E5%9D%90%E6%A0%87%E8%BD%B4%E6%A8%A1%E5%9D%97/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Matter.js之Axes坐标轴模块</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/25/Vue%E6%BA%90%E7%A0%81%E7%A0%94%E7%A9%B6%E4%B9%8B%E6%95%B0%E6%8D%AE%E9%A9%B1%E5%8A%A8%EF%BC%88%E4%B8%80%EF%BC%89/">
+                        <span class="hidden-mobile">Vue源码研究之数据驱动（一）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="twikoo"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      Fluid.utils.createScript('https://cdnjs.cloudflare.com/ajax/libs/twikoo/1.5.10/twikoo.all.min.js', function() {
+        var options = Object.assign(
+          {"envId":"https://twikoo-comment-amber.vercel.app/","region":null,"path":"window.location.pathname"},
+          {
+            el: '#twikoo',
+            path: 'window.location.pathname',
+            onCommentLoaded: function() {
+              Fluid.plugins.initFancyBox('#twikoo .tk-content img:not(.tk-owo-emotion)');
+            }
+          }
+        )
+        twikoo.init(options)
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        晋ICP备19013417号-1
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://unpkg.com/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://unpkg.com/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://unpkg.com/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://unpkg.com/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://unpkg.com/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://unpkg.com/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

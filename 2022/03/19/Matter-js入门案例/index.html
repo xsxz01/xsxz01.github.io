@@ -1,0 +1,542 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="广龙宇">
+  <meta name="keywords" content="前端博客,JavaScript,html5,css3,Jquery,NodeJs,Ubuntu">
+  
+    <meta name="description" content="在百度找半天找不到个合适的图形库，好不容易找个看起来差不多的，但是又没中文文档，或者写的很草率，所以打算自己写个文档本章节是Matter.js的入门案例，和官网的文档内容是一致的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Matter.js入门案例">
+<meta property="og:url" content="https://blog.iotlearn.cn/2022/03/19/Matter-js%E5%85%A5%E9%97%A8%E6%A1%88%E4%BE%8B/index.html">
+<meta property="og:site_name" content="广龙宇">
+<meta property="og:description" content="在百度找半天找不到个合适的图形库，好不容易找个看起来差不多的，但是又没中文文档，或者写的很草率，所以打算自己写个文档本章节是Matter.js的入门案例，和官网的文档内容是一致的。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.iotlearn.cn/images/20220319/matterjs.png">
+<meta property="article:published_time" content="2022-03-19T08:06:09.000Z">
+<meta property="article:modified_time" content="2023-11-24T05:48:48.823Z">
+<meta property="article:author" content="广龙宇">
+<meta property="article:tag" content="matter.js">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://blog.iotlearn.cn/images/20220319/matterjs.png">
+  
+  
+  <title>Matter.js入门案例 - 广龙宇</title>
+
+  <link  rel="stylesheet" href="https://unpkg.com/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://unpkg.com/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.3/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"blog.iotlearn.cn","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>广龙宇</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/">
+                <i class="iconfont icon-briefcase"></i>
+                常用工具
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Matter.js入门案例">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      广龙宇
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-03-19 16:06" pubdate>
+        2022年3月19日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.6k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      14 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Matter.js入门案例</h1>
+            
+            <div class="markdown-body">
+              <p>在百度找半天找不到个合适的图形库，好不容易找个看起来差不多的，但是又没中文文档，或者写的很草率，所以打算自己写个文档<br>本章节是Matter.js的入门案例，和官网的文档内容是一致的。</p>
+<span id="more"></span>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Matter.js 当前版本：0.18.0<br>一个基于JavaScript构建的，专为网页端设计的一个2D物理引擎。<br>主要的模块API如下：</p>
+<ul>
+<li>引擎[engine]</li>
+<li>渲染[render]</li>
+<li>Runner</li>
+<li>Body</li>
+<li>Bodies</li>
+<li>Composite</li>
+<li>Composites</li>
+<li>Constraint</li>
+<li>MouseConstraint</li>
+<li>Events</li>
+<li>Common</li>
+<li>插件[plugin]</li>
+</ul>
+<p>使用指南以及案例</p>
+<ul>
+<li>入门案例</li>
+<li>使用例程</li>
+<li>使用指南</li>
+<li>demo</li>
+<li>readme</li>
+<li>项目主页</li>
+<li>Github</li>
+<li>CodePen<h1 id="一个简单的入门案例"><a href="#一个简单的入门案例" class="headerlink" title="一个简单的入门案例"></a>一个简单的入门案例</h1><h2 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h2><img src="/../images/20220319/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20220319162535.png" srcset="/img/loading.gif" lazyload alt="微信图片_20220319162535"><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2>从<a target="_blank" rel="noopener" href="https://github.com/liabru/matter-js/">GitHub</a>下载源码，然后解压出来，打开build目录，复制里面的<em><strong>matter.js</strong></em>出来，放到你的项目目录下，然后在要使用的页面中引用，主要有两种引用方式：<h3 id="使用script标签引入"><a href="#使用script标签引入" class="headerlink" title="使用script标签引入"></a>使用script标签引入</h3><figure class="highlight html"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;matter.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h3 id="使用npm包管理工具引入"><a href="#使用npm包管理工具引入" class="headerlink" title="使用npm包管理工具引入"></a>使用npm包管理工具引入</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install matter-js<br></code></pre></td></tr></table></figure>
+<h2 id="Webpack"><a href="#Webpack" class="headerlink" title="Webpack"></a>Webpack</h2>某些webpack的配置，包括默认配置可能会在开发期间影响你项目的性能，寻找解决方案去看<a target="_blank" rel="noopener" href="https://github.com/liabru/matter-js/issues/1001">issue</a><h2 id="核心js代码"><a href="#核心js代码" class="headerlink" title="核心js代码"></a>核心js代码</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 给模块起别名，这样好调用</span><br><span class="hljs-keyword">var</span> <span class="hljs-title class_">Engine</span> = <span class="hljs-title class_">Matter</span>.<span class="hljs-property">Engine</span>,<br>    <span class="hljs-title class_">Render</span> = <span class="hljs-title class_">Matter</span>.<span class="hljs-property">Render</span>,<br>    <span class="hljs-title class_">Runner</span> = <span class="hljs-title class_">Matter</span>.<span class="hljs-property">Runner</span>,<br>    <span class="hljs-title class_">Bodies</span> = <span class="hljs-title class_">Matter</span>.<span class="hljs-property">Bodies</span>,<br>    <span class="hljs-title class_">Composite</span> = <span class="hljs-title class_">Matter</span>.<span class="hljs-property">Composite</span>;<br><br><span class="hljs-comment">// 创建一个引擎</span><br><span class="hljs-keyword">var</span> engine = <span class="hljs-title class_">Engine</span>.<span class="hljs-title function_">create</span>();<br><br><span class="hljs-comment">// 创建一个渲染器</span><br><span class="hljs-keyword">var</span> render = <span class="hljs-title class_">Render</span>.<span class="hljs-title function_">create</span>(&#123;<br>    <span class="hljs-attr">element</span>: <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>,<br>    <span class="hljs-attr">engine</span>: engine<br>&#125;);<br><br><span class="hljs-comment">// 创建两个盒子和一个支撑盒子的地面</span><br><span class="hljs-keyword">var</span> boxA = <span class="hljs-title class_">Bodies</span>.<span class="hljs-title function_">rectangle</span>(<span class="hljs-number">400</span>, <span class="hljs-number">200</span>, <span class="hljs-number">80</span>, <span class="hljs-number">80</span>);<br><span class="hljs-keyword">var</span> boxB = <span class="hljs-title class_">Bodies</span>.<span class="hljs-title function_">rectangle</span>(<span class="hljs-number">450</span>, <span class="hljs-number">50</span>, <span class="hljs-number">80</span>, <span class="hljs-number">80</span>);<br><span class="hljs-keyword">var</span> ground = <span class="hljs-title class_">Bodies</span>.<span class="hljs-title function_">rectangle</span>(<span class="hljs-number">400</span>, <span class="hljs-number">610</span>, <span class="hljs-number">810</span>, <span class="hljs-number">60</span>, &#123; <span class="hljs-attr">isStatic</span>: <span class="hljs-literal">true</span> &#125;);<br><br><span class="hljs-comment">// 添加所有的物体到世界中</span><br><span class="hljs-title class_">Composite</span>.<span class="hljs-title function_">add</span>(engine.<span class="hljs-property">world</span>, [boxA, boxB, ground]);<br><br><span class="hljs-comment">// 运行渲染器</span><br><span class="hljs-title class_">Render</span>.<span class="hljs-title function_">run</span>(render);<br><br><span class="hljs-comment">// 创建运行器</span><br><span class="hljs-keyword">var</span> runner = <span class="hljs-title class_">Runner</span>.<span class="hljs-title function_">create</span>();<br><br><span class="hljs-comment">// 运行引擎</span><br><span class="hljs-title class_">Runner</span>.<span class="hljs-title function_">run</span>(runner, engine);<br></code></pre></td></tr></table></figure>
+在你引入Matter.js的项目中，创建一个页面，引入Matter.js，然后将将这段代码放到body标签中的一个script标签中(或者在window的load事件中调用，也可以在dom的ready状态下调用)，然后在你的浏览器中打开这个页面，就可以了。<br>如果不出意外的话你将看到两个正方形物体撞在一起，然后掉到地面上。如果你没有出现这个效果的话，建议你按F12，在console中查看你的错误信息。<br>最好的学习方法就是看官方的例子，研究这些<a target="_blank" rel="noopener" href="http://brm.io/matter-js-demo/">官方demo</a>，然后引用<a target="_blank" rel="noopener" href="https://github.com/liabru/matter-js/blob/master/demo/js/Demo.js">Demo.js</a>来看他们是如何实现的。其中一些例子也支持CodePen，你也可以在<a target="_blank" rel="noopener" href="http://codepen.io/collection/Fuagy/">CodePen</a>中运行，你可以在上面运行你的代码做实验（但是不一定完全是最新的）。</li>
+</ul>
+<h2 id="运行和渲染"><a href="#运行和渲染" class="headerlink" title="运行和渲染"></a>运行和渲染</h2><p>这个例子用的是renderer和runner构建的，但是这俩全是可选的，你也可以不用，它很简单的可以用你自己的游戏主循环用你的方式来渲染。<br>你可以去<a target="_blank" rel="noopener" href="https://github.com/liabru/matter-js/wiki/Rendering">Rendering</a>和<a target="_blank" rel="noopener" href="https://github.com/liabru/matter-js/wiki/Running">Running</a>，看看官方文档来了解怎么操作。</p>
+<p><em><strong><a target="_blank" rel="noopener" href="http://brm.io/matter-js/docs/">官方文档</a></strong></em></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                      <a class="hover-with-bg" href="/categories/matter-js/">matter.js</a>
+                    
+                      <a class="hover-with-bg" href="/categories/matter-js/%E5%85%A5%E9%97%A8%E6%A1%88%E4%BE%8B/">入门案例</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/matter-js/">matter.js</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/03/19/Matter-js%E4%B8%AD%E7%9A%84Runner%E8%AF%A6%E7%BB%86%E8%A7%A3%E6%9E%90/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Matter.js中的Runner详细解析</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/18/%E5%9C%A8vue3%E4%B8%AD%E5%85%A8%E5%B1%80%E6%8C%82%E8%BD%BDaxios/">
+                        <span class="hidden-mobile">在vue3中全局挂载axios</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="twikoo"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      Fluid.utils.createScript('https://cdnjs.cloudflare.com/ajax/libs/twikoo/1.5.10/twikoo.all.min.js', function() {
+        var options = Object.assign(
+          {"envId":"https://twikoo-comment-amber.vercel.app/","region":null,"path":"window.location.pathname"},
+          {
+            el: '#twikoo',
+            path: 'window.location.pathname',
+            onCommentLoaded: function() {
+              Fluid.plugins.initFancyBox('#twikoo .tk-content img:not(.tk-owo-emotion)');
+            }
+          }
+        )
+        twikoo.init(options)
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        晋ICP备19013417号-1
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://unpkg.com/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://unpkg.com/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://unpkg.com/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://unpkg.com/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://unpkg.com/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://unpkg.com/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

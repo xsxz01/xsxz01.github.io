@@ -1,0 +1,942 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="广龙宇">
+  <meta name="keywords" content="前端博客,JavaScript,html5,css3,Jquery,NodeJs,Ubuntu">
+  
+    <meta name="description" content="网络技术博客">
+<meta property="og:type" content="website">
+<meta property="og:title" content="广龙宇">
+<meta property="og:url" content="https://blog.iotlearn.cn/page/3/index.html">
+<meta property="og:site_name" content="广龙宇">
+<meta property="og:description" content="网络技术博客">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="广龙宇">
+<meta property="article:tag" content="前端博客,JavaScript,html5,css3,Jquery,NodeJs,Ubuntu">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>广龙宇</title>
+
+  <link  rel="stylesheet" href="https://unpkg.com/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"blog.iotlearn.cn","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 100vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>广龙宇</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/">
+                <i class="iconfont icon-briefcase"></i>
+                常用工具
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://fluid.s3.bitiful.net/bg/vdysjx.png?w=1920&fmt=webp') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Think about everything and doubt about everything.">
+              
+            </span>
+
+            
+          </div>
+
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-x-md">
+        <div class="py-5" id="board"
+          style=margin-top:0>
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/04/05/scoop%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" target="_self">
+          <img src="https://iotpics.oss-accelerate.aliyuncs.com/img/20220405231312.png" srcset="/img/loading.gif" lazyload alt="scoop的安装及基本使用">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/04/05/scoop%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" target="_self">
+          scoop的安装及基本使用
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/04/05/scoop%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" target="_self">
+          
+          windows下的安装源搜索工具，有点类似centos下的yum和Ubuntu下的apt。用这个拉下来安装的软件没有广告。
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-04-05 19:21" pubdate>
+              2022-04-05
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Windows/">Windows</a>
+            
+              <a href="/categories/Windows/%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/">安装教程</a>
+            
+              <a href="/categories/Windows/%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/scoop/">scoop</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/">安装教程</a>
+            
+              <a href="/tags/windows/">windows</a>
+            
+              <a href="/tags/scoop/">scoop</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/04/05/Vue-ts%E9%A1%B9%E7%9B%AE%E5%88%A9%E7%94%A8app-use%E7%89%B9%E6%80%A7%E5%85%A8%E5%B1%80%E6%B3%A8%E5%86%8C%E7%BB%84%E4%BB%B6/" target="_self">
+          <img src="/../images/20220318/vuebanner.jpg" srcset="/img/loading.gif" lazyload alt="Vue+ts项目利用app.use特性全局注册组件">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/04/05/Vue-ts%E9%A1%B9%E7%9B%AE%E5%88%A9%E7%94%A8app-use%E7%89%B9%E6%80%A7%E5%85%A8%E5%B1%80%E6%B3%A8%E5%86%8C%E7%BB%84%E4%BB%B6/" target="_self">
+          Vue+ts项目利用app.use特性全局注册组件
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/04/05/Vue-ts%E9%A1%B9%E7%9B%AE%E5%88%A9%E7%94%A8app-use%E7%89%B9%E6%80%A7%E5%85%A8%E5%B1%80%E6%B3%A8%E5%86%8C%E7%BB%84%E4%BB%B6/" target="_self">
+          
+          Vue的组件开发，为我们提供了代码重用提供了便捷。在开发中，很多页面会共用一部分或者全部代码，重复使用已写的代码将会大大的提高开发效率。
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-04-05 17:52" pubdate>
+              2022-04-05
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+            
+              <a href="/categories/vue/">vue</a>
+            
+              <a href="/categories/vue/typepeScript/">typepeScript</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/vue/">vue</a>
+            
+              <a href="/tags/typepeScript/">typepeScript</a>
+            
+              <a href="/tags/%E7%BB%84%E4%BB%B6/">组件</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/04/05/%E5%BE%AE%E5%89%8D%E7%AB%AF%E5%88%9D%E6%AD%A5/" target="_self">
+          <img src="https://img0.baidu.com/it/u=1111398308,1706255244&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG?w=499&amp;h=298" srcset="/img/loading.gif" lazyload alt="微前端初步">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/04/05/%E5%BE%AE%E5%89%8D%E7%AB%AF%E5%88%9D%E6%AD%A5/" target="_self">
+          微前端初步
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/04/05/%E5%BE%AE%E5%89%8D%E7%AB%AF%E5%88%9D%E6%AD%A5/" target="_self">
+          
+          微前端架构是一种类似于微服务的架构，它将微服务的理念应用于浏览器端，即将 Web 应用由单一的单体应用转变为多个小型前端应用聚合为一的应用。
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-04-05 15:47" pubdate>
+              2022-04-05
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+            
+              <a href="/categories/%E5%89%8D%E7%AB%AF/%E5%BE%AE%E5%89%8D%E7%AB%AF/">微前端</a>
+            
+              <a href="/categories/%E5%89%8D%E7%AB%AF/%E5%BE%AE%E5%89%8D%E7%AB%AF/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/">前端工程化</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/">微前端</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/04/04/AndroidStudio2021%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/" target="_self">
+          <img src="https://img1.baidu.com/it/u=1057960891,350660811&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=PNG?w=500&amp;h=500" srcset="/img/loading.gif" lazyload alt="Android Studio 2021安装教程">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/04/04/AndroidStudio2021%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/" target="_self">
+          Android Studio 2021安装教程
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/04/04/AndroidStudio2021%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/" target="_self">
+          
+          Android Studio 是谷歌推出的一个Android集成开发工具，基于IntelliJ IDEA. 类似 Eclipse ADT，Android Studio 提供了集成的 Android 开发工具用于开发和调试。
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-04-04 16:23" pubdate>
+              2022-04-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%AE%89%E5%8D%93%E5%BC%80%E5%8F%91/">安卓开发</a>
+            
+              <a href="/categories/%E5%AE%89%E5%8D%93%E5%BC%80%E5%8F%91/AndroidStudio/">AndroidStudio</a>
+            
+              <a href="/categories/%E5%AE%89%E5%8D%93%E5%BC%80%E5%8F%91/AndroidStudio/%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/">安装教程</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%AE%89%E5%8D%93%E5%BC%80%E5%8F%91/">安卓开发</a>
+            
+              <a href="/tags/AndroidStudio/">AndroidStudio</a>
+            
+              <a href="/tags/%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/">安装教程</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/04/03/element-plus%E5%85%A8%E5%B1%80%E6%B3%A8%E5%86%8C%E5%9B%BE%E6%A0%87%E5%B0%8F%E6%8A%80%E5%B7%A7/" target="_self">
+          <img src="/../images/20220318/vuebanner.jpg" srcset="/img/loading.gif" lazyload alt="element-plus全局注册图标小技巧">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/04/03/element-plus%E5%85%A8%E5%B1%80%E6%B3%A8%E5%86%8C%E5%9B%BE%E6%A0%87%E5%B0%8F%E6%8A%80%E5%B7%A7/" target="_self">
+          element-plus全局注册图标小技巧
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/04/03/element-plus%E5%85%A8%E5%B1%80%E6%B3%A8%E5%86%8C%E5%9B%BE%E6%A0%87%E5%B0%8F%E6%8A%80%E5%B7%A7/" target="_self">
+          
+          Element Plus 提供了一套常用的图标集合。在使用element-plus时，需要先在全局注册图标，这样才能在组件中使用。如是使用按需引入的话每次都需要引入一次图标，就导致使用的时候非常难受，因此这里考虑牺牲一点点性能，再程序开始之前就全局注册所有的图标。
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-04-03 22:14" pubdate>
+              2022-04-03
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+            
+              <a href="/categories/%E5%89%8D%E7%AB%AF/vue/">vue</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%BB%8F%E9%AA%8C/">经验</a>
+            
+              <a href="/tags/vue/">vue</a>
+            
+              <a href="/tags/element-plus/">element-plus</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/04/03/Vue%E9%A1%B9%E7%9B%AE%E4%B8%ADscss%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E9%97%AE%E9%A2%98/" target="_self">
+          <img src="/../images/20220318/vuebanner.jpg" srcset="/img/loading.gif" lazyload alt="Vue项目中scss不生效的问题">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/04/03/Vue%E9%A1%B9%E7%9B%AE%E4%B8%ADscss%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E9%97%AE%E9%A2%98/" target="_self">
+          Vue项目中scss不生效的问题
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/04/03/Vue%E9%A1%B9%E7%9B%AE%E4%B8%ADscss%E4%B8%8D%E7%94%9F%E6%95%88%E7%9A%84%E9%97%AE%E9%A2%98/" target="_self">
+          
+          今天学习Vue封装组件库的时候，将scss文件拆解，然后在组件中引用就不生效了，在检查了许多地方以后才解决了问题。因此在这里总结一些引用scss不生效的解决方案。
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-04-03 21:58" pubdate>
+              2022-04-03
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+            
+              <a href="/categories/%E5%89%8D%E7%AB%AF/vue/">vue</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%BB%8F%E9%AA%8C/">经验</a>
+            
+              <a href="/tags/vue/">vue</a>
+            
+              <a href="/tags/scss/">scss</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/04/02/%E5%89%8D%E7%AB%AF%E8%84%9A%E6%89%8B%E6%9E%B6%E7%A5%9E%E5%99%A8%E2%80%94x-build/" target="_self">
+          <img src="https://iotpics.oss-accelerate.aliyuncs.com/img/20220402223845.png" srcset="/img/loading.gif" lazyload alt="前端脚手架神器—x-build">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/04/02/%E5%89%8D%E7%AB%AF%E8%84%9A%E6%89%8B%E6%9E%B6%E7%A5%9E%E5%99%A8%E2%80%94x-build/" target="_self">
+          前端脚手架神器—x-build
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/04/02/%E5%89%8D%E7%AB%AF%E8%84%9A%E6%89%8B%E6%9E%B6%E7%A5%9E%E5%99%A8%E2%80%94x-build/" target="_self">
+          
+          x-build是一款协助你快速从”零”搭建大型应用的前端脚手架。X-BUILD 基于 vue3 + typescript，使用 vite 构建项目，支持众多的开箱即用的功能和针对项目进行了不同程度的优化，初始模板打包后体积仅为 150kb &#x2F; 50kb(gzip)。它的宗旨是快速创建一套纯净却具备强大基础功能的模板，协助开发者自由发挥快速搭建任何类型的项目。
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-04-02 22:33" pubdate>
+              2022-04-02
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+            
+              <a href="/categories/%E5%89%8D%E7%AB%AF/%E8%84%9A%E6%89%8B%E6%9E%B6/">脚手架</a>
+            
+              <a href="/categories/%E5%89%8D%E7%AB%AF/%E8%84%9A%E6%89%8B%E6%9E%B6/x-build/">x-build</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/x-build/">x-build</a>
+            
+              <a href="/tags/%E8%84%9A%E6%89%8B%E6%9E%B6/">脚手架</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/04/01/Vue%E6%BA%90%E7%A0%81%E7%A0%94%E7%A9%B6%E4%B9%8B%E6%B8%B2%E6%9F%93%E6%A8%A1%E5%9E%8B/" target="_self">
+          <img src="/../images/20220318/vuebanner.jpg" srcset="/img/loading.gif" lazyload alt="Vue源码研究之渲染模型">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/04/01/Vue%E6%BA%90%E7%A0%81%E7%A0%94%E7%A9%B6%E4%B9%8B%E6%B8%B2%E6%9F%93%E6%A8%A1%E5%9E%8B/" target="_self">
+          Vue源码研究之渲染模型
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/04/01/Vue%E6%BA%90%E7%A0%81%E7%A0%94%E7%A9%B6%E4%B9%8B%E6%B8%B2%E6%9F%93%E6%A8%A1%E5%9E%8B/" target="_self">
+          
+          Vue 本质上是使用 HTML 的字符串作为模板的, 将字符串的 模板 转换为 AST(抽象语法树), 再转换为 VNode（虚拟dom）主要流程如下：  将模板字符串转换为 AST 将 AST 转换为 VNode 将 VNode 转换为 DOM
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-04-01 10:22" pubdate>
+              2022-04-01
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+            
+              <a href="/categories/vue/">vue</a>
+            
+              <a href="/categories/vue/%E6%BA%90%E7%A0%81/">源码</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/vue/">vue</a>
+            
+              <a href="/tags/%E6%BA%90%E7%A0%81/">源码</a>
+            
+              <a href="/tags/%E6%B8%B2%E6%9F%93%E6%A8%A1%E5%9E%8B/">渲染模型</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/03/27/Matter-js%E4%B9%8BBodies%E5%88%9A%E4%BD%93%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%9D%97/" target="_self">
+          <img src="/../images/20220319/matterjs.png" srcset="/img/loading.gif" lazyload alt="Matter.js之Bodies刚体工厂模块">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/03/27/Matter-js%E4%B9%8BBodies%E5%88%9A%E4%BD%93%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%9D%97/" target="_self">
+          Matter.js之Bodies刚体工厂模块
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/03/27/Matter-js%E4%B9%8BBodies%E5%88%9A%E4%BD%93%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%9D%97/" target="_self">
+          
+          Matter.Bodies模块包含创建常见配置的刚体模型的工厂方法。（例如，矩形，圆形和其他多边形）。
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-03-27 22:05" pubdate>
+              2022-03-27
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+            
+              <a href="/categories/matter-js/">matter.js</a>
+            
+              <a href="/categories/matter-js/Bodies/">Bodies</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/matter-js/">matter.js</a>
+            
+              <a href="/tags/Bodies/">Bodies</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/03/27/Matter-js%E4%B9%8BAxes%E5%9D%90%E6%A0%87%E8%BD%B4%E6%A8%A1%E5%9D%97/" target="_self">
+          <img src="/../images/20220319/matterjs.png" srcset="/img/loading.gif" lazyload alt="Matter.js之Axes坐标轴模块">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/03/27/Matter-js%E4%B9%8BAxes%E5%9D%90%E6%A0%87%E8%BD%B4%E6%A8%A1%E5%9D%97/" target="_self">
+          Matter.js之Axes坐标轴模块
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/03/27/Matter-js%E4%B9%8BAxes%E5%9D%90%E6%A0%87%E8%BD%B4%E6%A8%A1%E5%9D%97/" target="_self">
+          
+          Matter.js提供了一个操作坐标轴的一个模块——Matter.Axes，包含了创建和操作坐标轴的设置的一系列方法。
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-03-27 21:55" pubdate>
+              2022-03-27
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+            
+              <a href="/categories/matter-js/">matter.js</a>
+            
+              <a href="/categories/matter-js/Axes/">Axes</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/matter-js/">matter.js</a>
+            
+              <a href="/tags/Axes/">Axes</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/page/2/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/#board">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/#board">4</a><a class="extend next" rel="next" href="/page/4/#board"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        晋ICP备19013417号-1
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://unpkg.com/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://unpkg.com/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

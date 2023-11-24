@@ -1,0 +1,848 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="广龙宇">
+  <meta name="keywords" content="前端博客,JavaScript,html5,css3,Jquery,NodeJs,Ubuntu">
+  
+    <meta name="description" content="Matter.Runner模块是一个可选的游戏循环，它在浏览器中给你一个可以自动更新Matter.Engine的工具。它是为了开发和调试而设计的，也可以用于简单的游戏。如果你使用自己的游戏循环，那么你不需要Matter.Runner模块。直接在你的循环中调用**Engine.update(engine, delta)**即可。 查看使用例程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Matter.js中的Runner详细解析">
+<meta property="og:url" content="https://blog.iotlearn.cn/2022/03/19/Matter-js%E4%B8%AD%E7%9A%84Runner%E8%AF%A6%E7%BB%86%E8%A7%A3%E6%9E%90/index.html">
+<meta property="og:site_name" content="广龙宇">
+<meta property="og:description" content="Matter.Runner模块是一个可选的游戏循环，它在浏览器中给你一个可以自动更新Matter.Engine的工具。它是为了开发和调试而设计的，也可以用于简单的游戏。如果你使用自己的游戏循环，那么你不需要Matter.Runner模块。直接在你的循环中调用**Engine.update(engine, delta)**即可。 查看使用例程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.iotlearn.cn/images/20220319/matterjs.png">
+<meta property="article:published_time" content="2022-03-19T11:08:15.000Z">
+<meta property="article:modified_time" content="2023-11-24T05:48:48.823Z">
+<meta property="article:author" content="广龙宇">
+<meta property="article:tag" content="matter.js">
+<meta property="article:tag" content="runner">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://blog.iotlearn.cn/images/20220319/matterjs.png">
+  
+  
+  <title>Matter.js中的Runner详细解析 - 广龙宇</title>
+
+  <link  rel="stylesheet" href="https://unpkg.com/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://unpkg.com/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.3/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"blog.iotlearn.cn","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>广龙宇</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/">
+                <i class="iconfont icon-briefcase"></i>
+                常用工具
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Matter.js中的Runner详细解析">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      广龙宇
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-03-19 19:08" pubdate>
+        2022年3月19日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.9k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      25 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Matter.js中的Runner详细解析</h1>
+            
+            <div class="markdown-body">
+              <p><strong>Matter.Runner</strong>模块是一个可选的游戏循环，它在浏览器中给你一个可以自动更新Matter.Engine的工具。它是为了开发和调试而设计的，也可以用于简单的游戏。如果你使用自己的游戏循环，那么你不需要<strong>Matter.Runner</strong>模块。直接在你的循环中调用**Engine.update(engine, delta)**即可。</p>
+<p>查看使用<a target="_blank" rel="noopener" href="https://github.com/liabru/matter-js/tree/master/examples">例程</a></p>
+<span id="more"></span>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><h3 id="一个自写的基础Runner例程"><a href="#一个自写的基础Runner例程" class="headerlink" title="一个自写的基础Runner例程"></a>一个自写的基础Runner例程</h3><figure class="highlight js"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><pre><code class="hljs js">(<span class="hljs-keyword">function</span> <span class="hljs-title function_">run</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">window</span>.<span class="hljs-title function_">requestAnimationFrame</span>(run);<br>    <span class="hljs-title class_">Engine</span>.<span class="hljs-title function_">update</span>(engine, <span class="hljs-number">1000</span> / <span class="hljs-number">60</span>);<br>&#125;)();<br></code></pre></td></tr></table></figure>
+<p>当使用node时，可以使用setInterval代替window.requestAnimationFrame</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">setInterval</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-title class_">Engine</span>.<span class="hljs-title function_">update</span>(engine, <span class="hljs-number">1000</span> / <span class="hljs-number">60</span>);<br>&#125;, <span class="hljs-number">1000</span> / <span class="hljs-number">60</span>);<br></code></pre></td></tr></table></figure>
+<h3 id="使用系统提供的Matter-Runner"><a href="#使用系统提供的Matter-Runner" class="headerlink" title="使用系统提供的Matter.Runner"></a>使用系统提供的Matter.Runner</h3><p>Matter.js已经提供了一个默认的Runner，可以直接使用，他就是<strong>Matter.Runner</strong>。它是一个可选的游戏循环，在浏览器中给你一个可以自动更新<strong>Matter.Engine</strong>的工具。它是为了开发和调试而设计的，也可以用于简单的游戏。<br>查看<a target="_blank" rel="noopener" href="http://brm.io/matter-js/docs/classes/Runner.html">文档</a></p>
+<h4 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h4><p>最简单的用法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> engine = <span class="hljs-title class_">Engine</span>.<span class="hljs-title function_">create</span>();<br><span class="hljs-title class_">Runner</span>.<span class="hljs-title function_">run</span>(engine);<br></code></pre></td></tr></table></figure>
+<p>同样你也可以用下面的方式写，将Runner申明在最前面</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> engine = <span class="hljs-title class_">Engine</span>.<span class="hljs-title function_">create</span>();<br><span class="hljs-keyword">var</span> runner = <span class="hljs-title class_">Runner</span>.<span class="hljs-title function_">create</span>();<br><span class="hljs-title class_">Runner</span>.<span class="hljs-title function_">run</span>(runner, engine);<br></code></pre></td></tr></table></figure>
+<p>create的选项有很多参数，那些将在后面说明。</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="create"><a href="#create" class="headerlink" title="create"></a>create</h3><div class="note note-info">
+            <p>Matter.Runner.<strong>create</strong>(options)</p>
+          </div>
+<p>创建一个新的Runner。options参数是一个对象，它指定你想重写默认值的任何属性。</p>
+<h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>options</td>
+<td>Object</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="run"><a href="#run" class="headerlink" title="run"></a>run</h3><div class="note note-info">
+            <p>Matter.Runner.<strong>run</strong>(engine)</p>
+          </div>
+<p>通过requestAnimationFrame递归调用render函数，连续不断的调用<strong>Matter.Runner.tick</strong>，更新<strong>Matter.Engine</strong>，。</p>
+<h4 id="参数-1"><a href="#参数-1" class="headerlink" title="参数"></a>参数</h4><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>engine</td>
+<td>Engine</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="start"><a href="#start" class="headerlink" title="start"></a>start</h3><div class="note note-info">
+            <p>Matter.Runner.<strong>start</strong>(runner, engine)</p>
+          </div>
+<p>给<strong>Runner.run</strong>起一个别名，可用一个变量来接收这个返回值，例如,</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> runner = <span class="hljs-title class_">Runner</span>.<span class="hljs-title function_">start</span>(runner,engine);<br></code></pre></td></tr></table></figure>
+<h4 id="参数-2"><a href="#参数-2" class="headerlink" title="参数"></a>参数</h4><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>runner</td>
+<td>Runner</td>
+</tr>
+<tr>
+<td>engine</td>
+<td>Engine</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="stop"><a href="#stop" class="headerlink" title="stop"></a>stop</h3><div class="note note-info">
+            <p>Matter.Runner.<strong>stop</strong>(runner)</p>
+          </div>
+<p>通过取消动画帧请求事件循环，结束<strong>Runner.run</strong>的执行。如果你只想暂停一段时间，可以使用<strong>engine.enabled</strong>代替。</p>
+<h4 id="参数-3"><a href="#参数-3" class="headerlink" title="参数"></a>参数</h4><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>runner</td>
+<td>Runner</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="tick"><a href="#tick" class="headerlink" title="tick"></a>tick</h3><div class="note note-info">
+            <p>Matter.Runner.<strong>tick</strong>(runner, engine, time)</p>
+          </div>
+<p>一个游戏循环工具，它更新引擎和渲染器一步（一个“tick”）。功能包括平滑的时间差调整，时间校正和固定或动态时间。如果你使用的是自己的循环，直接调用<strong>Engine.update(engine, delta)</strong></p>
+<h4 id="参数-4"><a href="#参数-4" class="headerlink" title="参数"></a>参数</h4><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>runner</td>
+<td>Runner</td>
+</tr>
+<tr>
+<td>engine</td>
+<td>Engine</td>
+</tr>
+<tr>
+<td>time</td>
+<td>Number</td>
+</tr>
+</tbody></table>
+<h2 id="属性-x2F-选项"><a href="#属性-x2F-选项" class="headerlink" title="属性&#x2F;选项"></a>属性&#x2F;选项</h2><p>下面的属性&#x2F;选项是由Matter.Runner.create创建的对象指定的，可以作为参数传递给它。</p>
+<h3 id="options"><a href="#options" class="headerlink" title="options"></a>options</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> options = &#123;<br>    <span class="hljs-attr">fps</span>: <span class="hljs-number">60</span>,<br>    <span class="hljs-attr">correction</span>: <span class="hljs-number">1</span>,<br>    <span class="hljs-attr">deltaSampleSize</span>: <span class="hljs-number">60</span>,<br>    <span class="hljs-attr">counterTimestamp</span>: <span class="hljs-number">0</span>,<br>    <span class="hljs-attr">frameCounter</span>: <span class="hljs-number">0</span>,<br>    <span class="hljs-attr">deltaHistory</span>: [],<br>    <span class="hljs-attr">timePrev</span>: <span class="hljs-literal">null</span>,<br>    <span class="hljs-attr">timeScalePrev</span>: <span class="hljs-number">1</span>,<br>    <span class="hljs-attr">frameRequestId</span>: <span class="hljs-literal">null</span>,<br>    <span class="hljs-attr">isFixed</span>: <span class="hljs-literal">false</span>,<br>    <span class="hljs-attr">enabled</span>: <span class="hljs-literal">true</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+<h3 id="delta"><a href="#delta" class="headerlink" title="delta"></a>delta</h3><div class="note note-success">
+            <p>runner.<strong>delta</strong> <em>Number</em></p>
+          </div>
+<p>指定每次更新的时间间隔（以毫秒为单位）。如果<strong>engine.timing.isFixed</strong>设置为<strong>true</strong>，那么<strong>delta</strong>是固定的。如果它是<strong>false</strong>，那么<strong>delta</strong>可以动态地改变以保持正确的显示模拟速度。<br><strong>默认值</strong>: <em>1000 &#x2F; 60</em></p>
+<hr>
+<h3 id="enabled"><a href="#enabled" class="headerlink" title="enabled"></a>enabled</h3><div class="note note-success">
+            <p>runner.<strong>enabled</strong> <em>Boolean</em></p>
+          </div>
+<p>指定<strong>runner</strong>是否正在运行的标志</p>
+<hr>
+<h3 id="isFixed"><a href="#isFixed" class="headerlink" title="isFixed"></a>isFixed</h3><div class="note note-success">
+            <p>runner.<strong>isFixed</strong> <em>Boolean</em></p>
+          </div>
+<p>一个布尔值，指定是否使用固定的时间间隔（否则是可变的）。如果时间是固定的，那么显示模拟速度会受到帧率的影响（但行为将是确定的）。如果时间是可变的，那么显示模拟速度将是稳定的（大约，但是仍然有确定性）。<br><strong>默认值</strong>: <em>false</em></p>
+<h2 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h2><p>下面的事件是由<strong>Matter.Runner.create</strong>创建的对象触发的，并且由订阅了<strong>Matter.Events.on</strong>的对象接收。</p>
+<h3 id="afterTick"><a href="#afterTick" class="headerlink" title="afterTick"></a>afterTick</h3><div class="note note-secondary">
+            <p>Events.on(runner, <strong>“afterTick”</strong>, callback)</p>
+          </div>
+<p>在engine更新和渲染之后触发，即每一次tick的结尾执行。</p>
+<h4 id="回调参数-callback"><a href="#回调参数-callback" class="headerlink" title="回调参数[callback]"></a>回调参数[callback]</h4><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>event</td>
+<td>Object</td>
+</tr>
+</tbody></table>
+<h4 id="event"><a href="#event" class="headerlink" title="event"></a>event</h4><p>一个事件对象</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>timestamp</td>
+<td>Number</td>
+<td>事件触发的时间戳</td>
+</tr>
+<tr>
+<td>source</td>
+<td>Object</td>
+<td>事件源对象</td>
+</tr>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>事件的名称</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="afterUpdate"><a href="#afterUpdate" class="headerlink" title="afterUpdate"></a>afterUpdate</h3><div class="note note-secondary">
+            <p>Events.on(runner, <strong>“afterUpdate”</strong>, callback)</p>
+          </div>
+<p>在update之后触发</p>
+<h4 id="回调参数-callback-1"><a href="#回调参数-callback-1" class="headerlink" title="回调参数[callback]"></a>回调参数[callback]</h4><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>event</td>
+<td>Object</td>
+</tr>
+</tbody></table>
+<h4 id="event-1"><a href="#event-1" class="headerlink" title="event"></a>event</h4><p>一个事件对象</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>timestamp</td>
+<td>Number</td>
+<td>事件触发的时间戳</td>
+</tr>
+<tr>
+<td>source</td>
+<td>Object</td>
+<td>事件源对象</td>
+</tr>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>事件的名称</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="beforeTick"><a href="#beforeTick" class="headerlink" title="beforeTick"></a>beforeTick</h3><div class="note note-secondary">
+            <p>Events.on(runner, <strong>“beforeTick”</strong>, callback)</p>
+          </div>
+<p>在一个tick的开始触发，在任何updates引擎或timing之前</p>
+<h4 id="回调参数-callback-2"><a href="#回调参数-callback-2" class="headerlink" title="回调参数[callback]"></a>回调参数[callback]</h4><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>event</td>
+<td>Object</td>
+</tr>
+</tbody></table>
+<h4 id="event-2"><a href="#event-2" class="headerlink" title="event"></a>event</h4><p>一个事件对象</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>timestamp</td>
+<td>Number</td>
+<td>事件触发的时间戳</td>
+</tr>
+<tr>
+<td>source</td>
+<td>Object</td>
+<td>事件源对象</td>
+</tr>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>事件的名称</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="beforeUpdate"><a href="#beforeUpdate" class="headerlink" title="beforeUpdate"></a>beforeUpdate</h3><div class="note note-secondary">
+            <p>Events.on(runner, <strong>“beforeUpdate”</strong>, callback)</p>
+          </div>
+<p>在update之前触发</p>
+<h4 id="回调参数-callback-3"><a href="#回调参数-callback-3" class="headerlink" title="回调参数[callback]"></a>回调参数[callback]</h4><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>event</td>
+<td>Object</td>
+</tr>
+</tbody></table>
+<h4 id="event-3"><a href="#event-3" class="headerlink" title="event"></a>event</h4><p>一个事件对象</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>timestamp</td>
+<td>Number</td>
+<td>事件触发的时间戳</td>
+</tr>
+<tr>
+<td>source</td>
+<td>Object</td>
+<td>事件源对象</td>
+</tr>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>事件的名称</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="tick-1"><a href="#tick-1" class="headerlink" title="tick"></a>tick</h3><div class="note note-secondary">
+            <p>Events.on(runner, <strong>“tick”</strong>, callback)</p>
+          </div>
+<p>在engine更新之后触发，但是在update之前</p>
+<h4 id="回调参数-callback-4"><a href="#回调参数-callback-4" class="headerlink" title="回调参数[callback]"></a>回调参数[callback]</h4><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>event</td>
+<td>Object</td>
+</tr>
+</tbody></table>
+<h4 id="event-4"><a href="#event-4" class="headerlink" title="event"></a>event</h4><p>一个事件对象</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>timestamp</td>
+<td>Number</td>
+<td>事件触发的时间戳</td>
+</tr>
+<tr>
+<td>source</td>
+<td>Object</td>
+<td>事件源对象</td>
+</tr>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>事件的名称</td>
+</tr>
+</tbody></table>
+<hr>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                      <a class="hover-with-bg" href="/categories/matter-js/">matter.js</a>
+                    
+                      <a class="hover-with-bg" href="/categories/matter-js/runner/">runner</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/matter-js/">matter.js</a>
+                    
+                      <a class="hover-with-bg" href="/tags/runner/">runner</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/03/20/Matter-js%E4%B9%8BEngine/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Matter.js之Engine</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/19/Matter-js%E5%85%A5%E9%97%A8%E6%A1%88%E4%BE%8B/">
+                        <span class="hidden-mobile">Matter.js入门案例</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="twikoo"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      Fluid.utils.createScript('https://cdnjs.cloudflare.com/ajax/libs/twikoo/1.5.10/twikoo.all.min.js', function() {
+        var options = Object.assign(
+          {"envId":"https://twikoo-comment-amber.vercel.app/","region":null,"path":"window.location.pathname"},
+          {
+            el: '#twikoo',
+            path: 'window.location.pathname',
+            onCommentLoaded: function() {
+              Fluid.plugins.initFancyBox('#twikoo .tk-content img:not(.tk-owo-emotion)');
+            }
+          }
+        )
+        twikoo.init(options)
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        晋ICP备19013417号-1
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://unpkg.com/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://unpkg.com/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://unpkg.com/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://unpkg.com/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://unpkg.com/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://unpkg.com/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

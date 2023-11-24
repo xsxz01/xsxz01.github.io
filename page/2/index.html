@@ -1,0 +1,926 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="广龙宇">
+  <meta name="keywords" content="前端博客,JavaScript,html5,css3,Jquery,NodeJs,Ubuntu">
+  
+    <meta name="description" content="网络技术博客">
+<meta property="og:type" content="website">
+<meta property="og:title" content="广龙宇">
+<meta property="og:url" content="https://blog.iotlearn.cn/page/2/index.html">
+<meta property="og:site_name" content="广龙宇">
+<meta property="og:description" content="网络技术博客">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="广龙宇">
+<meta property="article:tag" content="前端博客,JavaScript,html5,css3,Jquery,NodeJs,Ubuntu">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>广龙宇</title>
+
+  <link  rel="stylesheet" href="https://unpkg.com/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"blog.iotlearn.cn","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 100vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>广龙宇</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/">
+                <i class="iconfont icon-briefcase"></i>
+                常用工具
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://fluid.s3.bitiful.net/bg/vdysjx.png?w=1920&fmt=webp') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Think about everything and doubt about everything.">
+              
+            </span>
+
+            
+          </div>
+
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-x-md">
+        <div class="py-5" id="board"
+          style=margin-top:0>
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/05/30/Bootstrap5%E7%BD%91%E6%A0%BC%E7%B3%BB%E7%BB%9F/" target="_self">
+          <img src="https://www.runoob.com/wp-content/uploads/2017/10/bootstrap-stack.png" srcset="/img/loading.gif" lazyload alt="Bootstrap5网格系统">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/05/30/Bootstrap5%E7%BD%91%E6%A0%BC%E7%B3%BB%E7%BB%9F/" target="_self">
+          Bootstrap5网格系统
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/05/30/Bootstrap5%E7%BD%91%E6%A0%BC%E7%B3%BB%E7%BB%9F/" target="_self">
+          
+          Bootstrap 提供了一套响应式、移动设备优先的流式网格系统，随着屏幕或视口（viewport）尺寸的增加，系统会自动分为最多 12 列。Bootstrap 5 的网格系统是响应式的，列会根据屏幕大小自动重新排列。请确保每一行中列的总和等于或小于 12。
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-05-30 07:42" pubdate>
+              2022-05-30
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/">前端开发</a>
+            
+              <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/bootstrap/">bootstrap</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF/">前端</a>
+            
+              <a href="/tags/css/">css</a>
+            
+              <a href="/tags/bootstrap/">bootstrap</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/05/30/Bootstrap5%E5%AE%B9%E5%99%A8/" target="_self">
+          <img src="https://www.runoob.com/wp-content/uploads/2017/10/bootstrap-stack.png" srcset="/img/loading.gif" lazyload alt="Bootstrap5容器">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/05/30/Bootstrap5%E5%AE%B9%E5%99%A8/" target="_self">
+          Bootstrap5容器
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/05/30/Bootstrap5%E5%AE%B9%E5%99%A8/" target="_self">
+          
+          在上一节中，已经介绍到了Bootstrap5的容器中一部分内容，本节将详细介绍Bootstrap5的容器中的其他部分。
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-05-30 07:25" pubdate>
+              2022-05-30
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/">前端开发</a>
+            
+              <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/bootstrap/">bootstrap</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF/">前端</a>
+            
+              <a href="/tags/css/">css</a>
+            
+              <a href="/tags/bootstrap/">bootstrap</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/05/27/%E4%BD%BF%E7%94%A8VSCode%E9%85%8D%E7%BD%AEJava%E7%8E%AF%E5%A2%83/" target="_self">
+          <img src="https://img1.baidu.com/it/u=1138210100,1932143168&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=PNG?w=500&amp;h=291" srcset="/img/loading.gif" lazyload alt="使用VSCode配置Java环境">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/05/27/%E4%BD%BF%E7%94%A8VSCode%E9%85%8D%E7%BD%AEJava%E7%8E%AF%E5%A2%83/" target="_self">
+          使用VSCode配置Java环境
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/05/27/%E4%BD%BF%E7%94%A8VSCode%E9%85%8D%E7%BD%AEJava%E7%8E%AF%E5%A2%83/" target="_self">
+          
+          众所周知，现在开发Java程序一般使用的是Jetbrains公司的宇宙级IDE——IntelliJ IDEA，他对Java的支持非常完美，简直是符合人体工程学的设计理念。本次介绍最新版本的宇宙级代码编辑器VSCode（Visual Studio Code），以及如何配置Java环境。
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-05-27 13:28" pubdate>
+              2022-05-27
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Java%E7%BC%96%E7%A8%8B/">Java编程</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Java/">Java</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/05/21/VSCode%E7%BC%96%E8%AF%91%E5%8D%95%E6%96%87%E4%BB%B6%E5%8F%8A%E5%A4%9A%E6%96%87%E4%BB%B6%E6%96%B9%E6%B3%95/" target="_self">
+          <img src="https://img2.baidu.com/it/u=2307558631,2869059113&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG?w=500&amp;h=500" srcset="/img/loading.gif" lazyload alt="VSCode编译单文件及多文件方法">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/05/21/VSCode%E7%BC%96%E8%AF%91%E5%8D%95%E6%96%87%E4%BB%B6%E5%8F%8A%E5%A4%9A%E6%96%87%E4%BB%B6%E6%96%B9%E6%B3%95/" target="_self">
+          VSCode编译单文件及多文件方法
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/05/21/VSCode%E7%BC%96%E8%AF%91%E5%8D%95%E6%96%87%E4%BB%B6%E5%8F%8A%E5%A4%9A%E6%96%87%E4%BB%B6%E6%96%B9%E6%B3%95/" target="_self">
+          
+          单文件编译安装插件 运行调试点击侧边栏运行与调试，创建launch.json，选择C++（GDB&#x2F;LLDB）然后选择g++.exe。打断点后按F5调试，可以看到已经可以调试了。同时VSCode自动生成了main.exe文件。 多文件编译按照以下形式来创建多文件项目main.cpp的代码如下 1234567891011#include&lt;iostream&gt;#include&lt;
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-05-21 16:31" pubdate>
+              2022-05-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/C-%E7%BC%96%E7%A8%8B/">C++编程</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/C/">C++</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/05/21/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E4%B8%83%E5%A4%A7%E5%8E%9F%E5%88%99/" target="_self">
+          <img src="http://t15.baidu.com/it/u=1907928184,825011541&amp;fm=224&amp;app=112&amp;f=JPEG?w=480&amp;h=480" srcset="/img/loading.gif" lazyload alt="设计模式之七大原则">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/05/21/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E4%B8%83%E5%A4%A7%E5%8E%9F%E5%88%99/" target="_self">
+          设计模式之七大原则
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/05/21/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E4%B8%83%E5%A4%A7%E5%8E%9F%E5%88%99/" target="_self">
+          
+          讨论设计模式中一般所要遵循的七个设计原则，它们分别为开闭原则、里氏替换原则、依赖倒置原则、单一职责原则、接口隔离原则、迪米特法则和合成复用原则，这也是设计模式的基础
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-05-21 12:10" pubdate>
+              2022-05-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%BC%80%E5%8F%91%E7%BB%8F%E9%AA%8C/">开发经验</a>
+            
+              <a href="/categories/%E5%BC%80%E5%8F%91%E7%BB%8F%E9%AA%8C/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/05/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E4%BC%98%E7%A7%80%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%89%B9%E5%BE%81/" target="_self">
+          <img src="http://t15.baidu.com/it/u=1907928184,825011541&amp;fm=224&amp;app=112&amp;f=JPEG?w=480&amp;h=480" srcset="/img/loading.gif" lazyload alt="设计模式之优秀设计的特征">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/05/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E4%BC%98%E7%A7%80%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%89%B9%E5%BE%81/" target="_self">
+          设计模式之优秀设计的特征
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/05/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E4%BC%98%E7%A7%80%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%89%B9%E5%BE%81/" target="_self">
+          
+          讨论设计模式的优秀设计的特征，主要是代码复用和拓展性。
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-05-20 23:26" pubdate>
+              2022-05-20
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%BC%80%E5%8F%91%E7%BB%8F%E9%AA%8C/">开发经验</a>
+            
+              <a href="/categories/%E5%BC%80%E5%8F%91%E7%BB%8F%E9%AA%8C/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/04/21/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E5%A4%A7%E5%B1%8F%E7%9A%84%E5%BA%94%E7%94%A8%E5%8F%8A%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" target="_self">
+          <img src="/../images/20220318/vuebanner.jpg" srcset="/img/loading.gif" lazyload alt="数据可视化大屏的应用及设计原则">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/04/21/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E5%A4%A7%E5%B1%8F%E7%9A%84%E5%BA%94%E7%94%A8%E5%8F%8A%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" target="_self">
+          数据可视化大屏的应用及设计原则
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/04/21/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E5%A4%A7%E5%B1%8F%E7%9A%84%E5%BA%94%E7%94%A8%E5%8F%8A%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" target="_self">
+          
+          数据大屏就是一种非常有效的数据可视化工具，它可以将业务的关键指标以可视化的方式展示到一块或多块LED大屏上，不仅可以让业务人员快速、直接地从繁杂的业务数据中找到重要数据，还可以对决策人员起到辅助作用。
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-04-21 19:11" pubdate>
+              2022-04-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+            
+              <a href="/categories/%E5%89%8D%E7%AB%AF/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/">数据可视化</a>
+            
+              <a href="/categories/%E5%89%8D%E7%AB%AF/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/%E7%BB%8F%E9%AA%8C/">经验</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/vue/">vue</a>
+            
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/">数据可视化</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/04/13/Vue-%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%B7%A8%E5%9F%9F/" target="_self">
+          <img src="/../images/20220318/vuebanner.jpg" srcset="/img/loading.gif" lazyload alt="Vue-代理服务器跨域">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/04/13/Vue-%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%B7%A8%E5%9F%9F/" target="_self">
+          Vue-代理服务器跨域
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/04/13/Vue-%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%B7%A8%E5%9F%9F/" target="_self">
+          
+          在Vue的前端开发中，跨域是一个比较难以理解的问题，尽管配置很简单，但是遇到些问题是真不好解决，还不能调试。在查阅众多帖子后，还是一知半解，都说的比较模糊，这里我把我的想法写一下。
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-04-13 20:38" pubdate>
+              2022-04-13
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+            
+              <a href="/categories/vue/">vue</a>
+            
+              <a href="/categories/vue/devserver/">devserver</a>
+            
+              <a href="/categories/vue/devserver/%E8%B7%A8%E5%9F%9F/">跨域</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/vue/">vue</a>
+            
+              <a href="/tags/%E8%B7%A8%E5%9F%9F/">跨域</a>
+            
+              <a href="/tags/devserver/">devserver</a>
+            
+              <a href="/tags/%E4%BB%A3%E7%90%86/">代理</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/04/07/js%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91-%E5%93%8D%E5%BA%94%E5%BC%8F%E7%94%BB%E5%BB%8AGallery%E6%8F%92%E4%BB%B6-Justified-Gallery/" target="_self">
+          <img src="https://img1.baidu.com/it/u=730406887,716192806&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG?w=557&amp;h=300" srcset="/img/loading.gif" lazyload alt="js前端开发-响应式画廊Gallery插件-Justified-Gallery">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/04/07/js%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91-%E5%93%8D%E5%BA%94%E5%BC%8F%E7%94%BB%E5%BB%8AGallery%E6%8F%92%E4%BB%B6-Justified-Gallery/" target="_self">
+          js前端开发-响应式画廊Gallery插件-Justified-Gallery
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/04/07/js%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91-%E5%93%8D%E5%BA%94%E5%BC%8F%E7%94%BB%E5%BB%8AGallery%E6%8F%92%E4%BB%B6-Justified-Gallery/" target="_self">
+          
+          这个jQuery插件允许你在一个合理的空间内创建响应式、无限滚动、高品质的画廊，并填充满所有的空间。 对于制作网站的人来说，一个常见的问题就是使用各种尺寸和宽高比的图像来创建一个优雅的画廊，Flickr 和 Google+对于这方面的处理非常的棒，这个插件的目的就是使用一种新的快速的算法来帮你解决这个问题。
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-04-07 09:34" pubdate>
+              2022-04-07
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+            
+              <a href="/categories/%E5%89%8D%E7%AB%AF/%E6%8F%92%E4%BB%B6/">插件</a>
+            
+              <a href="/categories/%E5%89%8D%E7%AB%AF/%E6%8F%92%E4%BB%B6/%E5%9B%BE%E7%89%87%E5%B1%95%E7%A4%BA/">图片展示</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF/">前端</a>
+            
+              <a href="/tags/%E7%BB%8F%E9%AA%8C/">经验</a>
+            
+              <a href="/tags/%E5%9B%BE%E7%89%87%E5%B1%95%E7%A4%BA/">图片展示</a>
+            
+              <a href="/tags/%E6%8F%92%E4%BB%B6/">插件</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/04/07/js%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91-%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E6%98%AF%E6%89%8B%E6%9C%BA%E7%AB%AF/" target="_self">
+          <img src="https://img1.baidu.com/it/u=730406887,716192806&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG?w=557&amp;h=300" srcset="/img/loading.gif" lazyload alt="js前端开发-判断是否是手机端">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/04/07/js%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91-%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E6%98%AF%E6%89%8B%E6%9C%BA%E7%AB%AF/" target="_self">
+          js前端开发-判断是否是手机端
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/04/07/js%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91-%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E6%98%AF%E6%89%8B%E6%9C%BA%E7%AB%AF/" target="_self">
+          
+          每个客户端都带有自身的UA标识，通过JavaScript，可以获取客户端标识，我们可以获取浏览器的userAgent，用正则来判断手机是ios（苹果）还是Android（安卓）客户端。
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-04-07 08:49" pubdate>
+              2022-04-07
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+            
+              <a href="/categories/%E5%89%8D%E7%AB%AF/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%80%82%E9%85%8D/">移动端适配</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF/">前端</a>
+            
+              <a href="/tags/%E7%BB%8F%E9%AA%8C/">经验</a>
+            
+              <a href="/tags/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%80%82%E9%85%8D/">移动端适配</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><a class="extend next" rel="next" href="/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        晋ICP备19013417号-1
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://unpkg.com/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://unpkg.com/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

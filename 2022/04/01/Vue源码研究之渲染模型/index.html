@@ -1,0 +1,540 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="广龙宇">
+  <meta name="keywords" content="前端博客,JavaScript,html5,css3,Jquery,NodeJs,Ubuntu">
+  
+    <meta name="description" content="Vue 本质上是使用 HTML 的字符串作为模板的, 将字符串的 模板 转换为 AST(抽象语法树), 再转换为 VNode（虚拟dom）主要流程如下：  将模板字符串转换为 AST 将 AST 转换为 VNode 将 VNode 转换为 DOM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue源码研究之渲染模型">
+<meta property="og:url" content="https://blog.iotlearn.cn/2022/04/01/Vue%E6%BA%90%E7%A0%81%E7%A0%94%E7%A9%B6%E4%B9%8B%E6%B8%B2%E6%9F%93%E6%A8%A1%E5%9E%8B/index.html">
+<meta property="og:site_name" content="广龙宇">
+<meta property="og:description" content="Vue 本质上是使用 HTML 的字符串作为模板的, 将字符串的 模板 转换为 AST(抽象语法树), 再转换为 VNode（虚拟dom）主要流程如下：  将模板字符串转换为 AST 将 AST 转换为 VNode 将 VNode 转换为 DOM">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.iotlearn.cn/images/20220318/vuebanner.jpg">
+<meta property="article:published_time" content="2022-04-01T02:22:57.000Z">
+<meta property="article:modified_time" content="2023-11-24T06:22:17.798Z">
+<meta property="article:author" content="广龙宇">
+<meta property="article:tag" content="vue">
+<meta property="article:tag" content="源码">
+<meta property="article:tag" content="渲染模型">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://blog.iotlearn.cn/images/20220318/vuebanner.jpg">
+  
+  
+  <title>Vue源码研究之渲染模型 - 广龙宇</title>
+
+  <link  rel="stylesheet" href="https://unpkg.com/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://unpkg.com/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.3/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"blog.iotlearn.cn","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>广龙宇</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/">
+                <i class="iconfont icon-briefcase"></i>
+                常用工具
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Vue源码研究之渲染模型">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      广龙宇
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-04-01 10:22" pubdate>
+        2022年4月1日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      8.2k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      69 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Vue源码研究之渲染模型</h1>
+            
+            <div class="markdown-body">
+              <p>Vue 本质上是使用 HTML 的字符串作为模板的, 将字符串的 模板 转换为 AST(抽象语法树), 再转换为 VNode（虚拟dom）<br>主要流程如下：</p>
+<ol>
+<li>将模板字符串转换为 AST</li>
+<li>将 AST 转换为 VNode</li>
+<li>将 VNode 转换为 DOM<span id="more"></span></li>
+</ol>
+<p>本节流程如下图所示<br><img src="https://iotpics.oss-accelerate.aliyuncs.com/img/20220401104119.png" srcset="/img/loading.gif" lazyload alt="Vue渲染模型"><br>开始以前，需要将我们之前的代码拿过来直接使用<br><em>VNode</em> 虚拟DOM类，用他来作为我们的虚拟DOM</p>
+<figure class="highlight js"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></div></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">VNode</span>&#123;<br>    <span class="hljs-comment">/***</span><br><span class="hljs-comment">     * 构造函数</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> tag  标签名</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> children 子节点</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> text 文本</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> type 类型</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> data 数据</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">tag, data, children, text, type</span>) &#123;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">tag</span> = tag &amp;&amp; tag.<span class="hljs-title function_">toLowerCase</span>();<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">data</span> = data;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">children</span> = [];<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">text</span> = text;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">type</span> = type;<br>    &#125;<br>    <span class="hljs-comment">/***</span><br><span class="hljs-comment">     * 将子节点添加到虚拟DOM中</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> <span class="hljs-variable">vnode</span></span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-title function_">appendChild</span>(<span class="hljs-params">vnode</span>) &#123;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">children</span>.<span class="hljs-title function_">push</span>(vnode);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>然后是上次虚拟DOM的根据docment节点生成虚拟DOM的createVNode</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">/***</span><br><span class="hljs-comment"> * 使用递归遍历DOM元素，生成虚拟DOM，</span><br><span class="hljs-comment"> * Vue使用的栈结构，后面学习到的时候写</span><br><span class="hljs-comment"> * */</span><br> <span class="hljs-keyword">function</span> <span class="hljs-title function_">createVNode</span>(<span class="hljs-params">node</span>) &#123;<br>    <span class="hljs-keyword">let</span> nodeType = node.<span class="hljs-property">nodeType</span>;<br>    <span class="hljs-keyword">let</span> _vnode = <span class="hljs-literal">null</span>;<br>    <span class="hljs-keyword">if</span>(nodeType === <span class="hljs-number">1</span>)&#123;<br>        <span class="hljs-comment">// node.attributes是个伪数组，因此需要将其转为数组</span><br>        <span class="hljs-keyword">let</span> _attrObj = &#123;&#125;;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; node.<span class="hljs-property">attributes</span>.<span class="hljs-property">length</span>; i++)&#123;<br>            _attrObj[node.<span class="hljs-property">attributes</span>[i].<span class="hljs-property">name</span>] = node.<span class="hljs-property">attributes</span>[i].<span class="hljs-property">value</span>;<br>        &#125;<br>        _vnode = <span class="hljs-keyword">new</span> <span class="hljs-title class_">VNode</span>(node.<span class="hljs-property">tagName</span>, _attrObj, [], <span class="hljs-literal">undefined</span>, nodeType);<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; node.<span class="hljs-property">childNodes</span>.<span class="hljs-property">length</span>; i++)&#123;<br>            _vnode.<span class="hljs-title function_">appendChild</span>(<span class="hljs-title function_">createVNode</span>(node.<span class="hljs-property">childNodes</span>[i]));<br>        &#125;<br>    &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(nodeType === <span class="hljs-number">3</span>)&#123;<br>        _vnode = <span class="hljs-keyword">new</span> <span class="hljs-title class_">VNode</span>(<span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>, node.<span class="hljs-property">textContent</span>, nodeType);<br>    &#125;<br>    <span class="hljs-keyword">return</span> _vnode;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h1 id="在LikeVue的构造方法中调用mount方法"><a href="#在LikeVue的构造方法中调用mount方法" class="headerlink" title="在LikeVue的构造方法中调用mount方法"></a>在LikeVue的构造方法中调用mount方法</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">LikeVue</span>(<span class="hljs-params">options</span>) &#123;<br>    <span class="hljs-comment">// 内部数据用_开头，只读数据用$开头</span><br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">_data</span> = options.<span class="hljs-property">data</span>;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">$el</span> = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(options.<span class="hljs-property">el</span>);<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">_template</span> = options.<span class="hljs-property">el</span>;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">_parent</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">$el</span>.<span class="hljs-property">parentNode</span>;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">mount</span>();<br>&#125;<br><span class="hljs-title class_">LikeVue</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">mount</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;<br>    <span class="hljs-comment">// 需要提供一个render方法，用来生成虚拟DOM，内部会进行解析</span><br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">render</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">createRenderFn</span>();<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">mountComponent</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>mount方法调用一个createRenderFn函数来创建一个渲染函数，这里用到了<a target="_blank" rel="noopener" href="http://localhost:4000/2022/03/25/Vue%E6%BA%90%E7%A0%81%E7%A0%94%E7%A9%B6%E4%B9%8B%E6%95%B0%E6%8D%AE%E9%A9%B1%E5%8A%A8%EF%BC%88%E4%BA%8C%EF%BC%89/#%E5%88%A9%E7%94%A8%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96%E5%AE%9E%E7%8E%B0">函数柯里化</a>，主要的目的就是为了保存ast抽象语法树，这也是函数柯里化的作用。<br>然后调用的是 <em>mountComponent</em> 方法，这个方法负责调用 <em>update</em> 方法，将渲染好的虚拟DOM替换到真实DOM中。</p>
+<h1 id="创建渲染函数"><a href="#创建渲染函数" class="headerlink" title="创建渲染函数"></a>创建渲染函数</h1><p>我这里的createRenderFn是这么写的</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">/***</span><br><span class="hljs-comment"> * 在真正的Vue中用到的是类似与数据库事务的模式——二次提交</span><br><span class="hljs-comment"> * 1. 在页面中的DOM和虚拟DOM建立一一对应关系</span><br><span class="hljs-comment"> * 2. 先由AST和数据生成VNode</span><br><span class="hljs-comment"> * 3. 将旧的VNode和新的VNode进行diff，更新（update）</span><br><span class="hljs-comment"> * </span><br><span class="hljs-comment"> * */</span><br><span class="hljs-title class_">LikeVue</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">createRenderFn</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;<br>    <span class="hljs-comment">// 创建render方法，目的是缓存 抽象语法树AST （这里使用虚拟DOM来模拟）</span><br>    <span class="hljs-comment">// 创建render方法</span><br>    <span class="hljs-comment">// Vue : AST + data =&gt; VNode</span><br>    <span class="hljs-comment">// 这里我们用带有占位符的VNode + data =&gt; 带有数据的VNode</span><br>    <span class="hljs-keyword">let</span> _ast = <span class="hljs-title function_">createVNode</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">$el</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">combine</span>(_ast, <span class="hljs-variable language_">this</span>.<span class="hljs-property">_data</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>createRenderFn主要的作用是保存 <em>AST</em> ，也就是缓存 <em>AST</em> ，在这里还调用 <em>combine</em> 方法将模板与数据结合，生成虚拟DOM，返回了。<br>也就是说，如果调用的是 <em>this.render()</em> ，那么返回的就是已经渲染好的虚拟DOM。<br><strong>注意</strong>：在 Vue 中，采用的方法是 <em>AST + data &#x3D;&gt; VNode</em> ，这里的 <em>AST</em> 就是抽象语法树，而 <em>data</em> 就是数据。我们这里还只是模拟，因此就做了个简化，就成了 <em>带有占位符的VNode + data &#x3D;&gt; 带有数据的VNode</em> 同样可以起到类似的效果，这里并不打算考虑性能优化。<br><strong>注意</strong>：在Vue中正是这里调用的diff算法<br><strong>注意</strong>：在Vue中用到的是数据库中的事务模式，即二次提交，在内存中运行没问题以后在提交，这样可以保证可靠性，也不会读脏数据，就像<strong>数据库原理</strong>中的<em>银行取钱</em>例子是一样的，</p>
+<h1 id="将模板与数据结合（combine方法）"><a href="#将模板与数据结合（combine方法）" class="headerlink" title="将模板与数据结合（combine方法）"></a>将模板与数据结合（combine方法）</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 将模板与数据结合，生成虚拟的DOM</span><br><span class="hljs-title class_">LikeVue</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">combine</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">tmpNode, data</span>) &#123;<br>	<span class="hljs-keyword">let</span> rPattern = <span class="hljs-regexp">/\&#123;\&#123;(.*?)\&#125;\&#125;/g</span>;<br>    <span class="hljs-keyword">let</span> _type = tmpNode.<span class="hljs-property">type</span>;<br>    <span class="hljs-keyword">let</span> _tag = tmpNode.<span class="hljs-property">tag</span>;<br>    <span class="hljs-keyword">let</span> _data = tmpNode.<span class="hljs-property">data</span>;<br>    <span class="hljs-keyword">let</span> _text = tmpNode.<span class="hljs-property">text</span>;<br>    <span class="hljs-keyword">let</span> _children = tmpNode.<span class="hljs-property">children</span>;<br>    <span class="hljs-keyword">let</span> _vnode = <span class="hljs-literal">null</span>;<br>    <span class="hljs-keyword">if</span>(_type === <span class="hljs-number">1</span>)&#123;<br>        <span class="hljs-comment">// 元素节点</span><br>        _vnode = <span class="hljs-keyword">new</span> <span class="hljs-title class_">VNode</span>(_tag, _data, [], _text, _type);<br>        _children.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">element</span> =&gt;</span> _vnode.<span class="hljs-title function_">appendChild</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">combine</span>(element, data)));<br>        <br>    &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(_type === <span class="hljs-number">3</span>)&#123;<br>        <span class="hljs-comment">// 文本节点</span><br>        _text = _text.<span class="hljs-title function_">replace</span>(rPattern, <span class="hljs-function">(<span class="hljs-params">match, key</span>) =&gt;</span> &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getPropByPath</span>(data, key.<span class="hljs-title function_">trim</span>());<br>        &#125;);<br>        _vnode = <span class="hljs-keyword">new</span> <span class="hljs-title class_">VNode</span>(_tag, _data, _children, _text, _type);<br>    &#125;<br>    <span class="hljs-keyword">return</span> _vnode;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>combine方法其实就是createVNode改的，这里用来返回一个填充完毕数据的虚拟DOM，这里我将这个方法挂载到了LikeVue的原型上，这样就可以在实例中调用了。<em>getPropByPath</em> 方法就是用来获取数据的，在前面的小节中就已经提到过了。</p>
+<h1 id="mountComponent方法"><a href="#mountComponent方法" class="headerlink" title="mountComponent方法"></a>mountComponent方法</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title class_">LikeVue</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">mountComponent</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;<br>    <span class="hljs-comment">// 执行mountCompoent方法</span><br>    <span class="hljs-keyword">let</span> <span class="hljs-title function_">mount</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;this.render()&#x27;</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">render</span>())<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">update</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">render</span>());<br>    &#125;<br>    <span class="hljs-comment">// 本来应该交给watcher去触发，但是这里没有watcher，所以直接调用</span><br>    mount.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">this</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>因为本节没有考虑使用设计模式，因此这里做了个简化。</strong></p>
+<h2 id="update方法"><a href="#update方法" class="headerlink" title="update方法"></a>update方法</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title class_">LikeVue</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">update</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">newAST</span>)&#123;<br>    <span class="hljs-comment">// diff算法就在这里使用，将虚拟DOM渲染到页面中</span><br>    <span class="hljs-comment">// 简化，直接生成HTML DOM 替换到页面中去</span><br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">_parent</span>.<span class="hljs-title function_">replaceChild</span>(<span class="hljs-title function_">parseVNode</span>(newAST), <span class="hljs-variable language_">this</span>.<span class="hljs-property">$el</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>从mountComponent方法中传过来的参数是个虚拟DOM，因此必须将虚拟DOM转成真实的DOM才可以利用replaceChild替换到真实的DOM中去。<br>到此位置，就是将虚拟DOM渲染到页面中去了。</p>
+<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><p>这里给出测试的代码，以验证代码是否真的能起到预期的效果。</p>
+<h2 id="js代码"><a href="#js代码" class="headerlink" title="js代码"></a>js代码</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> app = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LikeVue</span>(&#123;<br>	<span class="hljs-attr">el</span>: <span class="hljs-string">&#x27;#root&#x27;</span>,<br>	<span class="hljs-attr">data</span>: &#123;<br>		<span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;张三&#x27;</span>,<br>		<span class="hljs-attr">age</span>: <span class="hljs-number">18</span><br>	&#125;<br>&#125;);<br></code></pre></td></tr></table></figure>
+<h2 id="HTML代码"><a href="#HTML代码" class="headerlink" title="HTML代码"></a>HTML代码</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;root&quot;</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>&#123;&#123;name&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>&#123;&#123;age&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h2 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h2><p><img src="https://iotpics.oss-accelerate.aliyuncs.com/img/20220401111154.png" srcset="/img/loading.gif" lazyload alt="测试成功结果图"><br>可以看到确实将渲染的数据渲染到了页面中去了。<br>在过程中我输出了一下AST以及渲染后的虚拟DOM<br><img src="https://iotpics.oss-accelerate.aliyuncs.com/img/20220401111354.png" srcset="/img/loading.gif" lazyload alt="AST抽象语法树"><br>可以看到，抽象语法树其实是没有被渲染之前的template，这就是被缓存的抽象语法树。<br><img src="https://iotpics.oss-accelerate.aliyuncs.com/img/20220401111525.png" srcset="/img/loading.gif" lazyload alt="渲染完成的虚拟DOM"><br>从这张图就可以看到 <em>this.render()</em> 返回的填充了的虚拟DOM是的的确确填充了数据的。</p>
+<h1 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h1><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">&quot;X-UA-Compatible&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;IE=edge&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>LikeVue<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;root&quot;</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>&#123;&#123;name&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>&#123;&#123;age&#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br>		<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span><br><span class="language-javascript">    <span class="hljs-keyword">class</span> <span class="hljs-title class_">VNode</span>&#123;</span><br><span class="language-javascript">        <span class="hljs-comment">/***</span></span><br><span class="hljs-comment"><span class="language-javascript">         * 构造函数</span></span><br><span class="hljs-comment"><span class="language-javascript">         * <span class="hljs-doctag">@param</span> tag  标签名</span></span><br><span class="hljs-comment"><span class="language-javascript">         * <span class="hljs-doctag">@param</span> children 子节点</span></span><br><span class="hljs-comment"><span class="language-javascript">         * <span class="hljs-doctag">@param</span> text 文本</span></span><br><span class="hljs-comment"><span class="language-javascript">         * <span class="hljs-doctag">@param</span> type 类型</span></span><br><span class="hljs-comment"><span class="language-javascript">         * <span class="hljs-doctag">@param</span> data 数据</span></span><br><span class="hljs-comment"><span class="language-javascript">         */</span></span><br><span class="language-javascript">        <span class="hljs-title function_">constructor</span>(<span class="hljs-params">tag, data, children, text, type</span>) &#123;</span><br><span class="language-javascript">            <span class="hljs-variable language_">this</span>.<span class="hljs-property">tag</span> = tag &amp;&amp; tag.<span class="hljs-title function_">toLowerCase</span>();</span><br><span class="language-javascript">            <span class="hljs-variable language_">this</span>.<span class="hljs-property">data</span> = data;</span><br><span class="language-javascript">            <span class="hljs-variable language_">this</span>.<span class="hljs-property">children</span> = [];</span><br><span class="language-javascript">            <span class="hljs-variable language_">this</span>.<span class="hljs-property">text</span> = text;</span><br><span class="language-javascript">            <span class="hljs-variable language_">this</span>.<span class="hljs-property">type</span> = type;</span><br><span class="language-javascript">        &#125;</span><br><span class="language-javascript">        <span class="hljs-comment">/***</span></span><br><span class="hljs-comment"><span class="language-javascript">         * 将子节点添加到虚拟DOM中</span></span><br><span class="hljs-comment"><span class="language-javascript">         * <span class="hljs-doctag">@param</span> <span class="hljs-variable">vnode</span></span></span><br><span class="hljs-comment"><span class="language-javascript">         */</span></span><br><span class="language-javascript">        <span class="hljs-title function_">appendChild</span>(<span class="hljs-params">vnode</span>) &#123;</span><br><span class="language-javascript">            <span class="hljs-variable language_">this</span>.<span class="hljs-property">children</span>.<span class="hljs-title function_">push</span>(vnode);</span><br><span class="language-javascript">        &#125;</span><br><span class="language-javascript">    &#125;</span><br><span class="language-javascript">    <span class="hljs-comment">/***</span></span><br><span class="hljs-comment"><span class="language-javascript">     * 使用递归遍历DOM元素，生成虚拟DOM，</span></span><br><span class="hljs-comment"><span class="language-javascript">     * Vue使用的栈结构，后面学习到的时候写</span></span><br><span class="hljs-comment"><span class="language-javascript">     * */</span></span><br><span class="language-javascript">     <span class="hljs-keyword">function</span> <span class="hljs-title function_">createVNode</span>(<span class="hljs-params">node</span>) &#123;</span><br><span class="language-javascript">        <span class="hljs-keyword">let</span> nodeType = node.<span class="hljs-property">nodeType</span>;</span><br><span class="language-javascript">        <span class="hljs-keyword">let</span> _vnode = <span class="hljs-literal">null</span>;</span><br><span class="language-javascript">        <span class="hljs-keyword">if</span>(nodeType === <span class="hljs-number">1</span>)&#123;</span><br><span class="language-javascript">            <span class="hljs-comment">// node.attributes是个伪数组，因此需要将其转为数组</span></span><br><span class="language-javascript">            <span class="hljs-keyword">let</span> _attrObj = &#123;&#125;;</span><br><span class="language-javascript">            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; node.<span class="hljs-property">attributes</span>.<span class="hljs-property">length</span>; i++)&#123;</span><br><span class="language-javascript">                _attrObj[node.<span class="hljs-property">attributes</span>[i].<span class="hljs-property">name</span>] = node.<span class="hljs-property">attributes</span>[i].<span class="hljs-property">value</span>;</span><br><span class="language-javascript">            &#125;</span><br><span class="language-javascript">            _vnode = <span class="hljs-keyword">new</span> <span class="hljs-title class_">VNode</span>(node.<span class="hljs-property">tagName</span>, _attrObj, [], <span class="hljs-literal">undefined</span>, nodeType);</span><br><span class="language-javascript">            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; node.<span class="hljs-property">childNodes</span>.<span class="hljs-property">length</span>; i++)&#123;</span><br><span class="language-javascript">                _vnode.<span class="hljs-title function_">appendChild</span>(<span class="hljs-title function_">createVNode</span>(node.<span class="hljs-property">childNodes</span>[i]));</span><br><span class="language-javascript">            &#125;</span><br><span class="language-javascript">        &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(nodeType === <span class="hljs-number">3</span>)&#123;</span><br><span class="language-javascript">            _vnode = <span class="hljs-keyword">new</span> <span class="hljs-title class_">VNode</span>(<span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>, node.<span class="hljs-property">textContent</span>, nodeType);</span><br><span class="language-javascript">        &#125;</span><br><span class="language-javascript">        <span class="hljs-keyword">return</span> _vnode;</span><br><span class="language-javascript">    &#125;</span><br><span class="language-javascript">    <span class="hljs-keyword">function</span> <span class="hljs-title function_">parseVNode</span>(<span class="hljs-params">vnode</span>) &#123;</span><br><span class="language-javascript">            <span class="hljs-keyword">let</span> nodeType = vnode.<span class="hljs-property">type</span>;</span><br><span class="language-javascript">            <span class="hljs-keyword">let</span> _node = <span class="hljs-literal">null</span>;</span><br><span class="language-javascript">            <span class="hljs-keyword">if</span>(nodeType === <span class="hljs-number">1</span>)&#123;</span><br><span class="language-javascript">                _node = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(vnode.<span class="hljs-property">tag</span>);</span><br><span class="language-javascript">                <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> key <span class="hljs-keyword">in</span> vnode.<span class="hljs-property">data</span>)&#123;</span><br><span class="language-javascript">                    _node.<span class="hljs-title function_">setAttribute</span>(key, vnode.<span class="hljs-property">data</span>[key]);</span><br><span class="language-javascript">                &#125;</span><br><span class="language-javascript">                <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; vnode.<span class="hljs-property">children</span>.<span class="hljs-property">length</span>; i++)&#123;</span><br><span class="language-javascript">                    _node.<span class="hljs-title function_">appendChild</span>(<span class="hljs-title function_">parseVNode</span>(vnode.<span class="hljs-property">children</span>[i]));</span><br><span class="language-javascript">                &#125;</span><br><span class="language-javascript">            &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(nodeType === <span class="hljs-number">3</span>)&#123;</span><br><span class="language-javascript">                _node = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createTextNode</span>(vnode.<span class="hljs-property">text</span>);</span><br><span class="language-javascript">            &#125;</span><br><span class="language-javascript">            <span class="hljs-keyword">return</span> _node;</span><br><span class="language-javascript">        &#125;</span><br><span class="language-javascript">    <span class="hljs-keyword">function</span> <span class="hljs-title function_">LikeVue</span>(<span class="hljs-params">options</span>) &#123;</span><br><span class="language-javascript">        <span class="hljs-comment">// 内部数据用_开头，只读数据用$开头</span></span><br><span class="language-javascript">        <span class="hljs-variable language_">this</span>.<span class="hljs-property">_data</span> = options.<span class="hljs-property">data</span>;</span><br><span class="language-javascript">        <span class="hljs-variable language_">this</span>.<span class="hljs-property">$el</span> = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(options.<span class="hljs-property">el</span>);</span><br><span class="language-javascript">        <span class="hljs-variable language_">this</span>.<span class="hljs-property">_template</span> = options.<span class="hljs-property">el</span>;</span><br><span class="language-javascript">        <span class="hljs-variable language_">this</span>.<span class="hljs-property">_parent</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">$el</span>.<span class="hljs-property">parentNode</span>;</span><br><span class="language-javascript">        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">mount</span>();</span><br><span class="language-javascript">    &#125;</span><br><span class="language-javascript">    <span class="hljs-title class_">LikeVue</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">getPropByPath</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">obj, path</span>)&#123;</span><br><span class="language-javascript">        <span class="hljs-keyword">return</span> path.<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;.&#x27;</span>).<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">acc, cur</span>) =&gt;</span> acc[cur], obj);</span><br><span class="language-javascript">    &#125;</span><br><span class="language-javascript">    <span class="hljs-comment">// 将模板与数据结合，生成虚拟的DOM</span></span><br><span class="language-javascript">    <span class="hljs-title class_">LikeVue</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">combine</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">tmpNode, data</span>) &#123;</span><br><span class="language-javascript">		<span class="hljs-keyword">let</span> rPattern = <span class="hljs-regexp">/\&#123;\&#123;(.*?)\&#125;\&#125;/g</span>;</span><br><span class="language-javascript">        <span class="hljs-keyword">let</span> _type = tmpNode.<span class="hljs-property">type</span>;</span><br><span class="language-javascript">        <span class="hljs-keyword">let</span> _tag = tmpNode.<span class="hljs-property">tag</span>;</span><br><span class="language-javascript">        <span class="hljs-keyword">let</span> _data = tmpNode.<span class="hljs-property">data</span>;</span><br><span class="language-javascript">        <span class="hljs-keyword">let</span> _text = tmpNode.<span class="hljs-property">text</span>;</span><br><span class="language-javascript">        <span class="hljs-keyword">let</span> _children = tmpNode.<span class="hljs-property">children</span>;</span><br><span class="language-javascript"></span><br><span class="language-javascript">        <span class="hljs-keyword">let</span> _vnode = <span class="hljs-literal">null</span>;</span><br><span class="language-javascript">        <span class="hljs-keyword">if</span>(_type === <span class="hljs-number">1</span>)&#123;</span><br><span class="language-javascript">            <span class="hljs-comment">// 元素节点</span></span><br><span class="language-javascript">            _vnode = <span class="hljs-keyword">new</span> <span class="hljs-title class_">VNode</span>(_tag, _data, [], _text, _type);</span><br><span class="language-javascript">            _children.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">element</span> =&gt;</span> _vnode.<span class="hljs-title function_">appendChild</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">combine</span>(element, data)));</span><br><span class="language-javascript">            </span><br><span class="language-javascript">        &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(_type === <span class="hljs-number">3</span>)&#123;</span><br><span class="language-javascript">            <span class="hljs-comment">// 文本节点</span></span><br><span class="language-javascript">            _text = _text.<span class="hljs-title function_">replace</span>(rPattern, <span class="hljs-function">(<span class="hljs-params">match, key</span>) =&gt;</span> &#123;</span><br><span class="language-javascript">                <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getPropByPath</span>(data, key.<span class="hljs-title function_">trim</span>());</span><br><span class="language-javascript">            &#125;);</span><br><span class="language-javascript">            _vnode = <span class="hljs-keyword">new</span> <span class="hljs-title class_">VNode</span>(_tag, _data, _children, _text, _type);</span><br><span class="language-javascript">        &#125;</span><br><span class="language-javascript">        <span class="hljs-keyword">return</span> _vnode;</span><br><span class="language-javascript">    &#125;</span><br><span class="language-javascript">    <span class="hljs-title class_">LikeVue</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">mount</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;</span><br><span class="language-javascript">        <span class="hljs-comment">// 需要提供一个render方法，用来生成虚拟DOM，内部会进行解析</span></span><br><span class="language-javascript">        <span class="hljs-variable language_">this</span>.<span class="hljs-property">render</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">createRenderFn</span>();</span><br><span class="language-javascript">        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">mountComponent</span>();</span><br><span class="language-javascript">    &#125;</span><br><span class="language-javascript">    <span class="hljs-title class_">LikeVue</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">mountComponent</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;</span><br><span class="language-javascript">        <span class="hljs-comment">// 执行mountCompoent方法</span></span><br><span class="language-javascript">        <span class="hljs-keyword">let</span> <span class="hljs-title function_">mount</span> = (<span class="hljs-params"></span>) =&gt; &#123;</span><br><span class="language-javascript">            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;this.render()&#x27;</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">render</span>())</span><br><span class="language-javascript">            <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">update</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">render</span>());</span><br><span class="language-javascript">        &#125;</span><br><span class="language-javascript">        mount.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">this</span>);</span><br><span class="language-javascript">    &#125;</span><br><span class="language-javascript">    <span class="hljs-title class_">LikeVue</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">createRenderFn</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;</span><br><span class="language-javascript">        <span class="hljs-keyword">let</span> _ast = <span class="hljs-title function_">createVNode</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">$el</span>);</span><br><span class="language-javascript">        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;ast&#x27;</span>, _ast)</span><br><span class="language-javascript">        <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;</span><br><span class="language-javascript">            <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">combine</span>(_ast, <span class="hljs-variable language_">this</span>.<span class="hljs-property">_data</span>);</span><br><span class="language-javascript">        &#125;</span><br><span class="language-javascript">    &#125;</span><br><span class="language-javascript">    <span class="hljs-title class_">LikeVue</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">update</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">newAST</span>)&#123;</span><br><span class="language-javascript">        <span class="hljs-variable language_">this</span>.<span class="hljs-property">_parent</span>.<span class="hljs-title function_">replaceChild</span>(<span class="hljs-title function_">parseVNode</span>(newAST), <span class="hljs-variable language_">this</span>.<span class="hljs-property">$el</span>);</span><br><span class="language-javascript">    &#125;</span><br><span class="language-javascript">    <span class="hljs-keyword">let</span> app = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LikeVue</span>(&#123;</span><br><span class="language-javascript">		<span class="hljs-attr">el</span>: <span class="hljs-string">&#x27;#root&#x27;</span>,</span><br><span class="language-javascript">		<span class="hljs-attr">data</span>: &#123;</span><br><span class="language-javascript">			<span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;张三&#x27;</span>,</span><br><span class="language-javascript">			<span class="hljs-attr">age</span>: <span class="hljs-number">18</span></span><br><span class="language-javascript">		&#125;</span><br><span class="language-javascript">	&#125;);</span><br><span class="language-javascript">    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                      <a class="hover-with-bg" href="/categories/vue/">vue</a>
+                    
+                      <a class="hover-with-bg" href="/categories/vue/%E6%BA%90%E7%A0%81/">源码</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/vue/">vue</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%BA%90%E7%A0%81/">源码</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%B8%B2%E6%9F%93%E6%A8%A1%E5%9E%8B/">渲染模型</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/04/02/%E5%89%8D%E7%AB%AF%E8%84%9A%E6%89%8B%E6%9E%B6%E7%A5%9E%E5%99%A8%E2%80%94x-build/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">前端脚手架神器—x-build</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/27/Matter-js%E4%B9%8BBodies%E5%88%9A%E4%BD%93%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%9D%97/">
+                        <span class="hidden-mobile">Matter.js之Bodies刚体工厂模块</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="twikoo"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      Fluid.utils.createScript('https://cdnjs.cloudflare.com/ajax/libs/twikoo/1.5.10/twikoo.all.min.js', function() {
+        var options = Object.assign(
+          {"envId":"https://twikoo-comment-amber.vercel.app/","region":null,"path":"window.location.pathname"},
+          {
+            el: '#twikoo',
+            path: 'window.location.pathname',
+            onCommentLoaded: function() {
+              Fluid.plugins.initFancyBox('#twikoo .tk-content img:not(.tk-owo-emotion)');
+            }
+          }
+        )
+        twikoo.init(options)
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        晋ICP备19013417号-1
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://unpkg.com/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://unpkg.com/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://unpkg.com/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://unpkg.com/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://unpkg.com/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://unpkg.com/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

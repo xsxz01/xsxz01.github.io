@@ -1,0 +1,623 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="广龙宇">
+  <meta name="keywords" content="前端博客,JavaScript,html5,css3,Jquery,NodeJs,Ubuntu">
+  
+    <meta name="description" content="前言Selenium是一个用于Web应用程序测试的工具。Selenium测试直接运行在浏览器中，就像真正的用户在操作一样。支持的浏览器包括IE（7, 8, 9, 10, 11），Mozilla Firefox，Safari，Google Chrome，Opera，Edge等。这个工具的主要功能包括：测试与浏览器的兼容性——测试应用程序看是否能够很好得工作在不同浏览器和操作系统之上。 随着时代的发展">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Python爬虫 • selenium】selenium4新版本使用指南">
+<meta property="og:url" content="https://blog.iotlearn.cn/2022/07/01/%E3%80%90Python%E7%88%AC%E8%99%AB%20%E2%80%A2%20selenium%E3%80%91selenium4%E6%96%B0%E7%89%88%E6%9C%AC%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/index.html">
+<meta property="og:site_name" content="广龙宇">
+<meta property="og:description" content="前言Selenium是一个用于Web应用程序测试的工具。Selenium测试直接运行在浏览器中，就像真正的用户在操作一样。支持的浏览器包括IE（7, 8, 9, 10, 11），Mozilla Firefox，Safari，Google Chrome，Opera，Edge等。这个工具的主要功能包括：测试与浏览器的兼容性——测试应用程序看是否能够很好得工作在不同浏览器和操作系统之上。 随着时代的发展">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/a72b9a954ea049a6b1e5d80dcf945593.png">
+<meta property="article:published_time" content="2022-06-30T19:29:23.000Z">
+<meta property="article:modified_time" content="2023-11-24T05:48:48.823Z">
+<meta property="article:author" content="广龙宇">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="后端">
+<meta property="article:tag" content="selenium">
+<meta property="article:tag" content="爬虫">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/a72b9a954ea049a6b1e5d80dcf945593.png">
+  
+  
+  <title>【Python爬虫 • selenium】selenium4新版本使用指南 - 广龙宇</title>
+
+  <link  rel="stylesheet" href="https://unpkg.com/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://unpkg.com/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.3/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"blog.iotlearn.cn","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>广龙宇</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/">
+                <i class="iconfont icon-briefcase"></i>
+                常用工具
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="【Python爬虫 • selenium】selenium4新版本使用指南">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      广龙宇
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-07-01 03:29" pubdate>
+        2022年7月1日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      7.7k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      65 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【Python爬虫 • selenium】selenium4新版本使用指南</h1>
+            
+            <div class="markdown-body">
+              <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><img src="https://img-blog.csdnimg.cn/a72b9a954ea049a6b1e5d80dcf945593.png" srcset="/img/loading.gif" lazyload alt="selenium"><br><code>Selenium</code>是一个用于Web应用程序测试的工具。Selenium测试直接运行在浏览器中，就像真正的用户在操作一样。支持的浏览器包括<code>IE（7, 8, 9, 10, 11）</code>，<code>Mozilla Firefox</code>，<code>Safari</code>，<code>Google Chrome</code>，<code>Opera</code>，<code>Edge</code>等。这个工具的主要功能包括：测试与浏览器的兼容性——测试应用程序看是否能够很好得工作在不同浏览器和操作系统之上。</p>
+<p>随着时代的发展，在使用python做自动化时，与之前差生了很大的变化，这些变化都是一个老程序员所必须要踩坑的地方，也是由于已经会了老版本，在使用新版本的时候，需要多次探索，本文从当前最新版的Selenium出发，以Chrome驱动为例，总结了新版的使用方法，免得到处去搜索、踩坑。</p>
+<blockquote>
+<p>提示：本文默认你已经学会使用selenium的旧版本，因此对一些可以直接搜索到很多的内容，你应该是已经学会的</p>
+</blockquote>
+<hr>
+<h1 id="一、设置驱动"><a href="#一、设置驱动" class="headerlink" title="一、设置驱动"></a>一、设置驱动</h1><p>当前Selenium版本：<code>4.3.0</code>，请核对你的版本是否是4.0以上的版本。<br><a target="_blank" rel="noopener" href="https://chromedriver.storage.googleapis.com/index.html">Chrome驱动点击此处下载</a></p>
+<blockquote>
+<p><code>注意： 请查看你的浏览器版本，然后再去下载对应的驱动，通常来说版本号时一致的，如果没有你的版本号，那就选择和你浏览器版本号最相近的版本。</code></p>
+</blockquote>
+<h2 id="1-selenium4推荐方法"><a href="#1-selenium4推荐方法" class="headerlink" title="1. selenium4推荐方法"></a>1. selenium4推荐方法</h2><p>由于传统的设置驱动方式过于繁琐，因此GitHub大佬<a target="_blank" rel="noopener" href="https://github.com/SergeyPirogov">SergeyPirogov</a>写了浏览器驱动管理器，可以使设置驱动变得更加方便。</p>
+<p>首先，需要安装该管理器，使用以下命令，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs bash">pip install webdriver-manager<br></code></pre></td></tr></table></figure>
+<p>然后导入该包，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> webdriver_manager.chrome <span class="hljs-keyword">import</span> ChromeDriverManager<br></code></pre></td></tr></table></figure>
+<p>设置service，通过<code>ChromeDriverManager().install()</code>来获取驱动，从而<code>省去了下载驱动和设置驱动</code>的步骤，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">service = ChromeService(executable_path=ChromeDriverManager().install())<br></code></pre></td></tr></table></figure>
+<p>然后驱动加载该service，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">driver = webdriver.Chrome(service=service)<br></code></pre></td></tr></table></figure>
+<p>此处贴出完整代码，以供参考，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> selenium <span class="hljs-keyword">import</span> webdriver<br><span class="hljs-keyword">from</span> selenium.webdriver.chrome.service <span class="hljs-keyword">import</span> Service <span class="hljs-keyword">as</span> ChromeService<br><span class="hljs-keyword">from</span> webdriver_manager.chrome <span class="hljs-keyword">import</span> ChromeDriverManager<br>service = ChromeService(executable_path=ChromeDriverManager().install())<br>driver = webdriver.Chrome(service=service)<br>driver.quit()<br></code></pre></td></tr></table></figure>
+
+<h2 id="2-传统方法"><a href="#2-传统方法" class="headerlink" title="2. 传统方法"></a>2. 传统方法</h2><p>这里使用传统方法来设置Selenium的驱动，也就是导入webdriver，然后设置可执行程序的路径。</p>
+<p>首先，在Selenium4中，设置驱动位置，不再是直接在<code>webdriver.Chrome</code>中直接设置，而是引入了Service。因此先导入Service的包，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> selenium <span class="hljs-keyword">import</span> webdriver<br><span class="hljs-keyword">from</span> selenium.webdriver.chrome.service <span class="hljs-keyword">import</span> Service <span class="hljs-keyword">as</span> ChromeService<br></code></pre></td></tr></table></figure>
+<p>然后通过Service设置驱动，<code>CHROMEDRIVER_PATH</code>替换为你的驱动位置，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">service = ChromeService(executable_path=CHROMEDRIVER_PATH)<br></code></pre></td></tr></table></figure>
+<p>最后在<code>webdriver.Chrome</code>中调用这个service，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">driver = webdriver.Chrome(service=service)<br></code></pre></td></tr></table></figure>
+<p>给出完整代码予以参考，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> selenium <span class="hljs-keyword">import</span> webdriver<br><span class="hljs-keyword">from</span> selenium.webdriver.chrome.service <span class="hljs-keyword">import</span> Service <span class="hljs-keyword">as</span> ChromeService<br>options = webdriver.ChromeOptions()<br>options.add_experimental_option(<span class="hljs-string">&quot;excludeSwitches&quot;</span>, [<span class="hljs-string">&quot;enable-automation&quot;</span>])<br>options.add_experimental_option(<span class="hljs-string">&quot;useAutomationExtension&quot;</span>, <span class="hljs-literal">False</span>)<br>service = ChromeService(executable_path=CHROMEDRIVER_PATH)<br>driver = webdriver.Chrome(service=service, options=options)<br><br></code></pre></td></tr></table></figure>
+
+<h1 id="二、查找元素"><a href="#二、查找元素" class="headerlink" title="二、查找元素"></a>二、查找元素</h1><p>在selenium4中，一系列的<code>findElement</code>方法如<code>findElementByClassName</code>、<code>findElementById</code>等都被整合成为了一个方法——<code>findElement</code>。并且通过<code>By.method</code>来选择你的查找元素方法，例如下。</p>
+<p>如果你想根据类名查找元素，你可以使用以下方法，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">driver.findElement(By.className(<span class="hljs-string">&quot;className&quot;</span>));<br></code></pre></td></tr></table></figure>
+<p>如果你想通过css选择器来查找元素，你可以使用以下方法，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">driver.findElement(By.cssSelector(<span class="hljs-string">&quot;.className&quot;</span>));<br></code></pre></td></tr></table></figure>
+<p>这里贴出与以往对应的所有查找元素方法，更新前，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python">driver.findElementByClassName(<span class="hljs-string">&quot;className&quot;</span>);<br>driver.findElementByCssSelector(<span class="hljs-string">&quot;.className&quot;</span>);<br>driver.findElementById(<span class="hljs-string">&quot;elementId&quot;</span>);<br>driver.findElementByLinkText(<span class="hljs-string">&quot;linkText&quot;</span>);<br>driver.findElementByName(<span class="hljs-string">&quot;elementName&quot;</span>);<br>driver.findElementByPartialLinkText(<span class="hljs-string">&quot;partialText&quot;</span>);<br>driver.findElementByTagName(<span class="hljs-string">&quot;elementTagName&quot;</span>);<br>driver.findElementByXPath(<span class="hljs-string">&quot;xPath&quot;</span>);<br></code></pre></td></tr></table></figure>
+<p>更新后，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">driver.find_element(By.XPATH,<span class="hljs-string">&#x27;XPATH&#x27;</span>)<br>driver.find_element(By.CLASS_NAME,<span class="hljs-string">&#x27;CLASS_NAME&#x27;</span>)<br>driver.find_element(By.CSS_SELECTOR,<span class="hljs-string">&#x27;CSS_SELECTOR&#x27;</span>)<br>driver.find_element(By.ID,<span class="hljs-string">&#x27;ID&#x27;</span>)<br>driver.find_element(By.LINK_TEXT,<span class="hljs-string">&#x27;LINK_TEXT&#x27;</span>)<br>driver.find_element(By.PARTIAL_LINK_TEXT,<span class="hljs-string">&#x27;PARTIAL_LINK_TEXT&#x27;</span>)<br>driver.find_element(By.TAG_NAME,<span class="hljs-string">&#x27;TAG_NAME&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<p>如果你查找的是<code>多个元素</code>，只需要将其中的<code>find_element</code>替换成<code>find_elements</code>即可。</p>
+<h2 id="等待元素出现"><a href="#等待元素出现" class="headerlink" title="等待元素出现"></a>等待元素出现</h2><p>有时候某个元素不是直接出现的，如果不做判断则会导致程序崩溃，因此一般可以做异常处理，这里还有等待元素出现的方法。</p>
+<p>首先，需要导入等待的包，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> selenium.webdriver.support.ui <span class="hljs-keyword">import</span> WebDriverWait<br></code></pre></td></tr></table></figure>
+<p>然后使用以下方法等待元素出现，<code>driver</code>就是浏览器驱动，<code>timeout</code>就是等待的时长，<code>until</code>后是判断元素是否出现的，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">el = WebDriverWait(driver, timeout=<span class="hljs-number">3</span>).until(<span class="hljs-keyword">lambda</span> d: d.find_element_by_tag_name(<span class="hljs-string">&quot;p&quot;</span>))<br></code></pre></td></tr></table></figure>
+<h1 id="三、动作API"><a href="#三、动作API" class="headerlink" title="三、动作API"></a>三、动作API</h1><p>动作API是网上资料比较少的，因为之前的查找元素，调用click等已经可以解决很多的问题了，在翻看官方文档时，发现selenium还支持动作API来模拟动作。</p>
+<p>动作API分为四个部分，分别是<code>键盘</code>、<code>鼠标</code>、<code>笔</code>、<code>滚轮</code>。这里先说明以下公共部分的。</p>
+<h2 id="暂停（pause）"><a href="#暂停（pause）" class="headerlink" title="暂停（pause）"></a>暂停（pause）</h2><p>光标移动，滚轮滚动期间，会有一些时间空隙，这里可以使用暂停来实现，这里是支持链式调用的，这里贴出官方给出的例子，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python">clickable = driver.find_element(By.ID, <span class="hljs-string">&quot;clickable&quot;</span>)<br>ActionChains(driver)\<br>        .move_to_element(clickable)\<br>        .pause(<span class="hljs-number">1</span>)\<br>        .click_and_hold()\<br>        .pause(<span class="hljs-number">1</span>)\<br>        .send_keys(<span class="hljs-string">&quot;abc&quot;</span>)\<br>        .perform()<br></code></pre></td></tr></table></figure>
+<h2 id="释放所有动作"><a href="#释放所有动作" class="headerlink" title="释放所有动作"></a>释放所有动作</h2><p>当前有动作执行时，可以使用以下方法停止这些动作，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">ActionBuilder(driver).clear_actions()<br></code></pre></td></tr></table></figure>
+<h2 id="键盘"><a href="#键盘" class="headerlink" title="键盘"></a>键盘</h2><h3 id="键盘代码表"><a href="#键盘代码表" class="headerlink" title="键盘代码表"></a>键盘代码表</h3><p>如果你有兴趣，可以看一下，地址在<a target="_blank" rel="noopener" href="https://github.com/SeleniumHQ/selenium/blob/selenium-4.2.0/py/selenium/webdriver/common/keys.py#L23">这里</a>，可以看到完整的列表。</p>
+<p>按下某键，以输入<code>shift+abc</code>为例，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">ActionChains(driver)\<br>    .key_down(Keys.SHIFT)\<br>    .send_keys(<span class="hljs-string">&quot;abc&quot;</span>)\<br>    .perform()<br></code></pre></td></tr></table></figure>
+<p>弹起某键，以输入<code>shift+a</code>和<code>shift+b</code>为例，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">ActionChains(driver)\<br>    .key_down(Keys.SHIFT)\<br>    .send_keys(<span class="hljs-string">&quot;a&quot;</span>)\<br>    .key_up(Keys.SHIFT)\<br>    .send_keys(<span class="hljs-string">&quot;b&quot;</span>)\<br>    .perform()<br></code></pre></td></tr></table></figure>
+<p>浏览器输入某串字符（不指定元素），</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">ActionChains(driver)\<br>    .send_keys(<span class="hljs-string">&quot;abc&quot;</span>)\<br>    .perform()<br></code></pre></td></tr></table></figure>
+<p>指定元素输入字符串，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">text_input = driver.find_element(By.ID, <span class="hljs-string">&quot;textInput&quot;</span>)<br>ActionChains(driver)\<br>    .send_keys_to_element(text_input, <span class="hljs-string">&quot;abc&quot;</span>)\<br>    .perform()<br></code></pre></td></tr></table></figure>
+<p>复制和粘贴，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python">cmd_ctrl = Keys.COMMAND <span class="hljs-keyword">if</span> sys.platform == <span class="hljs-string">&#x27;darwin&#x27;</span> <span class="hljs-keyword">else</span> Keys.CONTROL<br>ActionChains(driver)\<br>        .send_keys(<span class="hljs-string">&quot;Selenium!&quot;</span>)\<br>        .send_keys(Keys.ARROW_LEFT)\<br>        .key_down(Keys.SHIFT)\<br>        .send_keys(Keys.ARROW_UP)\<br>        .key_up(Keys.SHIFT)\<br>        .key_down(cmd_ctrl)\<br>        .send_keys(<span class="hljs-string">&quot;xvv&quot;</span>)\<br>        .key_up(cmd_ctrl)\<br>        .perform()<br></code></pre></td></tr></table></figure>
+<h2 id="鼠标"><a href="#鼠标" class="headerlink" title="鼠标"></a>鼠标</h2><p>鼠标点击保持，该方法将鼠标移动到元素中心与按下鼠标左键相结合。这有助于聚焦特定元素：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">clickable = driver.find_element(By.ID, <span class="hljs-string">&quot;clickable&quot;</span>)<br>ActionChains(driver)\<br>    .click_and_hold(clickable)\<br>    .perform()<br></code></pre></td></tr></table></figure>
+<p>鼠标点击释放，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">clickable = driver.find_element(By.ID, <span class="hljs-string">&quot;click&quot;</span>)<br>ActionChains(driver)\<br>    .click(clickable)\<br>    .perform()<br></code></pre></td></tr></table></figure>
+<h3 id="鼠标定义的5种按键"><a href="#鼠标定义的5种按键" class="headerlink" title="鼠标定义的5种按键"></a>鼠标定义的5种按键</h3><ul>
+<li>0——鼠标左键</li>
+<li>1——鼠标中键</li>
+<li>2——鼠标右键</li>
+<li>3——X1（后退键）</li>
+<li>4——X2（前进键）</li>
+</ul>
+<h3 id="鼠标右击"><a href="#鼠标右击" class="headerlink" title="鼠标右击"></a>鼠标右击</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">clickable = driver.find_element(By.ID, <span class="hljs-string">&quot;clickable&quot;</span>)<br>ActionChains(driver)\<br>    .context_click(clickable)\<br>    .perform()<br></code></pre></td></tr></table></figure>
+<h3 id="按下鼠标3键"><a href="#按下鼠标3键" class="headerlink" title="按下鼠标3键"></a>按下鼠标3键</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">action = ActionBuilder(driver)<br>action.pointer_action.pointer_down(MouseButton.BACK)<br>action.pointer_action.pointer_up(MouseButton.BACK)<br>action.perform()<br></code></pre></td></tr></table></figure>
+<h3 id="按下鼠标4键"><a href="#按下鼠标4键" class="headerlink" title="按下鼠标4键"></a>按下鼠标4键</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">action = ActionBuilder(driver)<br>action.pointer_action.pointer_down(MouseButton.FORWARD)<br>action.pointer_action.pointer_up(MouseButton.FORWARD)<br>action.perform()<br></code></pre></td></tr></table></figure>
+<h3 id="鼠标双击"><a href="#鼠标双击" class="headerlink" title="鼠标双击"></a>鼠标双击</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">clickable = driver.find_element(By.ID, <span class="hljs-string">&quot;clickable&quot;</span>)<br>ActionChains(driver)\<br>    .double_click(clickable)\<br>    .perform()<br></code></pre></td></tr></table></figure>
+
+<h3 id="鼠标移动到元素上"><a href="#鼠标移动到元素上" class="headerlink" title="鼠标移动到元素上"></a>鼠标移动到元素上</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">hoverable = driver.find_element(By.ID, <span class="hljs-string">&quot;hover&quot;</span>)<br>ActionChains(driver)\<br>    .move_to_element(hoverable)\<br>    .perform()<br></code></pre></td></tr></table></figure>
+<h3 id="鼠标位移"><a href="#鼠标位移" class="headerlink" title="鼠标位移"></a>鼠标位移</h3><p>就是通过像素点来进行位移操作。</p>
+<h4 id="从元素左顶边进行位移"><a href="#从元素左顶边进行位移" class="headerlink" title="从元素左顶边进行位移"></a>从元素左顶边进行位移</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">mouse_tracker = driver.find_element(By.ID, <span class="hljs-string">&quot;mouse-tracker&quot;</span>)<br>ActionChains(driver)\<br>    .move_to_element_with_offset(mouse_tracker, <span class="hljs-number">8</span>, <span class="hljs-number">11</span>)\<br>    .perform()<br></code></pre></td></tr></table></figure>
+<h4 id="从元素中心进行位移（请期待）"><a href="#从元素中心进行位移（请期待）" class="headerlink" title="从元素中心进行位移（请期待）"></a>从元素中心进行位移（请期待）</h4><h4 id="从当前窗口左上角位移"><a href="#从当前窗口左上角位移" class="headerlink" title="从当前窗口左上角位移"></a>从当前窗口左上角位移</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">action = ActionBuilder(driver)<br>action.pointer_action.move_to_location(<span class="hljs-number">8</span>, <span class="hljs-number">12</span>)<br>action.perform()<br></code></pre></td></tr></table></figure>
+<h4 id="从当前鼠标位置位移"><a href="#从当前鼠标位置位移" class="headerlink" title="从当前鼠标位置位移"></a>从当前鼠标位置位移</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">ActionChains(driver)\<br>    .move_by_offset( <span class="hljs-number">13</span>, <span class="hljs-number">15</span>)\<br>    .perform()<br></code></pre></td></tr></table></figure>
+<h3 id="拖拽元素"><a href="#拖拽元素" class="headerlink" title="拖拽元素"></a>拖拽元素</h3><p>该方法首先单击并按住源元素，移动到目标元素的位置，然后释放鼠标。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">draggable = driver.find_element(By.ID, <span class="hljs-string">&quot;draggable&quot;</span>)<br>droppable = driver.find_element(By.ID, <span class="hljs-string">&quot;droppable&quot;</span>)<br>ActionChains(driver)\<br>    .drag_and_drop(draggable, droppable)\<br>    .perform()<br></code></pre></td></tr></table></figure>
+<h3 id="通过位移拖拽"><a href="#通过位移拖拽" class="headerlink" title="通过位移拖拽"></a>通过位移拖拽</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">draggable = driver.find_element(By.ID, <span class="hljs-string">&quot;draggable&quot;</span>)<br>start = draggable.location<br>finish = driver.find_element(By.ID, <span class="hljs-string">&quot;droppable&quot;</span>).location<br>ActionChains(driver)\<br>    .drag_and_drop_by_offset(draggable, finish[<span class="hljs-string">&#x27;x&#x27;</span>] - start[<span class="hljs-string">&#x27;x&#x27;</span>], finish[<span class="hljs-string">&#x27;y&#x27;</span>] - start[<span class="hljs-string">&#x27;y&#x27;</span>])\<br>    .perform()<br></code></pre></td></tr></table></figure>
+<h2 id="笔（部分浏览器生效）"><a href="#笔（部分浏览器生效）" class="headerlink" title="笔（部分浏览器生效）"></a>笔（部分浏览器生效）</h2><p>由于<code>笔</code>只在部分浏览器生效，这里就不写了，如果你感兴趣，或者有需求可以去官方文档查看，这里贴出<a target="_blank" rel="noopener" href="https://www.selenium.dev/documentation/webdriver/actions_api/pen/">官方文档地址</a>。</p>
+<h2 id="滚轮（只有谷歌内核浏览器生效）"><a href="#滚轮（只有谷歌内核浏览器生效）" class="headerlink" title="滚轮（只有谷歌内核浏览器生效）"></a>滚轮（只有谷歌内核浏览器生效）</h2><h3 id="滚动到某元素位置"><a href="#滚动到某元素位置" class="headerlink" title="滚动到某元素位置"></a>滚动到某元素位置</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">iframe = driver.find_element(By.TAG_NAME, <span class="hljs-string">&quot;iframe&quot;</span>)<br>ActionChains(driver)\<br>    .scroll_to_element(iframe)\<br>    .perform()<br></code></pre></td></tr></table></figure>
+<h3 id="定量滚动"><a href="#定量滚动" class="headerlink" title="定量滚动"></a>定量滚动</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">footer = driver.find_element(By.TAG_NAME, <span class="hljs-string">&quot;footer&quot;</span>)<br>delta_y = footer.rect[<span class="hljs-string">&#x27;y&#x27;</span>]<br>ActionChains(driver)\<br>    .scroll_by_amount(<span class="hljs-number">0</span>, delta_y)\<br>    .perform()<br></code></pre></td></tr></table></figure>
+<h3 id="从一个元素滚动指定量"><a href="#从一个元素滚动指定量" class="headerlink" title="从一个元素滚动指定量"></a>从一个元素滚动指定量</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">iframe = driver.find_element(By.TAG_NAME, <span class="hljs-string">&quot;iframe&quot;</span>)<br>scroll_origin = ScrollOrigin.from_element(iframe)<br>ActionChains(driver)\<br>    .scroll_from_origin(scroll_origin, <span class="hljs-number">0</span>, <span class="hljs-number">200</span>)\<br>    .perform()<br></code></pre></td></tr></table></figure>
+<h3 id="从一个元素滚动，并指定位移"><a href="#从一个元素滚动，并指定位移" class="headerlink" title="从一个元素滚动，并指定位移"></a>从一个元素滚动，并指定位移</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">footer = driver.find_element(By.TAG_NAME, <span class="hljs-string">&quot;footer&quot;</span>)<br>scroll_origin = ScrollOrigin.from_element(footer, <span class="hljs-number">0</span>, -<span class="hljs-number">50</span>)<br>ActionChains(driver)\<br>    .scroll_from_origin(scroll_origin, <span class="hljs-number">0</span>, <span class="hljs-number">200</span>)\<br>    .perform()<br></code></pre></td></tr></table></figure>
+<h3 id="从一个元素的原点位移"><a href="#从一个元素的原点位移" class="headerlink" title="从一个元素的原点位移"></a>从一个元素的原点位移</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">ActionChains(driver)\<br>    .scroll_from_origin(scroll_origin, <span class="hljs-number">0</span>, <span class="hljs-number">200</span>)\<br>    .perform()<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>以上就是本文的所有内容，总结了selenium4在使用过程中常见的一些坑，以及官方所推荐使用的方式，此外，通过翻阅文档，将selenium4的动作API挖了出来，算是比较完整的selenium入门了，如果你对selenium4感兴趣，可以与我联系哦。</p>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><p>以下内容不分先后，</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.selenium.dev/documentation/webdriver/">selenium官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/SergeyPirogov">GitHub大佬SergeyPirogov</a></li>
+<li><a target="_blank" rel="noopener" href="https://chromedriver.storage.googleapis.com/index.html">Chrome驱动下载</a></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Python/">Python</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Python/%E7%88%AC%E8%99%AB/">爬虫</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Python/%E7%88%AC%E8%99%AB/selenium/">selenium</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/python/">python</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%90%8E%E7%AB%AF/">后端</a>
+                    
+                      <a class="hover-with-bg" href="/tags/selenium/">selenium</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%88%AC%E8%99%AB/">爬虫</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/07/06/%E3%80%90Python%20%E2%80%A2%20%E9%9B%86%E5%90%88%E3%80%91%E5%A6%82%E4%BD%95%E4%BD%BF%E5%A4%8D%E6%9D%82%E7%B1%BB%E5%9E%8B%E5%AF%B9%E8%B1%A1%E6%94%AF%E6%8C%81%E9%9B%86%E5%90%88%E6%93%8D%E4%BD%9C/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【Python • 集合】如何使复杂类型对象支持集合操作</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/06/28/%E3%80%90web%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF%E3%80%91dicebear%E4%B8%80%E5%8F%A5%E8%AF%9D%E7%94%9F%E6%88%90%E5%A4%B4%E5%83%8F/">
+                        <span class="hidden-mobile">【web前端技术】dicebear一句话生成头像</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="twikoo"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      Fluid.utils.createScript('https://cdnjs.cloudflare.com/ajax/libs/twikoo/1.5.10/twikoo.all.min.js', function() {
+        var options = Object.assign(
+          {"envId":"https://twikoo-comment-amber.vercel.app/","region":null,"path":"window.location.pathname"},
+          {
+            el: '#twikoo',
+            path: 'window.location.pathname',
+            onCommentLoaded: function() {
+              Fluid.plugins.initFancyBox('#twikoo .tk-content img:not(.tk-owo-emotion)');
+            }
+          }
+        )
+        twikoo.init(options)
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        晋ICP备19013417号-1
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://unpkg.com/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://unpkg.com/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://unpkg.com/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://unpkg.com/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://unpkg.com/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://unpkg.com/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

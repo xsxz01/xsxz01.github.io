@@ -1,0 +1,954 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="广龙宇">
+  <meta name="keywords" content="前端博客,JavaScript,html5,css3,Jquery,NodeJs,Ubuntu">
+  
+    <meta name="description" content="Matter.Engine模块包含了创建和操作引擎的方法。引擎是管理更新模拟世界的一个控制器。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Matter.js之Engine">
+<meta property="og:url" content="https://blog.iotlearn.cn/2022/03/20/Matter-js%E4%B9%8BEngine/index.html">
+<meta property="og:site_name" content="广龙宇">
+<meta property="og:description" content="Matter.Engine模块包含了创建和操作引擎的方法。引擎是管理更新模拟世界的一个控制器。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.iotlearn.cn/images/20220319/matterjs.png">
+<meta property="article:published_time" content="2022-03-20T01:42:22.000Z">
+<meta property="article:modified_time" content="2023-11-24T05:48:48.823Z">
+<meta property="article:author" content="广龙宇">
+<meta property="article:tag" content="matter.js">
+<meta property="article:tag" content="engine">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://blog.iotlearn.cn/images/20220319/matterjs.png">
+  
+  
+  <title>Matter.js之Engine - 广龙宇</title>
+
+  <link  rel="stylesheet" href="https://unpkg.com/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://unpkg.com/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.3/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"blog.iotlearn.cn","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>广龙宇</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/">
+                <i class="iconfont icon-briefcase"></i>
+                常用工具
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Matter.js之Engine">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      广龙宇
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-03-20 09:42" pubdate>
+        2022年3月20日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      34 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Matter.js之Engine</h1>
+            
+            <div class="markdown-body">
+              <p><strong>Matter.Engine</strong>模块包含了创建和操作引擎的方法。引擎是管理更新模拟世界的一个控制器。</p>
+<span id="more"></span>
+<p>请参阅Matter.Runner以获得可选的游戏循环工具。</p>
+<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><h2 id="create"><a href="#create" class="headerlink" title="create"></a>create</h2><div class="note note-info">
+            <p>Matter.Engine.<strong>create</strong>([options]) → <em>Engine</em></p>
+          </div>
+<p>创建一个新的引擎。选项参数是一个对象，它指定任何你想覆盖默认值的属性。所有属性都有默认值，并且大多数都是根据其他属性自动计算的。请参阅下面的属性部分以了解您可以通过选项对象传递的所有属性。</p>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>options</td>
+<td>Object</td>
+<td>{}</td>
+<td>可选的选项对象</td>
+</tr>
+</tbody></table>
+<p>以下是options的默认值</p>
+<figure class="highlight js"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></div></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> options = &#123;<br>    <span class="hljs-attr">positionIterations</span>: <span class="hljs-number">6</span>,<br>    <span class="hljs-attr">velocityIterations</span>: <span class="hljs-number">4</span>,<br>    <span class="hljs-attr">constraintIterations</span>: <span class="hljs-number">2</span>,<br>    <span class="hljs-attr">enableSleeping</span>: <span class="hljs-literal">false</span>,<br>    <span class="hljs-attr">events</span>: [],<br>    <span class="hljs-attr">plugin</span>: &#123;&#125;,<br>    <span class="hljs-attr">gravity</span>: &#123;<br>        <span class="hljs-attr">x</span>: <span class="hljs-number">0</span>,<br>        <span class="hljs-attr">y</span>: <span class="hljs-number">1</span>,<br>        <span class="hljs-attr">scale</span>: <span class="hljs-number">0.001</span><br>    &#125;,<br>    <span class="hljs-attr">timing</span>: &#123;<br>        <span class="hljs-attr">timestamp</span>: <span class="hljs-number">0</span>,<br>        <span class="hljs-attr">timeScale</span>: <span class="hljs-number">1</span>,<br>        <span class="hljs-attr">lastDelta</span>: <span class="hljs-number">0</span>,<br>        <span class="hljs-attr">lastElapsed</span>: <span class="hljs-number">0</span><br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<h3 id="返回"><a href="#返回" class="headerlink" title="返回"></a>返回</h3><p>返回一个新的引擎对象。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><em>engine</em></td>
+<td><strong>Engine</strong></td>
+<td>引擎对象</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="clear"><a href="#clear" class="headerlink" title="clear"></a>clear</h2><div class="note note-info">
+            <p>Matter.Engine.<strong>clear</strong>(engine)</p>
+          </div>
+<p>清除引擎的pairs和detector。</p>
+<h3 id="参数-1"><a href="#参数-1" class="headerlink" title="参数"></a>参数</h3><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>engine</td>
+<td><strong>Engine</strong></td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="merge"><a href="#merge" class="headerlink" title="merge"></a>merge</h2><div class="note note-info">
+            <p>Matter.Engine.<strong>merge</strong>(engineA, engineB)</p>
+          </div>
+<p>合并两个引擎，保留engineA的配置，但是替换engineB的world。</p>
+<h3 id="参数-2"><a href="#参数-2" class="headerlink" title="参数"></a>参数</h3><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>engineA</td>
+<td><strong>Engine</strong></td>
+</tr>
+<tr>
+<td>engineB</td>
+<td><strong>Engine</strong></td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="update"><a href="#update" class="headerlink" title="update"></a>update</h2><div class="note note-info">
+            <p>Matter.Engine.<strong>update</strong>(engine, [delta&#x3D;16.666], [correction&#x3D;1])</p>
+          </div>
+<p>模拟时间前进delta毫秒。correction参数是一个可选的数字，它指定要应用于更新的时间纠正因子。这可以帮助改善模拟在delta在更新中变化的情况下的精确性。correction的值定义为delta &#x2F; lastDelta，即delta &#x2F; lastDelta的百分比改变。因此值总是1（无纠正），当delta常数（或者当不需要纠正时，这是默认值）。请参阅<strong>Time Corrected Verlet</strong>文献以了解更多信息。（这个文献正在找）<br>触发<strong>beforeUpdate</strong>和<strong>afterUpdate</strong>事件。触发<strong>collisionStart</strong>，<strong>collisionActive</strong>和<strong>collisionEnd</strong>事件。</p>
+<h3 id="参数-3"><a href="#参数-3" class="headerlink" title="参数"></a>参数</h3><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>engine</td>
+<td><strong>Engine</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>delta</td>
+<td>Number</td>
+<td>16.666</td>
+</tr>
+<tr>
+<td>correction</td>
+<td>Number</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="run"><a href="#run" class="headerlink" title="run"></a>run</h2><div class="note note-info">
+            <p>Matter.Engine.<strong>run</strong>(engine) <em>deprecated</em></p>
+          </div>
+<p><strong>弃用</strong>：使用*Matter.Runner.run(engine)*代替<br><em>Runner.run</em>的弃用了的别名，使用Matter.Runner.run(engine)代替，并且参阅Matter.Runner以获得更多信息。</p>
+<h3 id="参数-4"><a href="#参数-4" class="headerlink" title="参数"></a>参数</h3><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>engine</td>
+<td><strong>Engine</strong></td>
+</tr>
+</tbody></table>
+<hr>
+<h1 id="属性-x2F-选项"><a href="#属性-x2F-选项" class="headerlink" title="属性&#x2F;选项"></a>属性&#x2F;选项</h1><p>下面的属性&#x2F;选项由<strong>Matter.Engine.create</strong>创建的对象指定，并且可以传递给它作为选项。</p>
+<h3 id="constraintIterations"><a href="#constraintIterations" class="headerlink" title="constraintIterations"></a>constraintIterations</h3><div class="note note-success">
+            <p>engine.<strong>constraintIterations</strong> <em>Number</em></p>
+          </div>
+<p>一个整数，它指定每次更新迭代的约束迭代数。值越高，模拟的质量越好，但是性能会受到影响。默认值为2，通常是足够的。<br><strong>默认值</strong>: <em>2</em></p>
+<hr>
+<h3 id="detector"><a href="#detector" class="headerlink" title="detector"></a>detector</h3><div class="note note-success">
+            <p>engine.<strong>detector</strong>     <em>Detector</em></p>
+          </div>
+<p>一个<em>Matter.Detector</em>实例.<br><strong>默认值</strong>: <em>一个</em>Matter.Detector<em>实例.</em></p>
+<hr>
+<h3 id="enableSleeping"><a href="#enableSleeping" class="headerlink" title="enableSleeping"></a>enableSleeping</h3><div class="note note-success">
+            <p>engine.<strong>enableSleeping</strong>   <em>Boolean</em></p>
+          </div>
+<p>指定是否允许Matter.Sleeping模块中的睡眠的标志。睡眠可以提高稳定性和性能，但是往往会影响精确度。<br><strong>默认值</strong>: <em>false</em></p>
+<hr>
+<h3 id="gravity"><a href="#gravity" class="headerlink" title="gravity"></a>gravity</h3><div class="note note-success">
+            <p>engine.<strong>gravity</strong>      <em>Object</em></p>
+          </div>
+<p>对于engine.world中的所有bodies，应用重力。</p>
+<hr>
+<h3 id="gravity-scale"><a href="#gravity-scale" class="headerlink" title="gravity.scale"></a>gravity.scale</h3><div class="note note-success">
+            <p>engine.<strong>gravity.scale</strong>    <em>Object</em></p>
+          </div>
+<p>重力缩放因子。<br><strong>默认值</strong>: <em>0.001</em></p>
+<hr>
+<h3 id="gravity-x"><a href="#gravity-x" class="headerlink" title="gravity.x"></a>gravity.x</h3><div class="note note-success">
+            <p>engine.<strong>gravity.x</strong>    <em>Object</em></p>
+          </div>
+<p>重力x分量。<br><strong>默认值</strong>: <em>0</em></p>
+<hr>
+<h3 id="gravity-y"><a href="#gravity-y" class="headerlink" title="gravity.y"></a>gravity.y</h3><div class="note note-success">
+            <p>engine.<strong>gravity.y</strong>    <em>Object</em></p>
+          </div>
+<p>重力y分量。<br><strong>默认值</strong>: <em>1</em></p>
+<hr>
+<h3 id="plugin"><a href="#plugin" class="headerlink" title="plugin"></a>plugin</h3><div class="note note-success">
+            <p>engine.<strong>plugin</strong></p>
+          </div>
+<p>用于存储特定插件的属性的一个对象。</p>
+<hr>
+<h3 id="positionIterations"><a href="#positionIterations" class="headerlink" title="positionIterations"></a>positionIterations</h3><div class="note note-success">
+            <p>engine.<strong>positionIterations</strong>   <em>Number</em></p>
+          </div>
+<p>一个整数，它指定每次更新迭代的位置迭代数。值越高，模拟的质量越好，但是性能会受到影响。<br><strong>默认值</strong>: <em>6</em></p>
+<hr>
+<h3 id="timing"><a href="#timing" class="headerlink" title="timing"></a>timing</h3><div class="note note-success">
+            <p>engine.<strong>timing</strong>   <em>Object</em></p>
+          </div>
+<p>An Object containing properties regarding the timing systems of the engine.<br>一个包含了与时间系统相关的属性的对象</p>
+<hr>
+<h3 id="timing-lastDelta"><a href="#timing-lastDelta" class="headerlink" title="timing.lastDelta"></a>timing.lastDelta</h3><div class="note note-success">
+            <p>engine.<strong>timing.lastDelta</strong>     <em>Number</em></p>
+          </div>
+<p>表示在上次引擎更新中使用的delta值的一个<strong>整数</strong>。<br><strong>默认值</strong>: <em>0</em></p>
+<hr>
+<h3 id="timing-lastElapsed"><a href="#timing-lastElapsed" class="headerlink" title="timing.lastElapsed"></a>timing.lastElapsed</h3><div class="note note-success">
+            <p>engine.<strong>timing.lastElapsed</strong>   <em>Number</em></p>
+          </div>
+<p>一个整数，表示上次引擎更新中所用的总执行时间，以毫秒为单位。它是在上次引擎更新[Engine.update]开始，到它结束时所用的时间。<br>这个值也包括了所有事件处理程序的执行时间。<br><strong>默认值</strong>: <em>0</em></p>
+<hr>
+<h3 id="timing-timeScale"><a href="#timing-timeScale" class="headerlink" title="timing.timeScale"></a>timing.timeScale</h3><div class="note note-success">
+            <p>engine.<strong>timing.timeScale</strong>     <em>Number</em></p>
+          </div>
+<p>一个整数，它指定了所有物体的全局时间缩放因子。值为0将会冻结模拟。值为0.1将会产生一个慢动作效果。值为1.2将会产生一个加速效果。<br><strong>默认值</strong>: <em>1</em></p>
+<hr>
+<h3 id="timing-timestamp"><a href="#timing-timestamp" class="headerlink" title="timing.timestamp"></a>timing.timestamp</h3><div class="note note-success">
+            <p>engine.<strong>timing.timestamp</strong>     <em>Number</em></p>
+          </div>
+<p>一个整数，它指定了当前模拟时间，以毫秒为单位。它在每次引擎更新[Engine.update]时，都会增加给定的delta参数。<br><strong>默认值</strong>: <em>0</em></p>
+<hr>
+<h3 id="velocityIterations"><a href="#velocityIterations" class="headerlink" title="velocityIterations"></a>velocityIterations</h3><div class="note note-success">
+            <p>engine.<strong>velocityIterations</strong>       <em>Number</em></p>
+          </div>
+<p>一个整数，它指定了每次更新执行的速度迭代数。值越高，模拟的质量越好，但是性能会受到影响。<br><strong>默认值</strong>: <em>4</em></p>
+<hr>
+<h3 id="world"><a href="#world" class="headerlink" title="world"></a>world</h3><div class="note note-success">
+            <p>engine.<strong>world</strong>    <em>Composite</em></p>
+          </div>
+<p>通过引擎模拟的所有物体，约束和其他组合的根Matter.Composite实例。<br><strong>默认值</strong>: <em>一个Matter.Composite实例</em></p>
+<hr>
+<h3 id="broadphase"><a href="#broadphase" class="headerlink" title="broadphase"></a>broadphase</h3><div class="note note-success">
+            <p>engine.<strong>broadphase</strong>   <em>Grid</em>  [<em>deprecated</em>]</p>
+          </div>
+<p><strong>弃用</strong>: 被<code>engine.detector</code>替代。<br>现在是engine.grid的别名。<br><strong>默认值</strong>: <em>一个Matter.Grid实例</em></p>
+<hr>
+<h3 id="grid"><a href="#grid" class="headerlink" title="grid"></a>grid</h3><div class="note note-success">
+            <p>engine.<strong>grid</strong> <em>Grid</em>    [<em>deprecated</em>]</p>
+          </div>
+<p><strong>弃用</strong>: 被<code>engine.detector</code>替代。<br>一个Matter.Grid实例。<br><strong>默认值</strong>: <em>一个Matter.Grid实例</em></p>
+<hr>
+<h1 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h1><p>下面是Matter.Engine.create创建的对象发出的事件，并且接收使用Matter.Events.on订阅的对象接收。</p>
+<h3 id="afterUpdate"><a href="#afterUpdate" class="headerlink" title="afterUpdate"></a>afterUpdate</h3><div class="note note-secondary">
+            <p>Events.on(engine, <strong>“afterUpdate”</strong>, callback)</p>
+          </div>
+<p>触发在引擎更新和所有碰撞事件之后。</p>
+<h4 id="回调参数-callback"><a href="#回调参数-callback" class="headerlink" title="回调参数[callback]"></a>回调参数[callback]</h4><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>event</td>
+<td>Object</td>
+</tr>
+</tbody></table>
+<h4 id="event"><a href="#event" class="headerlink" title="event"></a>event</h4><p>一个事件对象</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>timestamp</td>
+<td>Number</td>
+<td>事件触发的时间戳</td>
+</tr>
+<tr>
+<td>source</td>
+<td>Object</td>
+<td>事件源对象</td>
+</tr>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>事件的名称</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="beforeUpdate"><a href="#beforeUpdate" class="headerlink" title="beforeUpdate"></a>beforeUpdate</h3><div class="note note-secondary">
+            <p>Events.on(engine, <strong>“beforeUpdate”</strong>, callback)</p>
+          </div>
+<p>触发在引擎更新之前。</p>
+<h4 id="回调参数-callback-1"><a href="#回调参数-callback-1" class="headerlink" title="回调参数[callback]"></a>回调参数[callback]</h4><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>event</td>
+<td>Object</td>
+</tr>
+</tbody></table>
+<h4 id="event-1"><a href="#event-1" class="headerlink" title="event"></a>event</h4><p>一个事件对象</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>timestamp</td>
+<td>Number</td>
+<td>事件触发的时间戳</td>
+</tr>
+<tr>
+<td>source</td>
+<td>Object</td>
+<td>事件源对象</td>
+</tr>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>事件的名称</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="collisionActive"><a href="#collisionActive" class="headerlink" title="collisionActive"></a>collisionActive</h3><div class="note note-secondary">
+            <p>Events.on(engine, <strong>“collisionActive”</strong>, callback)</p>
+          </div>
+<p>触发在引擎更新之后，提供一个当前tick中所有碰撞的对(如果有)的列表。</p>
+<h4 id="回调参数-callback-2"><a href="#回调参数-callback-2" class="headerlink" title="回调参数[callback]"></a>回调参数[callback]</h4><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>event</td>
+<td>Object</td>
+</tr>
+</tbody></table>
+<h4 id="event-2"><a href="#event-2" class="headerlink" title="event"></a>event</h4><p>一个事件对象</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pairs</td>
+<td>Pair[]</td>
+<td>受影响对的列表</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>Number</td>
+<td>事件触发的时间戳</td>
+</tr>
+<tr>
+<td>source</td>
+<td>Object</td>
+<td>事件源对象</td>
+</tr>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>事件的名称</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="collisionEnd"><a href="#collisionEnd" class="headerlink" title="collisionEnd"></a>collisionEnd</h3><div class="note note-secondary">
+            <p>Events.on(engine, <strong>“collisionEnd”</strong>, callback)</p>
+          </div>
+<p>触发在引擎更新之后，提供一个当前tick中所有碰撞结束的对(如果有)的列表。</p>
+<h4 id="回调参数-callback-3"><a href="#回调参数-callback-3" class="headerlink" title="回调参数[callback]"></a>回调参数[callback]</h4><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>event</td>
+<td>Object</td>
+</tr>
+</tbody></table>
+<h4 id="event-3"><a href="#event-3" class="headerlink" title="event"></a>event</h4><p>一个事件对象</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pairs</td>
+<td>Pair[]</td>
+<td>受影响对的列表</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>Number</td>
+<td>事件触发的时间戳</td>
+</tr>
+<tr>
+<td>source</td>
+<td>Object</td>
+<td>事件源对象</td>
+</tr>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>事件的名称</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="collisionStart"><a href="#collisionStart" class="headerlink" title="collisionStart"></a>collisionStart</h3><div class="note note-secondary">
+            <p>Events.on(engine, <strong>“collisionStart”</strong>, callback)</p>
+          </div>
+<p>触发在引擎更新之后，提供一个当前tick中所有碰撞开始的对(如果有)的列表。</p>
+<h4 id="回调参数-callback-4"><a href="#回调参数-callback-4" class="headerlink" title="回调参数[callback]"></a>回调参数[callback]</h4><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>event</td>
+<td>Object</td>
+</tr>
+</tbody></table>
+<h4 id="event-4"><a href="#event-4" class="headerlink" title="event"></a>event</h4><p>一个事件对象</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pairs</td>
+<td>Pair[]</td>
+<td>受影响对的列表</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>Number</td>
+<td>事件触发的时间戳</td>
+</tr>
+<tr>
+<td>source</td>
+<td>Object</td>
+<td>事件源对象</td>
+</tr>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>事件的名称</td>
+</tr>
+</tbody></table>
+<hr>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                      <a class="hover-with-bg" href="/categories/matter-js/">matter.js</a>
+                    
+                      <a class="hover-with-bg" href="/categories/matter-js/engine/">engine</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/matter-js/">matter.js</a>
+                    
+                      <a class="hover-with-bg" href="/tags/engine/">engine</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/03/20/Matter-js%E4%B9%8BSvg%E6%A8%A1%E5%9D%97/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Matter.js之Svg模块</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/19/Matter-js%E4%B8%AD%E7%9A%84Runner%E8%AF%A6%E7%BB%86%E8%A7%A3%E6%9E%90/">
+                        <span class="hidden-mobile">Matter.js中的Runner详细解析</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="twikoo"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      Fluid.utils.createScript('https://cdnjs.cloudflare.com/ajax/libs/twikoo/1.5.10/twikoo.all.min.js', function() {
+        var options = Object.assign(
+          {"envId":"https://twikoo-comment-amber.vercel.app/","region":null,"path":"window.location.pathname"},
+          {
+            el: '#twikoo',
+            path: 'window.location.pathname',
+            onCommentLoaded: function() {
+              Fluid.plugins.initFancyBox('#twikoo .tk-content img:not(.tk-owo-emotion)');
+            }
+          }
+        )
+        twikoo.init(options)
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        晋ICP备19013417号-1
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://unpkg.com/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://unpkg.com/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://unpkg.com/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://unpkg.com/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://unpkg.com/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://unpkg.com/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

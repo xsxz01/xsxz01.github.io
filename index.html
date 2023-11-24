@@ -1,0 +1,936 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="广龙宇">
+  <meta name="keywords" content="前端博客,JavaScript,html5,css3,Jquery,NodeJs,Ubuntu">
+  
+    <meta name="description" content="网络技术博客">
+<meta property="og:type" content="website">
+<meta property="og:title" content="广龙宇">
+<meta property="og:url" content="https://blog.iotlearn.cn/index.html">
+<meta property="og:site_name" content="广龙宇">
+<meta property="og:description" content="网络技术博客">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="广龙宇">
+<meta property="article:tag" content="前端博客,JavaScript,html5,css3,Jquery,NodeJs,Ubuntu">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>广龙宇</title>
+
+  <link  rel="stylesheet" href="https://unpkg.com/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"blog.iotlearn.cn","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 100vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>广龙宇</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/">
+                <i class="iconfont icon-briefcase"></i>
+                常用工具
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://fluid.s3.bitiful.net/bg/vdysjx.png?w=1920&fmt=webp') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Think about everything and doubt about everything.">
+              
+            </span>
+
+            
+          </div>
+
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-x-md">
+        <div class="py-5" id="board"
+          style=margin-top:0>
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/12/26/%E3%80%90%E4%B8%80%E8%B5%B7%E5%AD%A6Rust%20%7C%20%E5%9F%BA%E7%A1%80%E7%AF%87%20%7C%20rust%E6%96%B0%E7%89%B9%E6%80%A7%E3%80%91Rust%201.65.0%E2%80%94%E2%80%94%E6%B3%9B%E5%9E%8B%E5%85%B3%E8%81%94%E7%B1%BB%E5%9E%8B%E3%80%81let-else%E8%AF%AD%E5%8F%A5/" target="_self">
+          <img src="https://img-blog.csdnimg.cn/05d742824eba481588940c8183b78871.png#pic_center" srcset="/img/loading.gif" lazyload alt="【一起学Rust | 基础篇 | rust新特性】Rust 1.65.0——泛型关联类型、let-else语句">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/12/26/%E3%80%90%E4%B8%80%E8%B5%B7%E5%AD%A6Rust%20%7C%20%E5%9F%BA%E7%A1%80%E7%AF%87%20%7C%20rust%E6%96%B0%E7%89%B9%E6%80%A7%E3%80%91Rust%201.65.0%E2%80%94%E2%80%94%E6%B3%9B%E5%9E%8B%E5%85%B3%E8%81%94%E7%B1%BB%E5%9E%8B%E3%80%81let-else%E8%AF%AD%E5%8F%A5/" target="_self">
+          【一起学Rust | 基础篇 | rust新特性】Rust 1.65.0——泛型关联类型、let-else语句
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/12/26/%E3%80%90%E4%B8%80%E8%B5%B7%E5%AD%A6Rust%20%7C%20%E5%9F%BA%E7%A1%80%E7%AF%87%20%7C%20rust%E6%96%B0%E7%89%B9%E6%80%A7%E3%80%91Rust%201.65.0%E2%80%94%E2%80%94%E6%B3%9B%E5%9E%8B%E5%85%B3%E8%81%94%E7%B1%BB%E5%9E%8B%E3%80%81let-else%E8%AF%AD%E5%8F%A5/" target="_self">
+          
+          前言本系列文章为介绍Rust更新的各版本特性。从当前版本开始往后更新。 本期内容是Rust 1.65.0的新版本特新，包括  泛型关联类型 let-else语句 break标记语法  等内容，当然本次更新还有一个特性，就是差分Linux调试信息，由于我目前还是在Windows环境下进行编程，就不写这部分内容了，如果你感兴趣，可以去更新文档研究研究。 更新Rust如果你还没有更新rust，那么就运
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-12-26 02:39" pubdate>
+              2022-12-26
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
+            
+              <a href="/categories/rust/">rust</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%90%8E%E7%AB%AF/">后端</a>
+            
+              <a href="/tags/%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/">核心技术</a>
+            
+              <a href="/tags/rust/">rust</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/10/22/%E3%80%90%E4%B8%80%E8%B5%B7%E5%AD%A6Rust%E3%80%91Rust%E7%9A%84HelloRust%E8%AF%A6%E7%BB%86%E8%A7%A3%E6%9E%90/" target="_self">
+          <img src="https://img-blog.csdnimg.cn/05d742824eba481588940c8183b78871.png#pic_center" srcset="/img/loading.gif" lazyload alt="【一起学Rust】Rust的Hello Rust详细解析">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/10/22/%E3%80%90%E4%B8%80%E8%B5%B7%E5%AD%A6Rust%E3%80%91Rust%E7%9A%84HelloRust%E8%AF%A6%E7%BB%86%E8%A7%A3%E6%9E%90/" target="_self">
+          【一起学Rust】Rust的Hello Rust详细解析
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/10/22/%E3%80%90%E4%B8%80%E8%B5%B7%E5%AD%A6Rust%E3%80%91Rust%E7%9A%84HelloRust%E8%AF%A6%E7%BB%86%E8%A7%A3%E6%9E%90/" target="_self">
+          
+          跟随本篇文章，你将学会编写Rust的Hello World，并且对Rust编程有个初步的了解。   前言在上一小结中，我们搭建了 Rust 的开发环境，并且使用 Rust 的包管理工具 Cargo 运行了官方提供的示例程序。 本节我们将使用 Rust 来实现一个 Hello World。当你学习任意一门编程语言时，学习的第一门课就是 Hello World，通过 Hello World 你可以
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-10-22 01:19" pubdate>
+              2022-10-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
+            
+              <a href="/categories/rust/">rust</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%90%8E%E7%AB%AF/">后端</a>
+            
+              <a href="/tags/%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/">核心技术</a>
+            
+              <a href="/tags/rust/">rust</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/10/22/%E3%80%90%E4%B8%80%E8%B5%B7%E5%AD%A6Rust%E3%80%91Rust%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" target="_self">
+          <img src="https://img-blog.csdnimg.cn/05d742824eba481588940c8183b78871.png#pic_center" srcset="/img/loading.gif" lazyload alt="【一起学Rust】Rust介绍与开发环境搭建">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/10/22/%E3%80%90%E4%B8%80%E8%B5%B7%E5%AD%A6Rust%E3%80%91Rust%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" target="_self">
+          【一起学Rust】Rust介绍与开发环境搭建
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/10/22/%E3%80%90%E4%B8%80%E8%B5%B7%E5%AD%A6Rust%E3%80%91Rust%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" target="_self">
+          
+          前言Rust 语言是一种高效、可靠的通用高级语言。其高效不仅限于开发效率，它的执行效率也是令人称赞的，是一种少有的兼顾开发效率和执行效率的语言。 官方对Rust是这么评价的。对于现在网络来说，Rust 被广泛了解主要是由于两件事。一是安全性，Rust 语言因其并发安全性而深受众多开发者的喜爱，曾在多个榜单上获评最受欢迎编程语言。一是 Linux 内核将引入 Rust 。但是不管怎么说，Rust
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-10-22 01:12" pubdate>
+              2022-10-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
+            
+              <a href="/categories/rust/">rust</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%90%8E%E7%AB%AF/">后端</a>
+            
+              <a href="/tags/%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/">核心技术</a>
+            
+              <a href="/tags/rust/">rust</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/07/07/%E3%80%90Python%E2%80%A2%E5%9B%BE%E7%89%87%E8%AF%86%E5%88%AB%E3%80%91pytesseract%E5%BF%AB%E9%80%9F%E8%AF%86%E5%88%AB%E6%8F%90%E5%8F%96%E5%9B%BE%E7%89%87%E4%B8%AD%E7%9A%84%E6%96%87%E5%AD%97/" target="_self">
+          <img src="https://img-blog.csdnimg.cn/7893db9c190840189601e43c4995da96.jpeg#pic_center" srcset="/img/loading.gif" lazyload alt="【Python•图片识别】pytesseract快速识别提取图片中的文字">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/07/07/%E3%80%90Python%E2%80%A2%E5%9B%BE%E7%89%87%E8%AF%86%E5%88%AB%E3%80%91pytesseract%E5%BF%AB%E9%80%9F%E8%AF%86%E5%88%AB%E6%8F%90%E5%8F%96%E5%9B%BE%E7%89%87%E4%B8%AD%E7%9A%84%E6%96%87%E5%AD%97/" target="_self">
+          【Python•图片识别】pytesseract快速识别提取图片中的文字
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/07/07/%E3%80%90Python%E2%80%A2%E5%9B%BE%E7%89%87%E8%AF%86%E5%88%AB%E3%80%91pytesseract%E5%BF%AB%E9%80%9F%E8%AF%86%E5%88%AB%E6%8F%90%E5%8F%96%E5%9B%BE%E7%89%87%E4%B8%AD%E7%9A%84%E6%96%87%E5%AD%97/" target="_self">
+          
+          提示：本文多图，请手机端注意流量。   前言利用python做图片识别，识别提取图片中的文字会有很多方法，但是想要简单一点怎么办，那就可以使用tesseract识别引擎来实现，一行代码就可以做到提取图片文本。  一、配置环境1. 安装python依赖本程序用到了两个python库，pytesseract和PIL，所以先来安装。 运行以下命令 12pip install Pillowpip in
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-07-07 02:44" pubdate>
+              2022-07-07
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
+            
+              <a href="/categories/Python/">Python</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/python/">python</a>
+            
+              <a href="/tags/%E5%90%8E%E7%AB%AF/">后端</a>
+            
+              <a href="/tags/%E5%9B%BE%E7%89%87%E8%AF%86%E5%88%AB/">图片识别</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/07/06/%E3%80%90Python%20%E2%80%A2%20%E9%9B%86%E5%90%88%E3%80%91%E5%A6%82%E4%BD%95%E4%BD%BF%E5%A4%8D%E6%9D%82%E7%B1%BB%E5%9E%8B%E5%AF%B9%E8%B1%A1%E6%94%AF%E6%8C%81%E9%9B%86%E5%90%88%E6%93%8D%E4%BD%9C/" target="_self">
+          <img src="https://img-blog.csdnimg.cn/7893db9c190840189601e43c4995da96.jpeg#pic_center" srcset="/img/loading.gif" lazyload alt="【Python • 集合】如何使复杂类型对象支持集合操作">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/07/06/%E3%80%90Python%20%E2%80%A2%20%E9%9B%86%E5%90%88%E3%80%91%E5%A6%82%E4%BD%95%E4%BD%BF%E5%A4%8D%E6%9D%82%E7%B1%BB%E5%9E%8B%E5%AF%B9%E8%B1%A1%E6%94%AF%E6%8C%81%E9%9B%86%E5%90%88%E6%93%8D%E4%BD%9C/" target="_self">
+          【Python • 集合】如何使复杂类型对象支持集合操作
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/07/06/%E3%80%90Python%20%E2%80%A2%20%E9%9B%86%E5%90%88%E3%80%91%E5%A6%82%E4%BD%95%E4%BD%BF%E5%A4%8D%E6%9D%82%E7%B1%BB%E5%9E%8B%E5%AF%B9%E8%B1%A1%E6%94%AF%E6%8C%81%E9%9B%86%E5%90%88%E6%93%8D%E4%BD%9C/" target="_self">
+          
+          项目场景有两个集合，每次运算时，都需要对两个集合取差集找出两个集合的差异，或者取并集用来去重，其中的元素都是复杂类型的对象。  问题描述众所周知，集合是无序的，且没有重复的。在本例中，定义了一个class，然后创建对象，每次往定义的结合中加元素时，同样的元素，加到集合却可以无限添加，通过调试发现，每次添加的元素Hash值是不同的。 首先定义一个Person类，用于测试， 12345678910c
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-07-06 01:10" pubdate>
+              2022-07-06
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
+            
+              <a href="/categories/Python/">Python</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/python/">python</a>
+            
+              <a href="/tags/%E5%90%8E%E7%AB%AF/">后端</a>
+            
+              <a href="/tags/%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/">核心技术</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/07/01/%E3%80%90Python%E7%88%AC%E8%99%AB%20%E2%80%A2%20selenium%E3%80%91selenium4%E6%96%B0%E7%89%88%E6%9C%AC%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" target="_self">
+          <img src="https://img-blog.csdnimg.cn/a72b9a954ea049a6b1e5d80dcf945593.png" srcset="/img/loading.gif" lazyload alt="【Python爬虫 • selenium】selenium4新版本使用指南">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/07/01/%E3%80%90Python%E7%88%AC%E8%99%AB%20%E2%80%A2%20selenium%E3%80%91selenium4%E6%96%B0%E7%89%88%E6%9C%AC%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" target="_self">
+          【Python爬虫 • selenium】selenium4新版本使用指南
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/07/01/%E3%80%90Python%E7%88%AC%E8%99%AB%20%E2%80%A2%20selenium%E3%80%91selenium4%E6%96%B0%E7%89%88%E6%9C%AC%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" target="_self">
+          
+          前言Selenium是一个用于Web应用程序测试的工具。Selenium测试直接运行在浏览器中，就像真正的用户在操作一样。支持的浏览器包括IE（7, 8, 9, 10, 11），Mozilla Firefox，Safari，Google Chrome，Opera，Edge等。这个工具的主要功能包括：测试与浏览器的兼容性——测试应用程序看是否能够很好得工作在不同浏览器和操作系统之上。 随着时代的发展
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-07-01 03:29" pubdate>
+              2022-07-01
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
+            
+              <a href="/categories/Python/">Python</a>
+            
+              <a href="/categories/Python/%E7%88%AC%E8%99%AB/">爬虫</a>
+            
+              <a href="/categories/Python/%E7%88%AC%E8%99%AB/selenium/">selenium</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/python/">python</a>
+            
+              <a href="/tags/%E5%90%8E%E7%AB%AF/">后端</a>
+            
+              <a href="/tags/selenium/">selenium</a>
+            
+              <a href="/tags/%E7%88%AC%E8%99%AB/">爬虫</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/06/28/%E3%80%90web%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF%E3%80%91dicebear%E4%B8%80%E5%8F%A5%E8%AF%9D%E7%94%9F%E6%88%90%E5%A4%B4%E5%83%8F/" target="_self">
+          <img src="https://img-blog.csdnimg.cn/0066236935954ce498030febc70f10b4.png" srcset="/img/loading.gif" lazyload alt="【web前端技术】dicebear一句话生成头像">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/06/28/%E3%80%90web%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF%E3%80%91dicebear%E4%B8%80%E5%8F%A5%E8%AF%9D%E7%94%9F%E6%88%90%E5%A4%B4%E5%83%8F/" target="_self">
+          【web前端技术】dicebear一句话生成头像
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/06/28/%E3%80%90web%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF%E3%80%91dicebear%E4%B8%80%E5%8F%A5%E8%AF%9D%E7%94%9F%E6%88%90%E5%A4%B4%E5%83%8F/" target="_self">
+          
+          前言dicebear是一个专为程序开发者和设计者提供生成头像的Javascript库。你可以选择使用HTTP-API来快速的调用官方的服务生成头像，也可以引入npm包来调用代码生成头像。   一、dicebear体验官方提供了一个在线测试的小例子，网址是https:&#x2F;&#x2F;avatars.dicebear.com&#x2F;打开后如下图所示，左边是关于该库的一些文档资料，右边是生成头像的demo 二、使用步骤1
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-06-28 12:43" pubdate>
+              2022-06-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/dicebear/">dicebear</a>
+            
+              <a href="/tags/%E5%A4%B4%E5%83%8F%E7%94%9F%E6%88%90/">头像生成</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/06/09/vue-node-webpack%E5%89%8D%E7%AB%AF%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/" target="_self">
+          <img src="/../images/20220318/vuebanner.jpg" srcset="/img/loading.gif" lazyload alt="vue+node+webpack前端自动化部署">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/06/09/vue-node-webpack%E5%89%8D%E7%AB%AF%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/" target="_self">
+          vue+node+webpack前端自动化部署
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/06/09/vue-node-webpack%E5%89%8D%E7%AB%AF%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/" target="_self">
+          
+          vue+node+webpack前端自动化部署是前端工程师所使用的一种自动化部署方式，它可以让我们的项目在服务器上运行，并且可以自动更新。
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-06-09 07:42" pubdate>
+              2022-06-09
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+            
+              <a href="/categories/%E5%89%8D%E7%AB%AF/vue/">vue</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/vue/">vue</a>
+            
+              <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/">自动化部署</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/06/01/Bootstrap5%E6%96%87%E5%AD%97%E6%8E%92%E7%89%88/" target="_self">
+          <img src="https://www.runoob.com/wp-content/uploads/2017/10/bootstrap-stack.png" srcset="/img/loading.gif" lazyload alt="Bootstrap5文字排版">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/06/01/Bootstrap5%E6%96%87%E5%AD%97%E6%8E%92%E7%89%88/" target="_self">
+          Bootstrap5文字排版
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/06/01/Bootstrap5%E6%96%87%E5%AD%97%E6%8E%92%E7%89%88/" target="_self">
+          
+          Bootstrap 5 文字排版实际上就是文字的使用。Bootstrap 5 默认的 font-size 为 16px, line-height 为 1.5。默认的 font-family 为 “Helvetica Neue”, Helvetica, Arial, sans-serif。此外，所有的 &lt;p&gt; 元素 margin-top: 0 、 margin-bottom: 1rem
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-06-01 10:02" pubdate>
+              2022-06-01
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/">前端开发</a>
+            
+              <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/bootstrap/">bootstrap</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF/">前端</a>
+            
+              <a href="/tags/css/">css</a>
+            
+              <a href="/tags/bootstrap/">bootstrap</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/05/30/Bootstrap5%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" target="_self">
+          <img src="https://www.runoob.com/wp-content/uploads/2017/10/bootstrap-stack.png" srcset="/img/loading.gif" lazyload alt="Bootstrap5的安装与使用">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/05/30/Bootstrap5%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" target="_self">
+          Bootstrap5的安装与使用
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/05/30/Bootstrap5%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" target="_self">
+          
+          Bootstrap 是全球最受欢迎的前端组件库，用于开发响应式布局、移动设备优先的 WEB 项目。 Bootstrap5 目前是 Bootstrap 的最新版本，是一套用于 HTML、CSS 和 JS 开发的开源工具集。它支持 Sass 变量和 mixins、响应式网格系统、大量的预建组件和强大的 JavaScript 插件，助你快速设计和自定义响应式、移动设备优先的站点。
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-05-30 10:17" pubdate>
+              2022-05-30
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/">前端开发</a>
+            
+              <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/bootstrap/">bootstrap</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF/">前端</a>
+            
+              <a href="/tags/css/">css</a>
+            
+              <a href="/tags/bootstrap/">bootstrap</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        晋ICP备19013417号-1
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://unpkg.com/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://unpkg.com/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

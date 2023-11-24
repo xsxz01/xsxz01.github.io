@@ -1,0 +1,602 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="广龙宇">
+  <meta name="keywords" content="前端博客,JavaScript,html5,css3,Jquery,NodeJs,Ubuntu">
+  
+    <meta name="description" content="windows下的安装源搜索工具，有点类似centos下的yum和Ubuntu下的apt。用这个拉下来安装的软件没有广告。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="scoop的安装及基本使用">
+<meta property="og:url" content="https://blog.iotlearn.cn/2022/04/05/scoop%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="广龙宇">
+<meta property="og:description" content="windows下的安装源搜索工具，有点类似centos下的yum和Ubuntu下的apt。用这个拉下来安装的软件没有广告。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://iotpics.oss-accelerate.aliyuncs.com/img/20220405231312.png">
+<meta property="article:published_time" content="2022-04-05T11:21:10.000Z">
+<meta property="article:modified_time" content="2023-11-24T06:22:17.798Z">
+<meta property="article:author" content="广龙宇">
+<meta property="article:tag" content="安装教程">
+<meta property="article:tag" content="windows">
+<meta property="article:tag" content="scoop">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://iotpics.oss-accelerate.aliyuncs.com/img/20220405231312.png">
+  
+  
+  <title>scoop的安装及基本使用 - 广龙宇</title>
+
+  <link  rel="stylesheet" href="https://unpkg.com/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://unpkg.com/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.3/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"blog.iotlearn.cn","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>广龙宇</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/">
+                <i class="iconfont icon-briefcase"></i>
+                常用工具
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="scoop的安装及基本使用">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      广龙宇
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-04-05 19:21" pubdate>
+        2022年4月5日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.4k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      37 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">scoop的安装及基本使用</h1>
+            
+            <div class="markdown-body">
+              <p>windows下的安装源搜索工具，有点类似centos下的yum和Ubuntu下的apt。用这个拉下来安装的软件没有广告。</p>
+<span id="more"></span>
+<p><img src="https://iotpics.oss-accelerate.aliyuncs.com/img/20220405231312.png" srcset="/img/loading.gif" lazyload alt="scoop"></p>
+<h1 id="安装条件"><a href="#安装条件" class="headerlink" title="安装条件"></a>安装条件</h1><ul>
+<li>Windows 7 以上</li>
+<li>64位系统</li>
+<li>powershell 3 以上</li>
+</ul>
+<h2 id="查看powershell版本"><a href="#查看powershell版本" class="headerlink" title="查看powershell版本"></a>查看powershell版本</h2><figure class="highlight powershell"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-variable">$PSVersionTable</span>.PSVersion<br></code></pre></td></tr></table></figure>
+<h2 id="更改脚本执行策略（必须）"><a href="#更改脚本执行策略（必须）" class="headerlink" title="更改脚本执行策略（必须）"></a>更改脚本执行策略（必须）</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">set-executionpolicy</span> remotesigned <span class="hljs-literal">-s</span> cu<br></code></pre></td></tr></table></figure>
+
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-variable">$env:SCOOP</span>=<span class="hljs-string">&#x27;D:\Scoop&#x27;</span><br><br>[<span class="hljs-type">Environment</span>]::SetEnvironmentVariable(<span class="hljs-string">&#x27;SCOOP&#x27;</span>,<span class="hljs-variable">$env:SCOOP</span>,<span class="hljs-string">&#x27;User&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<p>这里设置环境变量第三个参数User表示用户级别，Machine表示系统级别。Machine没权限的话，可以手动去环境变量设置。</p>
+<h2 id="安装命令"><a href="#安装命令" class="headerlink" title="安装命令"></a>安装命令</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">iex</span> (<span class="hljs-built_in">new-object</span> net.webclient).downloadstring(<span class="hljs-string">&#x27;https://get.scoop.sh&#x27;</span>)<br><br><span class="hljs-comment">## 或者</span><br><br><span class="hljs-built_in">iwr</span><span class="hljs-literal">-useb</span> get.scoop.sh|<span class="hljs-built_in">iex</span><br></code></pre></td></tr></table></figure>
+<p>事实上，上面两个目前都是不可用的。</p>
+<p>这里需要点小技巧才能安装，你得有魔法，没有的话自己解决，改hosts没有生效</p>
+<h1 id="卸载命令"><a href="#卸载命令" class="headerlink" title="卸载命令"></a>卸载命令</h1><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">scoop uninstall scoop<br></code></pre></td></tr></table></figure>
+<p><strong>注意</strong>：这个卸载，会删除你配置的scoop下面的所有软件，非常危险。</p>
+<h1 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h1><p>这里以安装curl为例</p>
+<h2 id="换源"><a href="#换源" class="headerlink" title="换源"></a>换源</h2><p>先换源，换个新的较多的源</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">scoop bucket add extras<br></code></pre></td></tr></table></figure>
+
+<p>运行成功以后会有下面的提示</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs powershell">Checking repo... ok<br>The extras bucket was added successfully.<br></code></pre></td></tr></table></figure>
+
+<h2 id="安装curl"><a href="#安装curl" class="headerlink" title="安装curl"></a>安装curl</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment">## 安装软件</span><br>scoop install <span class="hljs-literal">-g</span> [<span class="hljs-type">app</span>的名称]<br><span class="hljs-comment">## 我这里-g 需要admin权限，取消-g可安装</span><br>scoop install <span class="hljs-built_in">curl</span><br></code></pre></td></tr></table></figure>
+<h2 id="使用curl访问百度"><a href="#使用curl访问百度" class="headerlink" title="使用curl访问百度"></a>使用curl访问百度</h2><p><img src="https://iotpics.oss-accelerate.aliyuncs.com/img/20220405193313.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="检测潜在的隐患"><a href="#检测潜在的隐患" class="headerlink" title="检测潜在的隐患"></a>检测潜在的隐患</h1><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">scoop checkup<br></code></pre></td></tr></table></figure>
+<h1 id="初次安装建议安装"><a href="#初次安装建议安装" class="headerlink" title="初次安装建议安装"></a>初次安装建议安装</h1><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment"># 但 scoop 进行全局安装时需要使用到 sudo 命令</span><br>scoop install sudo<br><br><span class="hljs-comment"># scoop下载程序时支持使用 aria2 来加速下载</span><br>scoop install aria2<br></code></pre></td></tr></table></figure>
+<h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs powershell">scoop help <span class="hljs-comment">#查看帮助</span><br>scoop help &lt;某个命令&gt; <span class="hljs-comment"># 具体查看某个命令的帮助</span><br><br>scoop install [<span class="hljs-type">appname</span>]   <span class="hljs-comment"># 安装 APP</span><br>scoop uinstall [<span class="hljs-type">appname</span>]  <span class="hljs-comment"># 卸载 APP</span><br><br>scoop list  <span class="hljs-comment"># 列出已安装的 APP</span><br>scoop search <span class="hljs-comment"># 搜索 APP</span><br>scoop status <span class="hljs-comment"># 检查哪些软件有更新</span><br><br>scoop update <span class="hljs-comment"># 更新 Scoop 自身</span><br>scoop update appName1 appName2 <span class="hljs-comment"># 更新某些app</span><br>scoop update *  <span class="hljs-comment"># 更新所有 app （前提是需要在apps目录下操作）</span><br><br>scoop bucket known <span class="hljs-comment">#通过此命令列出已知所有 bucket（软件源）</span><br>scoop bucket add bucketName <span class="hljs-comment">#添加某个 bucket</span><br><br>scoop cache <span class="hljs-built_in">rm</span> [<span class="hljs-type">appname</span>] <span class="hljs-comment"># 移除某个app的缓存</span><br></code></pre></td></tr></table></figure>
+<h1 id="安装卸载软件"><a href="#安装卸载软件" class="headerlink" title="安装卸载软件"></a>安装卸载软件</h1><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment"># 安装之前，通过 search 搜索 APP, 确定软件名称</span><br>scoop search  xxx<br><br><span class="hljs-comment"># 安装 APP</span><br>scoop install AppName<br><br><span class="hljs-comment"># 安装特定版本的 APP；语法 AppName@[version]，示例</span><br>scoop install git@<span class="hljs-number">2.23</span>.<span class="hljs-number">0</span>.windows.<span class="hljs-number">1</span><br><br><span class="hljs-comment"># 卸载 APP </span><br>scoop uninstall <span class="hljs-comment">#卸载 APP</span><br></code></pre></td></tr></table></figure>
+<h1 id="更新软件"><a href="#更新软件" class="headerlink" title="更新软件"></a>更新软件</h1><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs powershell">scoop update <span class="hljs-comment"># 更新 Scoop 自身</span><br><br>scoop update appName1 appName2 <span class="hljs-comment"># 更新某些app</span><br><br><span class="hljs-comment"># 更新所有 app （可能需要在apps目录下操作）</span><br>scoop update *<br><br><span class="hljs-comment"># 禁止某程序更新</span><br>scoop hold &lt;app&gt;<br><span class="hljs-comment"># 允许某程序更新</span><br>scoop unhold &lt;app&gt;<br></code></pre></td></tr></table></figure>
+<h1 id="清除缓存与旧版本"><a href="#清除缓存与旧版本" class="headerlink" title="清除缓存与旧版本"></a>清除缓存与旧版本</h1><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment"># 查看所有以下载的缓存信息</span><br>scoop cache show<br><br><span class="hljs-comment"># 清除指定程序的下载缓存</span><br>scoop cache <span class="hljs-built_in">rm</span> &lt;app&gt;<br><br><span class="hljs-comment"># 清除所有缓存</span><br>scoop cache <span class="hljs-built_in">rm</span> *<br><br><span class="hljs-comment"># 删除某软件的旧版本</span><br>scoop cleanup &lt;app&gt;<br><br><span class="hljs-comment"># 删除全局安装的某软件的旧版本</span><br>scoop cleanup &lt;app&gt; <span class="hljs-literal">-g</span><br><br><span class="hljs-comment"># 删除过期的下载缓存</span><br>scoop cleanup &lt;app&gt; <span class="hljs-literal">-k</span><br></code></pre></td></tr></table></figure>
+<h1 id="别名"><a href="#别名" class="headerlink" title="别名"></a>别名</h1><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment"># 可用操作</span><br>scoop alias add|list|<span class="hljs-built_in">rm</span> [&lt;<span class="hljs-type">args</span>&gt;]<br><br><span class="hljs-comment">## 添加别名，格式：</span><br>scoop alias add &lt;name&gt; &lt;command&gt; &lt;description&gt;<br><br><span class="hljs-comment"># 示例：（注意：必须在 Powershell中运行）</span><br>scoop alias add st <span class="hljs-string">&#x27;scoop status&#x27;</span> <span class="hljs-string">&#x27;检查更新&#x27;</span><br><span class="hljs-comment"># 检查已添加的别名</span><br>scoop alias list <span class="hljs-literal">-v</span><br><br>Name Command      Summary<br><span class="hljs-literal">----</span> <span class="hljs-literal">-------</span>      <span class="hljs-literal">-------</span><br>st   scoop status 检查更新<br><br><span class="hljs-comment"># 测试已添加的别名 st</span><br>scoop st<br><br><br><span class="hljs-comment"># 另一个示例：</span><br>scoop alias add <span class="hljs-built_in">rm</span> <span class="hljs-string">&#x27;scoop uninstall $args[0]&#x27;</span> <span class="hljs-string">&#x27;卸载某 app&#x27;</span><br></code></pre></td></tr></table></figure>
+<h1 id="在同一程序的不同版本之间切换"><a href="#在同一程序的不同版本之间切换" class="headerlink" title="在同一程序的不同版本之间切换"></a>在同一程序的不同版本之间切换</h1><p>使用命令：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">scoop reset [<span class="hljs-type">app</span>]<span class="hljs-selector-tag">@</span>[<span class="hljs-type">version</span>]<br></code></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs powershell">scoop reset idea<span class="hljs-literal">-ultimate-eap</span>@<span class="hljs-number">201.6668</span>.<span class="hljs-number">13</span><br><br>scoop reset idea<span class="hljs-literal">-ultimate-eap</span>@<span class="hljs-number">201.6073</span>.<span class="hljs-number">9</span><br><br><span class="hljs-comment"># 切换到最新版本</span><br>scoop reset idea<span class="hljs-literal">-ultimate-eap</span><br></code></pre></td></tr></table></figure>
+<p>对应版本的程序需要已经安装于本地系统中；所以在你清除某个软件的旧版本时考虑一下自己是否还会再次使用到此旧版本。</p>
+<p>另外 idea-ultimate-eap 切换过程可能需要更长时间。</p>
+<h1 id="其它命令"><a href="#其它命令" class="headerlink" title="其它命令"></a>其它命令</h1><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment"># 显示某个app的信息</span><br>scoop info &lt;app&gt;<br><br><span class="hljs-comment"># 在浏览器中打开某app的主页</span><br>scoop home &lt;app&gt;<br><br><span class="hljs-comment"># 比如</span><br>scoop home git<br></code></pre></td></tr></table></figure>
+<h1 id="添加软件源-Bucket"><a href="#添加软件源-Bucket" class="headerlink" title="添加软件源 Bucket"></a>添加软件源 Bucket</h1><p>Scoop 可安装的软件信息存储在 Bucket（翻译为：桶）中，也可以称其为软件源。Scoop 默认的 Bucket 为 main ；官方维护的另一个 Bucket 为 extras，我们需要手动添加。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment"># bucket的用法</span><br>scoop bucket add|list|known|<span class="hljs-built_in">rm</span> [&lt;<span class="hljs-type">args</span>&gt;]<br>```powerShell<br>添加 extras :<br>```powershell<br>scoop bucket add extras<br></code></pre></td></tr></table></figure>
+<p>我们也可以添加第三方 bucket ，示例：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">scoop bucket add dorado https://github.com/h404bi/dorado<br></code></pre></td></tr></table></figure>
+<p>并且明确指定安装此 bucket （软件源）中的的程序：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs powershell">scoop install dorado/&lt;app_name&gt;<br><span class="hljs-comment"># 下面是dorado中特有的软件，测试其是否添加成功</span><br>scoop search trash<br></code></pre></td></tr></table></figure>
+<h1 id="推荐的-Bucket（软件源）："><a href="#推荐的-Bucket（软件源）：" class="headerlink" title="推荐的 Bucket（软件源）："></a>推荐的 Bucket（软件源）：</h1><ul>
+<li><p>extras：Scoop 官方维护的一个仓库，涵盖了大部分因为种种原因不能被收录进主仓库的常用软件（在我看来是必须要添加的）。地址:<a target="_blank" rel="noopener" href="https://github.com/lukesampson/scoop-extras/tree/master/bucket">lukesampson&#x2F;scoop-extras</a></p>
+</li>
+<li><p>nirsoft：是一个 NirSoft 开发的小工具的安装合集。NirSoft 制作了大量的小工具，包括系统工具、网络工具、密码恢复等等，孜孜不倦、持续更新。</p>
+<ul>
+<li>Bucket 地址：<a target="_blank" rel="noopener" href="https://github.com/kodybrown/scoop-nirsoft">kodybrown&#x2F;scoop-nirsoft</a></li>
+<li>NirSoft 官网地址：<a target="_blank" rel="noopener" href="http://www.nirsoft.net/">NirSoft</a></li>
+</ul>
+</li>
+<li><p>dorado（添加了一些国内的app，比如 qqplayer ️）h404bi&#x2F;dorado</p>
+</li>
+<li><p>ash258：Ash258&#x2F;scoop-Ash258</p>
+</li>
+<li><p>java：添加后可以通过它安装各种 jdk 、 jre</p>
+</li>
+<li><p>nerd-fonts ：包含各种字体</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment"># 先添加bucket</span><br>scoop bucket add extras<br>scoop bucket add nirsoft<br>scoop bucket add dorado https://github.com/h404bi/dorado<br>scoop bucket add Ash258 <span class="hljs-string">&#x27;https://github.com/Ash258/Scoop-Ash258.git&#x27;</span><br>scoop bucket add nerd<span class="hljs-literal">-fonts</span><br><span class="hljs-comment"># 对于开发人员，可添加下面的两个</span><br>scoop bucket add java<br>scoop bucket add versions<br></code></pre></td></tr></table></figure>
+<h2 id="官方给出的源"><a href="#官方给出的源" class="headerlink" title="官方给出的源"></a>官方给出的源</h2></li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/ScoopInstaller/Main">main</a> - Default bucket for the most common (mostly CLI) apps</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/ScoopInstaller/Extras">extras</a> - Apps that don’t fit the main bucket’s criteria</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/Calinou/scoop-games">games</a> - Open source&#x2F;freeware games and game-related tools</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/matthewjberger/scoop-nerd-fonts">nerd-fonts</a> - Nerd Fonts</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/kodybrown/scoop-nirsoft">nirsoft</a> - Almost all of the 250+ apps from Nirsoft</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/ScoopInstaller/Java">java</a> - A collection of Java development kits (JDKs), Java runtime engines (JREs), Java’s virtual machine debugging tools and Java based runtime engines.</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/TheRandomLabs/scoop-nonportable">nonportable</a> - Non-portable apps (may require UAC)</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/ScoopInstaller/PHP">php</a> - Installers for most versions of PHP</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/ScoopInstaller/Versions">versions</a> - Alternative versions of apps found in other buckets</p>
+<h1 id="bucket-更新时遇到问题"><a href="#bucket-更新时遇到问题" class="headerlink" title="bucket 更新时遇到问题"></a>bucket 更新时遇到问题</h1><p>情况是这样：当我运行 scoop update 进行更新时提示： extras bucket 更新失败。于是我将其删除后再添加，提示成功，但是它却把 main<br>bucket (默认的 bucket) 给删除了。通过”scoop status”检查状态时出现 “These app<br>manifests have been removed”并且下面列出了已被移除的软件名单。 那么如何解决此问题？</p>
+</li>
+</ul>
+<p>我们需要重新添加 main bucket ：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">scoop bucket add main <span class="hljs-comment">#添加 main bucket</span><br></code></pre></td></tr></table></figure>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Windows/">Windows</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Windows/%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/">安装教程</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Windows/%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/scoop/">scoop</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/">安装教程</a>
+                    
+                      <a class="hover-with-bg" href="/tags/windows/">windows</a>
+                    
+                      <a class="hover-with-bg" href="/tags/scoop/">scoop</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/04/07/js%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91-%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E6%98%AF%E6%89%8B%E6%9C%BA%E7%AB%AF/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">js前端开发-判断是否是手机端</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/04/05/Vue-ts%E9%A1%B9%E7%9B%AE%E5%88%A9%E7%94%A8app-use%E7%89%B9%E6%80%A7%E5%85%A8%E5%B1%80%E6%B3%A8%E5%86%8C%E7%BB%84%E4%BB%B6/">
+                        <span class="hidden-mobile">Vue+ts项目利用app.use特性全局注册组件</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="twikoo"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      Fluid.utils.createScript('https://cdnjs.cloudflare.com/ajax/libs/twikoo/1.5.10/twikoo.all.min.js', function() {
+        var options = Object.assign(
+          {"envId":"https://twikoo-comment-amber.vercel.app/","region":null,"path":"window.location.pathname"},
+          {
+            el: '#twikoo',
+            path: 'window.location.pathname',
+            onCommentLoaded: function() {
+              Fluid.plugins.initFancyBox('#twikoo .tk-content img:not(.tk-owo-emotion)');
+            }
+          }
+        )
+        twikoo.init(options)
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        晋ICP备19013417号-1
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://unpkg.com/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://unpkg.com/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://unpkg.com/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://unpkg.com/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://unpkg.com/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://unpkg.com/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
