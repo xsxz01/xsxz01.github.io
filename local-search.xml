@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>web之Helloworld</title>
+    <link href="/2023/11/27/web%E4%B9%8BHelloworld/"/>
+    <url>/2023/11/27/web%E4%B9%8BHelloworld/</url>
+    
+    <content type="html"><![CDATA[<p>开始学习Web 3，本文是博主学习Web 3的学习记录。</p><span id="more"></span><h1 id="本节内容学习地址"><a href="#本节内容学习地址" class="headerlink" title="本节内容学习地址"></a><a href="https://github.com/AmazingAng/WTF-Solidity/blob/main/01_HelloWeb3/readme.md">本节内容学习地址</a></h1><p>使用的IDE是Remix，地址: <a href="https://remix.ethereum.org/">点此打开</a></p><p>原教程写的极为详细</p><ol><li>新建文件</li><li>输入新建的文件名</li><li>将Hello Word代码复制进去</li><li>按Ctrl+s 就会自动编译</li></ol><figure class="highlight ts"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><pre><code class="hljs ts"><span class="hljs-comment">// SPDX-License-Identifier: MIT</span><br>pragma solidity ^<span class="hljs-number">0.8</span><span class="hljs-number">.4</span>;<br>contract <span class="hljs-title class_">HelloWeb3</span>&#123;<br>    <span class="hljs-built_in">string</span> <span class="hljs-keyword">public</span> _string = <span class="hljs-string">&quot;Hello Web3!&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure><p><img src="https://iotpics.oss-accelerate.aliyuncs.com/img/20231127173651.png" alt="编写代码"><br>然后进行部署<br>点击左侧的部署按钮，看到下方余额那里有String类型的Hello World就说明成功。<br><img src="https://iotpics.oss-accelerate.aliyuncs.com/img/20231127174049.png" alt="部署"></p><p>对于这段代码的解释，我觉得还是作者写的好：</p><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-comment">// 第 1 行是注释，说明代码所使用的软件许可（license），这里使用的是 MIT 许可。如果不写许可，编译时会出现警告（warning），但程序仍可运行。Solidity 注释以“//”开头，后面跟注释内容，注释不会被程序执行。</span><br><span class="hljs-comment">// SPDX-License-Identifier: MIT</span><br><span class="hljs-comment">// 第 2 行声明源文件所使用的 Solidity 版本，因为不同版本的语法有差异。这行代码表示源文件将不允许小于 0.8.4 版本或大于等于 0.9.0 的编译器编译（第二个条件由 ^ 提供）。Solidity 语句以分号（;）结尾。</span><br>pragma solidity ^<span class="hljs-number">0.8</span><span class="hljs-number">.4</span>;<br><span class="hljs-comment">// 第 3-4 行是合约部分。第 3 行创建合约（contract），并声明合约名为 HelloWeb3。第 4 行是合约内容，声明了一个 string（字符串）变量 _string，并赋值为 &quot;Hello Web3!&quot;。</span><br>contract <span class="hljs-title class_">HelloWeb3</span>&#123;<br>    <span class="hljs-built_in">string</span> <span class="hljs-keyword">public</span> _string = <span class="hljs-string">&quot;Hello Web3!&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure><blockquote><p>我还是比较喜欢把_string改成name，来自其他编程语言的习惯</p></blockquote>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>Web 3</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Linux+picgo快速配置</title>
     <link href="/2023/11/24/Linux-picgo%E5%BF%AB%E9%80%9F%E9%85%8D%E7%BD%AE/"/>
     <url>/2023/11/24/Linux-picgo%E5%BF%AB%E9%80%9F%E9%85%8D%E7%BD%AE/</url>

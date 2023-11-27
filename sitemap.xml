@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.iotlearn.cn/2023/11/27/web%E4%B9%8BHelloworld/</loc>
+    
+    <lastmod>2023-11-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.iotlearn.cn/2023/11/24/Linux-picgo%E5%BF%AB%E9%80%9F%E9%85%8D%E7%BD%AE/</loc>
     
     <lastmod>2023-11-27</lastmod>
@@ -609,6 +618,13 @@
   
   <url>
     <loc>https://blog.iotlearn.cn/tags/Linux/</loc>
+    <lastmod>2023-11-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.iotlearn.cn/tags/Web-3/</loc>
     <lastmod>2023-11-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

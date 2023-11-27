@@ -16,23 +16,23 @@
   <meta name="author" content="广龙宇">
   <meta name="keywords" content="前端博客,JavaScript,html5,css3,Jquery,NodeJs,Ubuntu">
   
-    <meta name="description" content="前言：因为 PicGo 在 Linux 下的安装体验并不是很好，经过查找一堆资料后发现还是 “Seven’s blog” 提供的解决方案较为完美，但是其环境与我还是有一些差异，并且一些小错误进行了修正，建议参考我修改后的配置。">
+    <meta name="description" content="开始学习Web 3，本文是博主学习Web 3的学习记录。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux+picgo快速配置">
-<meta property="og:url" content="https://blog.iotlearn.cn/2023/11/24/Linux-picgo%E5%BF%AB%E9%80%9F%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:title" content="web之Helloworld">
+<meta property="og:url" content="https://blog.iotlearn.cn/2023/11/27/web%E4%B9%8BHelloworld/index.html">
 <meta property="og:site_name" content="广龙宇">
-<meta property="og:description" content="前言：因为 PicGo 在 Linux 下的安装体验并不是很好，经过查找一堆资料后发现还是 “Seven’s blog” 提供的解决方案较为完美，但是其环境与我还是有一些差异，并且一些小错误进行了修正，建议参考我修改后的配置。">
+<meta property="og:description" content="开始学习Web 3，本文是博主学习Web 3的学习记录。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://molunerfinn.com/PicGo/imgs/256x256--icons.png">
-<meta property="article:published_time" content="2023-11-24T08:56:34.000Z">
-<meta property="article:modified_time" content="2023-11-27T08:10:48.317Z">
+<meta property="og:image" content="https://iotpics.oss-accelerate.aliyuncs.com/img/20231127172105.png">
+<meta property="article:published_time" content="2023-11-27T09:18:23.000Z">
+<meta property="article:modified_time" content="2023-11-27T09:48:23.378Z">
 <meta property="article:author" content="广龙宇">
-<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Web 3">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://molunerfinn.com/PicGo/imgs/256x256--icons.png">
+<meta name="twitter:image" content="https://iotpics.oss-accelerate.aliyuncs.com/img/20231127172105.png">
   
   
-  <title>Linux+picgo快速配置 - 广龙宇</title>
+  <title>web之Helloworld - 广龙宇</title>
 
   <link  rel="stylesheet" href="https://unpkg.com/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -190,7 +190,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Linux+picgo快速配置">
+            <span class="h2" id="subtitle" title="web之Helloworld">
               
             </span>
 
@@ -205,8 +205,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2023-11-24 16:56" pubdate>
-        2023年11月24日 下午
+      <time datetime="2023-11-27 17:18" pubdate>
+        2023年11月27日 下午
       </time>
     </span>
   
@@ -216,7 +216,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.8k 字
+      794 字
     </span>
   
 
@@ -225,7 +225,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      16 分钟
+      7 分钟
     </span>
   
 
@@ -254,95 +254,37 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Linux+picgo快速配置</h1>
+            <h1 style="display: none">web之Helloworld</h1>
             
             <div class="markdown-body">
-              <h1 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h1><p>因为 PicGo 在 Linux 下的安装体验并不是很好，经过查找一堆资料后发现还是 “Seven’s blog” 提供的解决方案较为完美，但是其环境与我还是有一些差异，并且一些小错误进行了修正，建议参考我修改后的配置。</p>
+              <p>开始学习Web 3，本文是博主学习Web 3的学习记录。</p>
 <span id="more"></span>
-<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><table>
-<thead>
-<tr>
-<th>软件</th>
-<th>版本</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>操作系统</td>
-<td>Pop! OS(Ubuntu 22.04)</td>
-</tr>
-<tr>
-<td>Node.js</td>
-<td>v18.16.1</td>
-</tr>
-<tr>
-<td>OSS 对象存储</td>
-<td>aliyun</td>
-</tr>
-<tr>
-<td>picgo</td>
-<td>当前最新</td>
-</tr>
-<tr>
-<td>picgo-plugin-autocopy</td>
-<td>当前最新</td>
-</tr>
-<tr>
-<td>xclip</td>
-<td>系统自带</td>
-</tr>
-<tr>
-<td>notify-send</td>
-<td>系统自带</td>
-</tr>
-</tbody></table>
-<h1 id="安装必要软件"><a href="#安装必要软件" class="headerlink" title="安装必要软件"></a>安装必要软件</h1><h2 id="1-安装picgo"><a href="#1-安装picgo" class="headerlink" title="1. 安装picgo"></a>1. 安装picgo</h2><figure class="highlight bash"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><pre><code class="hljs bash">npm install picgo -g<br><br><span class="hljs-comment"># 或者</span><br><br>yarn global add picgo<br></code></pre></td></tr></table></figure>
-<h2 id="2-安装插件"><a href="#2-安装插件" class="headerlink" title="2. 安装插件"></a>2. 安装插件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">picgo install autocopy<br></code></pre></td></tr></table></figure>
-
-<h1 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h1><p>picgo 的配置文件默认存储在 ~&#x2F;.picgo&#x2F;config.json ，这里提供参考配置。</p>
-<blockquote>
-<p>配置请参考<a target="_blank" rel="noopener" href="https://picgo.github.io/PicGo-Doc/zh/guide/config.html">配置文档</a></p>
-</blockquote>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;picBed&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span> <br>    <span class="hljs-attr">&quot;uploader&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;aliyun&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;current&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;aliyun&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;aliyun&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;accessKeyId&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;----&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;accessKeySecret&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;--&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;bucket&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;---&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;area&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;---&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;path&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;----&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;customUrl&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;---&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;options&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;transformer&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;path&quot;</span><br>  <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;picgoPlugins&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;picgo-plugin-autocopy&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
-
-<h1 id="配置shell脚本"><a href="#配置shell脚本" class="headerlink" title="配置shell脚本"></a>配置shell脚本</h1><p>将脚本放在<code>~/.script/app/picgo-upload.sh</code>。</p>
-<blockquote>
-<p>注意：脚本解释器换成你自己所使用的，我使用的是bash</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="language-bash">!/bin/bash</span><br>source $HOME/.bashrc<br>picgo_upload_result=`picgo upload`<br><br>if [ $? -ne 0 ]; then<br><span class="hljs-meta">  # </span><span class="language-bash">系统提示图片上传失败并显示失败原因</span><br>  notify-send -u normal -t 5000 -a picgo &#x27;picture upload failed&#x27; $picgo_upload_result<br><span class="hljs-meta">  # </span><span class="language-bash">语音提示图片上传失败</span><br><span class="hljs-meta">  # </span><span class="language-bash">espeak <span class="hljs-string">&#x27;picture upload failed&#x27;</span></span><br>  exit<br>else<br><span class="hljs-meta">  # </span><span class="language-bash">系统提示图片上传成功</span><br>  notify-send -u normal -t 5000 -a picgo &#x27;picture  upload succees&#x27; `xclip  -o -selection clipboard`<br><span class="hljs-meta">  # </span><span class="language-bash">删除 xclip 自动添加的换行符</span><br>  xclip -o -selection clipboard | sed &#x27;/^[[:blank:]]*$/d&#x27; | xclip -selection clipboard -r<br><span class="hljs-meta">  # </span><span class="language-bash"> 语音提示图片上传成功</span><br><span class="hljs-meta">  # </span><span class="language-bash">espeak <span class="hljs-string">&#x27;picture upload succeed&#x27;</span></span><br>fi<br></code></pre></td></tr></table></figure>
-
-<p>然后给脚本执行权限</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">chmod</span> +x ~/.script/app/picgo-upload.sh<br></code></pre></td></tr></table></figure>
-
-<h1 id="配置系统快捷键"><a href="#配置系统快捷键" class="headerlink" title="配置系统快捷键"></a>配置系统快捷键</h1><p>依次打开以下设置</p>
+<h1 id="本节内容学习地址"><a href="#本节内容学习地址" class="headerlink" title="本节内容学习地址"></a><a target="_blank" rel="noopener" href="https://github.com/AmazingAng/WTF-Solidity/blob/main/01_HelloWeb3/readme.md">本节内容学习地址</a></h1><p>使用的IDE是Remix，地址: <a target="_blank" rel="noopener" href="https://remix.ethereum.org/">点此打开</a></p>
+<p>原教程写的极为详细</p>
 <ol>
-<li>设置</li>
-<li>键盘</li>
-<li>查看以及自定义快捷键</li>
-<li>自定义快捷键</li>
+<li>新建文件</li>
+<li>输入新建的文件名</li>
+<li>将Hello Word代码复制进去</li>
+<li>按Ctrl+s 就会自动编译</li>
 </ol>
-<p>步骤如下<br><img src="https://iotpics.oss-accelerate.aliyuncs.com/img/20231124171851.png" srcset="/img/loading.gif" lazyload alt="1 - 3步骤"><br><img src="https://iotpics.oss-accelerate.aliyuncs.com/img/20231124171940.png" srcset="/img/loading.gif" lazyload alt="4步骤"><br>并且按照如下配置<br><img src="https://iotpics.oss-accelerate.aliyuncs.com/img/20231124172113.png" srcset="/img/loading.gif" lazyload alt="快捷键配置"><br>然后按下你设置的快捷键就可以看到效果了</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><pre><code class="hljs ts"><span class="hljs-comment">// SPDX-License-Identifier: MIT</span><br>pragma solidity ^<span class="hljs-number">0.8</span><span class="hljs-number">.4</span>;<br>contract <span class="hljs-title class_">HelloWeb3</span>&#123;<br>    <span class="hljs-built_in">string</span> <span class="hljs-keyword">public</span> _string = <span class="hljs-string">&quot;Hello Web3!&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><img src="https://iotpics.oss-accelerate.aliyuncs.com/img/20231127173651.png" srcset="/img/loading.gif" lazyload alt="编写代码"><br>然后进行部署<br>点击左侧的部署按钮，看到下方余额那里有String类型的Hello World就说明成功。<br><img src="https://iotpics.oss-accelerate.aliyuncs.com/img/20231127174049.png" srcset="/img/loading.gif" lazyload alt="部署"></p>
+<p>对于这段代码的解释，我觉得还是作者写的好：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-comment">// 第 1 行是注释，说明代码所使用的软件许可（license），这里使用的是 MIT 许可。如果不写许可，编译时会出现警告（warning），但程序仍可运行。Solidity 注释以“//”开头，后面跟注释内容，注释不会被程序执行。</span><br><span class="hljs-comment">// SPDX-License-Identifier: MIT</span><br><span class="hljs-comment">// 第 2 行声明源文件所使用的 Solidity 版本，因为不同版本的语法有差异。这行代码表示源文件将不允许小于 0.8.4 版本或大于等于 0.9.0 的编译器编译（第二个条件由 ^ 提供）。Solidity 语句以分号（;）结尾。</span><br>pragma solidity ^<span class="hljs-number">0.8</span><span class="hljs-number">.4</span>;<br><span class="hljs-comment">// 第 3-4 行是合约部分。第 3 行创建合约（contract），并声明合约名为 HelloWeb3。第 4 行是合约内容，声明了一个 string（字符串）变量 _string，并赋值为 &quot;Hello Web3!&quot;。</span><br>contract <span class="hljs-title class_">HelloWeb3</span>&#123;<br>    <span class="hljs-built_in">string</span> <span class="hljs-keyword">public</span> _string = <span class="hljs-string">&quot;Hello Web3!&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <blockquote>
-<p>如果没有效果的话，就将命令改成绝对路径<br>这里还存在个问题我目前没有解决，就是复制到剪切板的并不是一开始就是markdown格式的，由于我对于shell脚本并不是很熟练，但是我会努力尝试修改的。所以会在在后面继续改改看。</p>
+<p>我还是比较喜欢把_string改成name，来自其他编程语言的习惯</p>
 </blockquote>
-<p><em>这里再次感谢“Seven’s blog”大佬的解决方案，原文地址：<a target="_blank" rel="noopener" href="https://blog.diqigan.cn/posts/geek/picgo-linux-script.html">https://blog.diqigan.cn/posts/geek/picgo-linux-script.html</a></em></p>
 
             </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
                 
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/Linux/">Linux</a>
-                    
-                  </div>
-                
                 
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/Linux/">Linux</a>
+                      <a class="hover-with-bg" href="/tags/Web-3/">Web 3</a>
                     
                   </div>
                 
@@ -359,18 +301,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/11/27/web%E4%B9%8BHelloworld/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">web之Helloworld</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/06/09/vue-node-webpack%E5%89%8D%E7%AB%AF%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/">
-                        <span class="hidden-mobile">vue+node+webpack前端自动化部署</span>
+                      <a href="/2023/11/24/Linux-picgo%E5%BF%AB%E9%80%9F%E9%85%8D%E7%BD%AE/">
+                        <span class="hidden-mobile">Linux+picgo快速配置</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

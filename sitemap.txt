@@ -1,3 +1,4 @@
+https://blog.iotlearn.cn/2023/11/27/web%E4%B9%8BHelloworld/
 https://blog.iotlearn.cn/2023/11/24/Linux-picgo%E5%BF%AB%E9%80%9F%E9%85%8D%E7%BD%AE/
 https://blog.iotlearn.cn/2022/05/27/%E4%BD%BF%E7%94%A8VSCode%E9%85%8D%E7%BD%AEJava%E7%8E%AF%E5%A2%83/
 https://blog.iotlearn.cn/2022/06/01/Bootstrap5%E6%96%87%E5%AD%97%E6%8E%92%E7%89%88/
@@ -75,6 +76,7 @@ https://blog.iotlearn.cn/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/
 https://blog.iotlearn.cn/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/
 https://blog.iotlearn.cn/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/
 https://blog.iotlearn.cn/tags/Linux/
+https://blog.iotlearn.cn/tags/Web-3/
 https://blog.iotlearn.cn/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/
 https://blog.iotlearn.cn/categories/%E5%AE%89%E5%8D%93%E5%BC%80%E5%8F%91/
 https://blog.iotlearn.cn/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/bootstrap/
