@@ -33,13 +33,6 @@ https://blog.iotlearn.cn/2022/04/07/js%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91-%E5%8
 https://blog.iotlearn.cn/2022/04/07/js%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91-%E5%93%8D%E5%BA%94%E5%BC%8F%E7%94%BB%E5%BB%8AGallery%E6%8F%92%E4%BB%B6-Justified-Gallery/
 https://blog.iotlearn.cn/2022/03/01/vue-introjs%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8/
 https://blog.iotlearn.cn/2022/06/09/vue-node-webpack%E5%89%8D%E7%AB%AF%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/
-https://blog.iotlearn.cn/2022/07/06/%E3%80%90Python%20%E2%80%A2%20%E9%9B%86%E5%90%88%E3%80%91%E5%A6%82%E4%BD%95%E4%BD%BF%E5%A4%8D%E6%9D%82%E7%B1%BB%E5%9E%8B%E5%AF%B9%E8%B1%A1%E6%94%AF%E6%8C%81%E9%9B%86%E5%90%88%E6%93%8D%E4%BD%9C/
-https://blog.iotlearn.cn/2022/07/07/%E3%80%90Python%E2%80%A2%E5%9B%BE%E7%89%87%E8%AF%86%E5%88%AB%E3%80%91pytesseract%E5%BF%AB%E9%80%9F%E8%AF%86%E5%88%AB%E6%8F%90%E5%8F%96%E5%9B%BE%E7%89%87%E4%B8%AD%E7%9A%84%E6%96%87%E5%AD%97/
-https://blog.iotlearn.cn/2022/07/01/%E3%80%90Python%E7%88%AC%E8%99%AB%20%E2%80%A2%20selenium%E3%80%91selenium4%E6%96%B0%E7%89%88%E6%9C%AC%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/
-https://blog.iotlearn.cn/2022/06/28/%E3%80%90web%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF%E3%80%91dicebear%E4%B8%80%E5%8F%A5%E8%AF%9D%E7%94%9F%E6%88%90%E5%A4%B4%E5%83%8F/
-https://blog.iotlearn.cn/2022/12/26/%E3%80%90%E4%B8%80%E8%B5%B7%E5%AD%A6Rust%20|%20%E5%9F%BA%E7%A1%80%E7%AF%87%20|%20rust%E6%96%B0%E7%89%B9%E6%80%A7%E3%80%91Rust%201.65.0%E2%80%94%E2%80%94%E6%B3%9B%E5%9E%8B%E5%85%B3%E8%81%94%E7%B1%BB%E5%9E%8B%E3%80%81let-else%E8%AF%AD%E5%8F%A5/
-https://blog.iotlearn.cn/2022/10/22/%E3%80%90%E4%B8%80%E8%B5%B7%E5%AD%A6Rust%E3%80%91Rust%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/
-https://blog.iotlearn.cn/2022/10/22/%E3%80%90%E4%B8%80%E8%B5%B7%E5%AD%A6Rust%E3%80%91Rust%E7%9A%84HelloRust%E8%AF%A6%E7%BB%86%E8%A7%A3%E6%9E%90/
 https://blog.iotlearn.cn/2022/03/18/%E5%9C%A8vue3%E4%B8%AD%E5%85%A8%E5%B1%80%E6%8C%82%E8%BD%BDaxios/
 https://blog.iotlearn.cn/
 https://blog.iotlearn.cn/tags/%E5%89%8D%E7%AB%AF/
@@ -74,15 +67,6 @@ https://blog.iotlearn.cn/tags/vue-introjs/
 https://blog.iotlearn.cn/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/
 https://blog.iotlearn.cn/tags/windows/
 https://blog.iotlearn.cn/tags/scoop/
-https://blog.iotlearn.cn/tags/python/
-https://blog.iotlearn.cn/tags/%E5%90%8E%E7%AB%AF/
-https://blog.iotlearn.cn/tags/%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/
-https://blog.iotlearn.cn/tags/%E5%9B%BE%E7%89%87%E8%AF%86%E5%88%AB/
-https://blog.iotlearn.cn/tags/selenium/
-https://blog.iotlearn.cn/tags/%E7%88%AC%E8%99%AB/
-https://blog.iotlearn.cn/tags/dicebear/
-https://blog.iotlearn.cn/tags/%E5%A4%B4%E5%83%8F%E7%94%9F%E6%88%90/
-https://blog.iotlearn.cn/tags/rust/
 https://blog.iotlearn.cn/tags/x-build/
 https://blog.iotlearn.cn/tags/%E8%84%9A%E6%89%8B%E6%9E%B6/
 https://blog.iotlearn.cn/tags/Java/
@@ -90,6 +74,7 @@ https://blog.iotlearn.cn/tags/axios/
 https://blog.iotlearn.cn/tags/%E5%BE%AE%E5%89%8D%E7%AB%AF/
 https://blog.iotlearn.cn/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/
 https://blog.iotlearn.cn/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/
+https://blog.iotlearn.cn/tags/Linux/
 https://blog.iotlearn.cn/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/
 https://blog.iotlearn.cn/categories/%E5%AE%89%E5%8D%93%E5%BC%80%E5%8F%91/
 https://blog.iotlearn.cn/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/bootstrap/
@@ -103,7 +88,6 @@ https://blog.iotlearn.cn/categories/%E5%89%8D%E7%AB%AF/%E7%A7%BB%E5%8A%A8%E7%AB%
 https://blog.iotlearn.cn/categories/%E5%89%8D%E7%AB%AF/%E6%8F%92%E4%BB%B6/
 https://blog.iotlearn.cn/categories/%E5%AE%89%E5%8D%93%E5%BC%80%E5%8F%91/AndroidStudio/%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/
 https://blog.iotlearn.cn/categories/Windows/
-https://blog.iotlearn.cn/categories/%E5%90%8E%E7%AB%AF/
 https://blog.iotlearn.cn/categories/%E5%89%8D%E7%AB%AF/%E8%84%9A%E6%89%8B%E6%9E%B6/
 https://blog.iotlearn.cn/categories/Java%E7%BC%96%E7%A8%8B/
 https://blog.iotlearn.cn/categories/%E5%89%8D%E7%AB%AF/%E5%BE%AE%E5%89%8D%E7%AB%AF/
@@ -118,10 +102,8 @@ https://blog.iotlearn.cn/categories/%E5%89%8D%E7%AB%AF/%E6%8F%92%E4%BB%B6/%E5%9B
 https://blog.iotlearn.cn/categories/matter-js/Bodies/
 https://blog.iotlearn.cn/categories/vue/intro-js/
 https://blog.iotlearn.cn/categories/Windows/%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/
-https://blog.iotlearn.cn/categories/Python/
 https://blog.iotlearn.cn/categories/matter-js/engine/
 https://blog.iotlearn.cn/categories/matter-js/Svg/
-https://blog.iotlearn.cn/categories/rust/
 https://blog.iotlearn.cn/categories/matter-js/%E7%BB%8F%E9%AA%8C/
 https://blog.iotlearn.cn/categories/%E5%89%8D%E7%AB%AF/%E8%84%9A%E6%89%8B%E6%9E%B6/x-build/
 https://blog.iotlearn.cn/categories/matter-js/%E5%85%A5%E9%97%A8%E6%A1%88%E4%BE%8B/
@@ -131,5 +113,4 @@ https://blog.iotlearn.cn/categories/%E5%89%8D%E7%AB%AF/%E6%95%B0%E6%8D%AE%E5%8F%
 https://blog.iotlearn.cn/categories/%E5%BC%80%E5%8F%91%E7%BB%8F%E9%AA%8C/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/
 https://blog.iotlearn.cn/categories/vue/devserver/%E8%B7%A8%E5%9F%9F/
 https://blog.iotlearn.cn/categories/Windows/%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/scoop/
-https://blog.iotlearn.cn/categories/Python/%E7%88%AC%E8%99%AB/
-https://blog.iotlearn.cn/categories/Python/%E7%88%AC%E8%99%AB/selenium/
+https://blog.iotlearn.cn/categories/Linux/
