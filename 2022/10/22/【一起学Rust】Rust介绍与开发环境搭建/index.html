@@ -1,0 +1,763 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="广龙宇">
+  <meta name="keywords" content="前端,前端开发,后端,后端开发,Rust,Python,Java,PHP,Tauri,Tauri开发,Tauri2.0,Angular,JavaScript,NodeJs,Ubuntu,Fedora,单片机,esp32,Arduino,物联网,Iot,编程学习资源,初学者编程指南,编程教程">
+  
+    <meta name="description" content="前言Rust 语言是一种高效、可靠的通用高级语言。其高效不仅限于开发效率，它的执行效率也是令人称赞的，是一种少有的兼顾开发效率和执行效率的语言。 官方对Rust是这么评价的。对于现在网络来说，Rust 被广泛了解主要是由于两件事。一是安全性，Rust 语言因其并发安全性而深受众多开发者的喜爱，曾在多个榜单上获评最受欢迎编程语言。一是 Linux 内核将引入 Rust 。但是不管怎么说，Rust">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【一起学Rust】Rust介绍与开发环境搭建">
+<meta property="og:url" content="https://www.iotlearn.cn/2022/10/22/%E3%80%90%E4%B8%80%E8%B5%B7%E5%AD%A6Rust%E3%80%91Rust%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/index.html">
+<meta property="og:site_name" content="广龙宇">
+<meta property="og:description" content="前言Rust 语言是一种高效、可靠的通用高级语言。其高效不仅限于开发效率，它的执行效率也是令人称赞的，是一种少有的兼顾开发效率和执行效率的语言。 官方对Rust是这么评价的。对于现在网络来说，Rust 被广泛了解主要是由于两件事。一是安全性，Rust 语言因其并发安全性而深受众多开发者的喜爱，曾在多个榜单上获评最受欢迎编程语言。一是 Linux 内核将引入 Rust 。但是不管怎么说，Rust">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/05d742824eba481588940c8183b78871.png#pic_center">
+<meta property="article:published_time" content="2022-10-21T17:12:20.000Z">
+<meta property="article:modified_time" content="2023-11-24T05:48:48.000Z">
+<meta property="article:author" content="广龙宇">
+<meta property="article:tag" content="后端">
+<meta property="article:tag" content="核心技术">
+<meta property="article:tag" content="rust">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/05d742824eba481588940c8183b78871.png#pic_center">
+  
+  
+  <title>【一起学Rust】Rust介绍与开发环境搭建 - 广龙宇</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"www.iotlearn.cn","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home","post","tag","category","about","links","page","404"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"placement":"right"},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"fb662cce851f414746e9757acbf65392","google":{"measurement_id":null},"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"follow_dnt":true},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<!-- hexo injector head_end start --><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1485372591247153" crossorigin="anonymous"></script><style>ins.adsbygoogle[data-ad-status="unfilled"] { display: none !important; }</style><meta name="baidu-site-verification" content="codeva-ewKi1qqR4z" /><meta name="google-site-verification" content="37uUYK-9nH6gx-IxEnSbVtr4dSqgaT0h2S7gwKc-Gr4" /><meta name=referrer content=no-referrer /><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>GuangLongYu</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/">
+                <i class="iconfont icon-briefcase"></i>
+                常用工具
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/images/20241016/bg_article.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="【一起学Rust】Rust介绍与开发环境搭建">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      广龙宇
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-10-22 01:12" pubdate>
+        2022年10月22日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.4k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      37 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【一起学Rust】Rust介绍与开发环境搭建</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：1 年前
+                
+              </p>
+            
+            <div class="markdown-body">
+              <p><img src="https://img-blog.csdnimg.cn/05d742824eba481588940c8183b78871.png#pic_center" srcset="/img/loading.gif" lazyload></p>
+<hr>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Rust 语言是一种高效、可靠的通用高级语言。其高效不仅限于开发效率，它的执行效率也是令人称赞的，是一种少有的兼顾开发效率和执行效率的语言。</p>
+<p>官方对Rust是这么评价的。对于现在网络来说，Rust 被广泛了解主要是由于两件事。一是安全性，Rust 语言因其并发安全性而深受众多开发者的喜爱，曾在多个榜单上获评最受欢迎编程语言。一是 Linux 内核将引入 Rust 。但是不管怎么说，Rust 能够流行，和它本身是否优秀是脱不开干系的。</p>
+<p>本系列文章旨在通过理论和实践的结合，让读者更快的、更高效的学习 Rust 并解决学习过程中所遇到的问题。本系列文章还随布置各种学习的小案例作为作业，让读者更深入的学习和理解 Rust 的相关概念。最后会带领读者实战开发几个项目，让读者上手 Rust 开发。本篇文章最主要的两个目的就是为了说明你为什么要学习 Rust 和搭建 Rust 的开发环境。</p>
+<hr>
+<h1 id="一、Rust的优点和应用"><a href="#一、Rust的优点和应用" class="headerlink" title="一、Rust的优点和应用"></a>一、Rust的优点和应用</h1><p>Rust 语言由 Mozilla 开发，最早发布于 2014 年 9 月。Rust 的编译器是在 MIT License 和 Apache License 2.0 双重协议声明下的免费开源软件。</p>
+<p>当前编译器版本号：<code>1.62.0</code></p>
+<h2 id="1-Rust的优点"><a href="#1-Rust的优点" class="headerlink" title="1. Rust的优点"></a>1. Rust的优点</h2><p>这也就是为什么选择 Rust 的原因所在。在 Rust 官网这么写着 Rust 的优点：</p>
+<h3 id="高性能"><a href="#高性能" class="headerlink" title="高性能"></a>高性能</h3><p>Rust 速度惊人且内存利用率极高。由于没有运行时和垃圾回收，它能够胜任对性能要求特别高的服务，可以在嵌入式设备上运行，还能轻松和其他语言集成。</p>
+<h3 id="可靠性"><a href="#可靠性" class="headerlink" title="可靠性"></a>可靠性</h3><p>Rust 丰富的类型系统和所有权模型保证了内存安全和线程安全，让您在编译期就能够消除各种各样的错误。</p>
+<h3 id="生产力"><a href="#生产力" class="headerlink" title="生产力"></a>生产力</h3><p>Rust 拥有出色的文档、友好的编译器和清晰的错误提示信息， 还集成了一流的工具 —— 包管理器和构建工具， 智能地自动补全和类型检验的多编辑器支持， 以及自动格式化代码等等。</p>
+<hr>
+<p>Rust 每一个版本都有一个核心主题或重点。将 1.0 视为“Rust 2015”，现在</p>
+<ul>
+<li>Rust 2015：稳定性</li>
+<li>Rust 2018：生产力</li>
+</ul>
+<p>短短几年时间，Rust官方以及对Rust进行了全年的改进，并且明确了Rust的主要方向。此外，更是创建了连接并授权 Rust 的全球社区。</p>
+<hr>
+<h2 id="2-Rust的应用"><a href="#2-Rust的应用" class="headerlink" title="2. Rust的应用"></a>2. Rust的应用</h2><p>Rust 语言可以用于开发：</p>
+<h3 id="传统命令行程序"><a href="#传统命令行程序" class="headerlink" title="传统命令行程序"></a>传统命令行程序</h3><p>Rust 编译器可以直接生成目标可执行程序，不需要任何解释程序。相比较传统的命令行开发，使用 Rust 强大的生态系统快速实现命令行工具。Rust 可助您放心维护，轻松分发应用程序。Rust拥有以下特点：</p>
+<ul>
+<li><em><strong>可靠且速度惊人：</strong></em> 即便只是编写简短的一次性脚本，您也能确信它是快速且易于测试的，并可以提供有用的输出。</li>
+<li><em><strong>易于分发：</strong></em> 将所有内容编译为单个可执行文件，用户无需安装运行时和库。</li>
+<li><em><strong>健壮的配置：</strong></em> 轻松处理跨平台的配置文件。Rust 将为您处理命名空间和格式。</li>
+<li><em><strong>帮助手册？轻松生成。：</strong></em> 为应用自动生成手册。只要对生成的文件打包即可轻松获得手册。</li>
+<li><em><strong>数据输入，数据输出：</strong></em> 除了与人沟通之外，Rust 还提供了绝佳的工具来帮助您与机器对话。</li>
+<li><em><strong>灵活的日志记录：</strong></em> 添加日志很方便，将其配置到不同的目标或设置为不同的格式也相当容易。</li>
+</ul>
+<p>除此以外，Rust 还有<code>优秀的错误处理</code>，能够<em>当场</em>  捕获错误。Rust 还能让您<code>灵活地组织代码</code>。从一个文件开始，当您需要更多功能时，有信心重构应用程序而不会破坏任何内容。</p>
+<p>以上内容将在随后的开发中非常明显的体现出来，如果你跟着本系列文章一起学习 Rust ，相信你很快就会了解到以上特点。</p>
+<h3 id="Web-应用"><a href="#Web-应用" class="headerlink" title="Web 应用"></a>Web 应用</h3><p>Rust 可以被编译成 WebAssembly，WebAssembly 是一种 JavaScript 的高效替代品。使用 Rust 来逐个增强您的 JavaScript 模块。发布到 npm，使用 webpack 打包，即可感受到惊人的速度提升。</p>
+<p>使用 Rust 做 Web 开发，他拥有以下特点：</p>
+<ul>
+<li><em><strong>可预见的性能：</strong></em> 没有难以预料的 GC 暂停，也没有 JIT 编译器造成性能抖动，只有底层控制与上层人体工程学的完美结合。</li>
+<li><em><strong>更小的代码尺寸：</strong></em> 代码尺寸越小，页面加载速度就越快。Rust 生成的 <code>.wasm</code> 模块不含类似于垃圾回收器这样的额外成本。高级优化和 Tree Shaking 优化可移除无用代码。</li>
+<li><em><strong>现代设施：</strong></em> 充满活力的库生态系统助您旗开得胜。Rust 拥有丰富的表达能力和零成本的抽象，以及助力您学习的友好社区。</li>
+</ul>
+<p>对于 JavaScript 来说，Rust 做的并不是取代，而是增强，是 JavaScript 的最佳搭档：</p>
+<ul>
+<li><em><strong>增强，而非取代：</strong></em> WebAssembly 的梦想不是扼杀 JavaScript，而是与其并存，帮助处理一些繁重或底层的任务。Rust 以性能为先，这些任务也可以受益。</li>
+<li><em><strong>友好的工具链：</strong></em> 您可以将 Rust WebAssembly 包发布到 npm 之类的包仓储中心上。使用 webpack、Parcel 或其它工具来打包并分发它们。使用 <code>npm audit</code> 之类的工具和 Greenkeeper 来维护它们。</li>
+<li><em><strong>无缝的互操作性：</strong></em> 自动生成 Rust、WebAssembly 和 JavaScript API 之间的绑定代码。充分利用 <code>web-sys</code> 之类的库为整个 Web 平台提供预打包的绑定。</li>
+</ul>
+<h3 id="网络服务器"><a href="#网络服务器" class="headerlink" title="网络服务器"></a>网络服务器</h3><p>Rust 用极低的资源消耗做到安全高效，且具备很强的大规模并发处理能力，十分适合开发普通或极端的服务器程序。可预见的性能，极小的资源占用，坚如磐石的可靠性。Rust 极其适合网络服务。在网络方便的优点，是 Rust 广泛被了解的原因之一，他的特点如下：</p>
+<ul>
+<li><em><strong>低资源占用：</strong></em> 控制资源使用，将内存和 CPU 占用降到最低。编译器的帮助可确保您所做正确。同时，通过生产效率高、使用体验宜人的生态系统来实现这一点。</li>
+<li><em><strong>安全可靠：</strong></em> Rust 强大的类型检查可以防止多种级别的 Bug。确保您在何时何地都可确切地知道状态是共享还是可变。在部署之前通过捕捉故障点来获得帮助。</li>
+<li><em><strong>大规模并发：</strong></em> 可以混合使用任何适合于您的并发方式。Rust 会确保您不会在线程或任务之间意外地共享状态。它能让您无所畏惧地压榨任意规模的性能。</li>
+</ul>
+<h3 id="嵌入式设备"><a href="#嵌入式设备" class="headerlink" title="嵌入式设备"></a>嵌入式设备</h3><p>Rust 同时具有JavaScript 一般的高效开发语法和 C 语言的执行效率，支持底层平台的开发。针对资源匮乏的设备？需要底层控制而又不失上层抽象的便利？Rust 包您满意！</p>
+<p>Rust 开发嵌入式设备有以下六大优点是：</p>
+<ul>
+<li><em><strong>强大的静态分析：</strong></em> 在编译时强制要求引脚和外设配置，以确保资源不会被您应用程序中非预期的部分使用。</li>
+<li><em><strong>灵活的内存管理：</strong></em> 动态内存分配是可选的。可使用全局分配器和动态数据结构，也可以不采用堆而全部静态分配。</li>
+<li><em><strong>无畏并发：</strong></em> Rust 使得线程之间不可能意外地共享状态。无论使用哪种喜欢的方式实现并发，都能获得 Rust 提供的强力保障。</li>
+<li><em><strong>互操作性：</strong></em> 可将 Rust 集成到现有的 C 代码库中，也可利用现有的 SDK 编写 Rust 应用程序。</li>
+<li><em><strong>可移植性：</strong></em> 只需要一次编写库或驱动，就能在各种系统中使用它。不管是非常小的微控制器，还是强大的单板计算机，都可直接使用。</li>
+<li><em><strong>社区驱动：</strong></em> 作为 Rust 开源项目的一部分，嵌入式系统由一流的并拥有商业伙伴支持的开源社区驱动。</li>
+</ul>
+<p>现在的 Rust 有着广泛的应用，庞大的生态系统，活跃的社区，以及大量的参考资料，Rust 现在不只是<code>有前途</code>的编程语言，更是<code>有可靠前途</code>的编程语言。</p>
+<hr>
+<h1 id="二、搭建开发环境"><a href="#二、搭建开发环境" class="headerlink" title="二、搭建开发环境"></a>二、搭建开发环境</h1><p>搭建 Rust 开发环境，并且编写一个小应用。</p>
+<p>当前环境：</p>
+<table>
+<thead>
+<tr>
+<th align="center">项目</th>
+<th align="center">值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">操作系统</td>
+<td align="center">Windows 11</td>
+</tr>
+<tr>
+<td align="center">Rust版本</td>
+<td align="center">1.62.0</td>
+</tr>
+<tr>
+<td align="center">编程工具</td>
+<td align="center">vscode</td>
+</tr>
+</tbody></table>
+<h2 id="1-安装-Rust"><a href="#1-安装-Rust" class="headerlink" title="1. 安装 Rust"></a>1. 安装 Rust</h2><blockquote>
+<p>如果你觉得安装较为麻烦，只想体验一下的话，可以进入<a target="_blank" rel="noopener" href="https://play.rust-lang.org/">演练场</a>在线使用。</p>
+</blockquote>
+<ol>
+<li>安装<a target="_blank" rel="noopener" href="https://visualstudio.microsoft.com/zh-hans/visual-cpp-build-tools/">VC++生成工具（已安装可跳过）</a></li>
+</ol>
+<p>点击链接进入页面后，点击<code>下载生成工具</code>，然后就和正常安装包一样安装即可。</p>
+<p><img src="https://img-blog.csdnimg.cn/3b4ff3da439b475d9632166ec5806195.png" srcset="/img/loading.gif" lazyload></p>
+<ol start="2">
+<li>安装 Rustup</li>
+</ol>
+<p>由于笔者使用的是 Windows 系统，因此目前就在 Windows 上进行学习，如果你不是 Windows 可以从<a target="_blank" rel="noopener" href="https://forge.rust-lang.org/infra/other-installation-methods.html">这里</a>找到对应的安装方式。</p>
+<p>安装 Rust 的主要方式是通过 Rustup 这一工具，它既是一个 Rust 安装器又是一个版本管理工具。如果你有兴趣，可以去<a target="_blank" rel="noopener" href="https://www.rust-lang.org/zh-CN/learn/get-started">官网</a>下载，当然我这里也是提供了最新版的下载地址。</p>
+<table>
+<thead>
+<tr>
+<th align="center">Rustup下载</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://www.rust-lang.org/zh-CN/learn/get-started">32位</a> <a target="_blank" rel="noopener" href="https://www.rust-lang.org/zh-CN/learn/get-started">64位</a></td>
+</tr>
+</tbody></table>
+<p><em><strong>官方下载</strong></em><br>打开官网后，选择适合你的操作系统的版本进行下载：</p>
+<p><img src="https://img-blog.csdnimg.cn/acbf656386c549ba996e15973747229c.png" srcset="/img/loading.gif" lazyload></p>
+<ol start="3">
+<li>安装 Rust</li>
+</ol>
+<p>打开下载好的 <code>rustup-init.exe</code> ，界面如下所示：</p>
+<p><img src="https://img-blog.csdnimg.cn/2df53b51a930417882625cf8891c98b5.png" srcset="/img/loading.gif" lazyload></p>
+<p>按照提示，给出三个选项，分别是</p>
+<div class="code-wrapper"><pre><code class="hljs">1. 默认安装
+2. 自定义安装
+3. 取消安装
+</code></pre></div>
+<p>此时输入需要 <code>1</code> 默认安装，就会自动安装好 Rust。</p>
+<ol start="4">
+<li>检查是否安装了 Rust 和 Cargo</li>
+</ol>
+<p>在 <code>cmd</code> 中运行命令 <code>cargo --version</code> ，如果得到以下结果，而不是 <code>命令未找到</code> 的话就是安装成功了。</p>
+<p><img src="https://img-blog.csdnimg.cn/99b737af9c404b35809309ae3c3a8a11.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="2-配置-vscode-开发环境"><a href="#2-配置-vscode-开发环境" class="headerlink" title="2. 配置 vscode 开发环境"></a>2. 配置 vscode 开发环境</h2><p>配置开发环境相当简单，只要安装以下插件即可。</p>
+<p><img src="https://img-blog.csdnimg.cn/74e6c27df41244a39f7245f2048a58a5.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="3-创建新项目"><a href="#3-创建新项目" class="headerlink" title="3. 创建新项目"></a>3. 创建新项目</h2><ol>
+<li><p>随便找个地方，比如桌面，按 <code>shift + 鼠标右键</code> ，选择 <code>此处打开命令行</code> ，运行以下命令：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs powershell">cargo new hello<span class="hljs-literal">-rust</span><br></code></pre></td></tr></table></figure>
+<p>看到以下内容，表示项目创建完成。<br><img src="https://img-blog.csdnimg.cn/deaf38b85aa74200b50fe655c85e5659.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>现在进入这个新建的目录，在空白处 <code>鼠标右键</code> ，然后选择 <code>使用vscode打开</code>如果没有问题，界面应该是下面的样子：</p>
+</li>
+</ol>
+<p><img src="https://img-blog.csdnimg.cn/350d01415cf94d59a00d5db66bec10bd.png" srcset="/img/loading.gif" lazyload></p>
+<p>此时，文件夹目录是这样的，<code>Cargo</code> 已经帮我们创建好默认项目了，还创建了个git的本地仓库，还有一些配置文件，以后会说到。你只要知道 <code>src/main.rs</code> 为编写应用代码的地方。</p>
+<p><img src="https://img-blog.csdnimg.cn/c463e6a76c944fe3be3d4abe0690a49c.png" srcset="/img/loading.gif" lazyload></p>
+<ol start="4">
+<li>运行项目</li>
+</ol>
+<p>新建项目已经为我们创建好了默认的 Hello World 项目，我们直接在 <code>vscode</code> 的终端中运行 <code>cargo run</code> 命令，就可以看到系统输出了 Hello World。</p>
+<p><img src="https://img-blog.csdnimg.cn/8561e0f6cba04f5fbd62b2734471e3c5.png" srcset="/img/loading.gif" lazyload><br>并且可以看到 Rust 是有一个编译的过程的，</p>
+<p><img src="https://img-blog.csdnimg.cn/231b3a7f256e432e8a80206001ce3380.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="4-编写-Hello-Rust"><a href="#4-编写-Hello-Rust" class="headerlink" title="4. 编写 Hello-Rust"></a>4. 编写 Hello-Rust</h2><p><code>Cargo.toml</code> 文件是一个管理项目配置的文件，包括项目依赖等相关配置，我们在后面会详细介绍该文件，现在我们来添加一个依赖，</p>
+<p><img src="https://img-blog.csdnimg.cn/e3fb7cbab7a14236855dbc0e8622fd28.png" srcset="/img/loading.gif" lazyload><br>然后在 vscode 终端运行 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pwoershell">cargo build<br></code></pre></td></tr></table></figure>
+<p>终端就会有以下输出，可以看到 cargo 会自动为我们添加依赖，并且安装好依赖所依赖的依赖（直接绕口令）<br><img src="https://img-blog.csdnimg.cn/ba3bbecedff040e4870a114e0e84143c.png" srcset="/img/loading.gif" lazyload><br>接下来就在 <code>src/main.rs</code> 中写入以下内容</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">use</span> ferris_says::say; <span class="hljs-comment">// from the previous step</span><br><span class="hljs-keyword">use</span> std::io::&#123;stdout, BufWriter&#125;;<br><span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() &#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">stdout</span> = <span class="hljs-title function_ invoke__">stdout</span>();<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">message</span> = <span class="hljs-type">String</span>::<span class="hljs-title function_ invoke__">from</span>(<span class="hljs-string">&quot;Hello fellow Rustaceans!&quot;</span>);<br>    <span class="hljs-keyword">let</span> <span class="hljs-variable">width</span> = message.<span class="hljs-title function_ invoke__">chars</span>().<span class="hljs-title function_ invoke__">count</span>();<br><br>    <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">writer</span> = BufWriter::<span class="hljs-title function_ invoke__">new</span>(stdout.<span class="hljs-title function_ invoke__">lock</span>());<br>    <span class="hljs-title function_ invoke__">say</span>(message.<span class="hljs-title function_ invoke__">as_bytes</span>(), width, &amp;<span class="hljs-keyword">mut</span> writer).<span class="hljs-title function_ invoke__">unwrap</span>();<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>然后在终端中再次执行</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">cargo run<br></code></pre></td></tr></table></figure>
+
+<p>就会看到以下结果</p>
+<p><img src="https://img-blog.csdnimg.cn/ce4a74e0349d4353b01dbde489176603.png" srcset="/img/loading.gif" lazyload><br>这个案例我们随后会进行更加细致的讲解，并且随着后面的学习，对其中的语法理解会更加的深刻。</p>
+<blockquote>
+<p>Rustaceans<br>是对学习 Rust 者的称呼。<br><img src="https://img-blog.csdnimg.cn/1b0be0d71cff40458d76a5d298ac2497.png" srcset="/img/loading.gif" lazyload><br>这只可爱的小螃蟹是 Rust 的官方吉祥物，在官方网站是这样的，<br><img src="https://img-blog.csdnimg.cn/b0569919fc26485c8bf60298c8cf96b9.png" srcset="/img/loading.gif" lazyload></p>
+</blockquote>
+<hr>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>通过本文，你应该已经了解了为什么需要学习 Rust ，并且实现了 Rust 的小案例。由于本文是开篇，就不布置学习的作业，请等待文章更新。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
+                    
+                      <a class="hover-with-bg" href="/categories/rust/">rust</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%90%8E%E7%AB%AF/">后端</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/">核心技术</a>
+                    
+                      <a class="hover-with-bg" href="/tags/rust/">rust</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/10/22/%E3%80%90%E4%B8%80%E8%B5%B7%E5%AD%A6Rust%E3%80%91Rust%E7%9A%84HelloRust%E8%AF%A6%E7%BB%86%E8%A7%A3%E6%9E%90/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【一起学Rust】Rust的Hello Rust详细解析</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/07/07/%E3%80%90Python%E2%80%A2%E5%9B%BE%E7%89%87%E8%AF%86%E5%88%AB%E3%80%91pytesseract%E5%BF%AB%E9%80%9F%E8%AF%86%E5%88%AB%E6%8F%90%E5%8F%96%E5%9B%BE%E7%89%87%E4%B8%AD%E7%9A%84%E6%96%87%E5%AD%97/">
+                        <span class="hidden-mobile">【Python•图片识别】pytesseract快速识别提取图片中的文字</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="twikoo"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/twikoo/1.6.8/twikoo.all.min.js', function() {
+        var options = Object.assign(
+          {"envId":"https://twikoo-comment-amber.vercel.app/","region":"ap-shanghai","path":"window.location.pathname"},
+          {
+            el: '#twikoo',
+            path: 'window.location.pathname',
+            onCommentLoaded: function() {
+              Fluid.plugins.initFancyBox('#twikoo .tk-content img:not(.tk-owo-emotion)');
+            }
+          }
+        )
+        twikoo.init(options)
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        晋ICP备19013417号-1
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/cardlink@1.0.2/dist/cardlink.js" ></script>
+  
+    <script  src="https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?fb662cce851f414746e9757acbf65392";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+    <!-- Google Analytics -->
+    <script defer>
+      window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) };
+      ga.l = +new Date;
+      ga('create', '[object Object]', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+<script src="/js/enable_cardjs.js"></script>
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<!-- hexo injector body_end start --><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1485372591247153"crossorigin="anonymous"></script><ins class="adsbygoogle"style="display:block; text-align:center;"data-ad-layout="in-article"data-ad-format="fluid"data-ad-client="ca-pub-1485372591247153"data-ad-slot="3022038793"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1485372591247153"crossorigin="anonymous"></script><!--展示广告--><ins class="adsbygoogle"style="display:block"data-ad-client="ca-pub-1485372591247153"data-ad-slot="6470329219"data-ad-format="auto"data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1485372591247153"crossorigin="anonymous"></script><ins class="adsbygoogle"style="display:block"data-ad-format="fluid"data-ad-layout-key="-eo-83+c6+9n-qx"data-ad-client="ca-pub-1485372591247153"data-ad-slot="1656986235"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script><!-- hexo injector body_end end --></body>
+</html>

@@ -1,0 +1,639 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="广龙宇">
+  <meta name="keywords" content="前端,前端开发,后端,后端开发,Rust,Python,Java,PHP,Tauri,Tauri开发,Tauri2.0,Angular,JavaScript,NodeJs,Ubuntu,Fedora,单片机,esp32,Arduino,物联网,Iot,编程学习资源,初学者编程指南,编程教程">
+  
+    <meta name="description" content="提示：本文多图，请手机端注意流量。   前言利用python做图片识别，识别提取图片中的文字会有很多方法，但是想要简单一点怎么办，那就可以使用tesseract识别引擎来实现，一行代码就可以做到提取图片文本。  一、配置环境1. 安装python依赖本程序用到了两个python库，pytesseract和PIL，所以先来安装。 运行以下命令 12pip install Pillowpip in">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Python•图片识别】pytesseract快速识别提取图片中的文字">
+<meta property="og:url" content="https://www.iotlearn.cn/2022/07/07/%E3%80%90Python%E2%80%A2%E5%9B%BE%E7%89%87%E8%AF%86%E5%88%AB%E3%80%91pytesseract%E5%BF%AB%E9%80%9F%E8%AF%86%E5%88%AB%E6%8F%90%E5%8F%96%E5%9B%BE%E7%89%87%E4%B8%AD%E7%9A%84%E6%96%87%E5%AD%97/index.html">
+<meta property="og:site_name" content="广龙宇">
+<meta property="og:description" content="提示：本文多图，请手机端注意流量。   前言利用python做图片识别，识别提取图片中的文字会有很多方法，但是想要简单一点怎么办，那就可以使用tesseract识别引擎来实现，一行代码就可以做到提取图片文本。  一、配置环境1. 安装python依赖本程序用到了两个python库，pytesseract和PIL，所以先来安装。 运行以下命令 12pip install Pillowpip in">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/7893db9c190840189601e43c4995da96.jpeg#pic_center">
+<meta property="article:published_time" content="2022-07-06T18:44:30.000Z">
+<meta property="article:modified_time" content="2023-11-24T05:48:48.000Z">
+<meta property="article:author" content="广龙宇">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="后端">
+<meta property="article:tag" content="图片识别">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/7893db9c190840189601e43c4995da96.jpeg#pic_center">
+  
+  
+  <title>【Python•图片识别】pytesseract快速识别提取图片中的文字 - 广龙宇</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"www.iotlearn.cn","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":["home","post","tag","category","about","links","page","404"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0,"placement":"right"},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"fb662cce851f414746e9757acbf65392","google":{"measurement_id":null},"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"follow_dnt":true},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<!-- hexo injector head_end start --><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1485372591247153" crossorigin="anonymous"></script><style>ins.adsbygoogle[data-ad-status="unfilled"] { display: none !important; }</style><meta name="baidu-site-verification" content="codeva-ewKi1qqR4z" /><meta name="google-site-verification" content="37uUYK-9nH6gx-IxEnSbVtr4dSqgaT0h2S7gwKc-Gr4" /><meta name=referrer content=no-referrer /><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>GuangLongYu</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/">
+                <i class="iconfont icon-briefcase"></i>
+                常用工具
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/images/20241016/bg_article.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="【Python•图片识别】pytesseract快速识别提取图片中的文字">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      广龙宇
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-07-07 02:44" pubdate>
+        2022年7月7日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.2k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      10 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【Python•图片识别】pytesseract快速识别提取图片中的文字</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：1 年前
+                
+              </p>
+            
+            <div class="markdown-body">
+              <p><img src="https://img-blog.csdnimg.cn/7893db9c190840189601e43c4995da96.jpeg#pic_center" srcset="/img/loading.gif" lazyload alt="Python"></p>
+<blockquote>
+<p>提示：本文多图，请手机端注意流量。</p>
+</blockquote>
+<hr>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>利用python做图片识别，识别提取图片中的文字会有很多方法，但是想要简单一点怎么办，那就可以使用tesseract识别引擎来实现，一行代码就可以做到提取图片文本。</p>
+<hr>
+<h1 id="一、配置环境"><a href="#一、配置环境" class="headerlink" title="一、配置环境"></a>一、配置环境</h1><h2 id="1-安装python依赖"><a href="#1-安装python依赖" class="headerlink" title="1. 安装python依赖"></a>1. 安装python依赖</h2><p>本程序用到了两个python库，pytesseract和PIL，所以先来安装。</p>
+<p>运行以下命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><pre><code class="hljs shell">pip install Pillow<br>pip install pytesseract <br></code></pre></td></tr></table></figure>
+<p>如果在python中没有报错，说明程序安装成功，<br><img src="https://img-blog.csdnimg.cn/b7beacd82dca4b8d9c3531dad7d3725d.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="2-安装识别引擎"><a href="#2-安装识别引擎" class="headerlink" title="2. 安装识别引擎"></a>2. 安装识别引擎</h2><p>安装完以上两个依赖还需要对应的识别引擎。<a target="_blank" rel="noopener" href="https://digi.bib.uni-mannheim.de/tesseract/">点击去下载</a></p>
+<p>咱们直接使用5月10号构建的最新版本。<br><img src="https://img-blog.csdnimg.cn/f99e8a1c66c845d9aca65828b640c684.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="安装tesseract识别引擎（可跳过）"><a href="#安装tesseract识别引擎（可跳过）" class="headerlink" title="安装tesseract识别引擎（可跳过）"></a>安装tesseract识别引擎<code>（可跳过）</code></h3><p>下载完成后打开程序进行安装，先选择语言，这里选择英语<code>English</code>就行，然后点<code>ok</code></p>
+<p><img src="https://img-blog.csdnimg.cn/40661ced0141431496f0f3a6ebcb9d78.png" srcset="/img/loading.gif" lazyload><br>接下来就是<code>next</code>，完了点击<code>I Agree</code>同意协议，<br><img src="https://img-blog.csdnimg.cn/3fd2806f250a40eb9eb5b12f5a552216.png" srcset="/img/loading.gif" lazyload><br><img src="https://img-blog.csdnimg.cn/d1b018fd71924d82b701eea81a83b25c.png" srcset="/img/loading.gif" lazyload><br>为所有用户安装，然后点<code>next</code>，如图，<br><img src="https://img-blog.csdnimg.cn/d26e1e522dbd401eb881dc9cfd3f8fba.png" srcset="/img/loading.gif" lazyload><br>接下来安装中文的语言包<code>用来识别中文</code>，需要滑到下面，选择中文，我这里横排简体中文和竖排简体中文都选择了，完成后点击next，<br><img src="https://img-blog.csdnimg.cn/b0aa1582060a4fc6888cc4b3fd7cfa99.png" srcset="/img/loading.gif" lazyload><br><img src="https://img-blog.csdnimg.cn/d005330e867b480394ed033f20c48207.png" srcset="/img/loading.gif" lazyload><br>选择安装路径，建议安装到C盘以外，然后点击<code>next</code><br><img src="https://img-blog.csdnimg.cn/68aa38220650410289725981c6d7f9db.png" srcset="/img/loading.gif" lazyload><br>这里点击安装<code>install</code>，</p>
+<p><img src="https://img-blog.csdnimg.cn/40557a9a5706494ab51d3bcc4813f17a.png" srcset="/img/loading.gif" lazyload><br>等待安装完成<br><img src="https://img-blog.csdnimg.cn/61e5a0d24e354cddbbecd69d2481fca4.png" srcset="/img/loading.gif" lazyload><br>安装完成后，点击<code>next</code>，再点击<code>finish</code>完成安装，<br><img src="https://img-blog.csdnimg.cn/ee8926f315c34d359b03b7445e0d250e.png" srcset="/img/loading.gif" lazyload><br><img src="https://img-blog.csdnimg.cn/d1a52ecfb63249d19f35763f5ae66877.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="验证是否安装成功"><a href="#验证是否安装成功" class="headerlink" title="验证是否安装成功"></a>验证是否安装成功</h3><p>添加环境变量，就是你安装到的那个文件夹路径，直接加到path里面，<br><img src="https://img-blog.csdnimg.cn/9504fca041e14ceb83672511b68e7cb2.png" srcset="/img/loading.gif" lazyload><br>然后在命令行运行<code>tesseract -v</code>，如果和下图一样，说明你已经安装成功了，<br><img src="https://img-blog.csdnimg.cn/edc10ab1183c4281a24bbca8945c8b9f.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="二、使用步骤"><a href="#二、使用步骤" class="headerlink" title="二、使用步骤"></a>二、使用步骤</h1><h2 id="1-引入库"><a href="#1-引入库" class="headerlink" title="1.引入库"></a>1.引入库</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br><span class="hljs-keyword">import</span> pytesseract<br></code></pre></td></tr></table></figure>
+
+<h2 id="2-提取图片文字"><a href="#2-提取图片文字" class="headerlink" title="2.提取图片文字"></a>2.提取图片文字</h2><p>将读取图片的一行代码封装为一个函数，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">read_image</span>(<span class="hljs-params">name</span>):<br>    <span class="hljs-built_in">print</span>(pytesseract.image_to_string(Image.<span class="hljs-built_in">open</span>(name), lang=<span class="hljs-string">&#x27;chi_sim&#x27;</span>))<br></code></pre></td></tr></table></figure>
+<p>在<code>main</code>函数中直接调用即可，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():<br>    read_image(<span class="hljs-string">&#x27;1657158527412.jpg&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<!-- ## 3.运行效果
+以以下图片为例，
+![](https://img-blog.csdnimg.cn/e2adf772a6c44801a7a15b3394adfb01.png)
+
+运行效果如下，
+![](https://img-blog.csdnimg.cn/6b248781c000470ab087dea87a861cd8.png) -->
+
+
+<hr>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本文介绍了tesseract的python调用，也就是pytesseract库，其中还有一些其他的内容并没有涉及，仅涉及到了图片提取文字，如果你对其感兴趣，可以深入探索一下，也希望能和我探讨一下。</p>
+<!-- 在85年前的今天，卢沟桥事变拉开了全民族抗战的序幕，中华儿女共赴国难，抗战到底，用生命和鲜血谱写了反抗外来侵略的壮丽史诗。我们今天的生活来之不易，虽硝烟远去，但国殇难忘。七七事变85周年，我们铭记，我们警醒：珍惜和平，居安思危；永不敢忘吾辈自强！ -->
+
+<h1 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br><span class="hljs-keyword">import</span> pytesseract<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">read_image</span>(<span class="hljs-params">name</span>):<br>    <span class="hljs-built_in">print</span>(pytesseract.image_to_string(Image.<span class="hljs-built_in">open</span>(name), lang=<span class="hljs-string">&#x27;chi_sim&#x27;</span>))<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():<br>    read_image(<span class="hljs-string">&#x27;img.png&#x27;</span>)<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    main()<br><br></code></pre></td></tr></table></figure>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Python/">Python</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/python/">python</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%90%8E%E7%AB%AF/">后端</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%9B%BE%E7%89%87%E8%AF%86%E5%88%AB/">图片识别</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/10/22/%E3%80%90%E4%B8%80%E8%B5%B7%E5%AD%A6Rust%E3%80%91Rust%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【一起学Rust】Rust介绍与开发环境搭建</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/07/06/%E3%80%90Python%20%E2%80%A2%20%E9%9B%86%E5%90%88%E3%80%91%E5%A6%82%E4%BD%95%E4%BD%BF%E5%A4%8D%E6%9D%82%E7%B1%BB%E5%9E%8B%E5%AF%B9%E8%B1%A1%E6%94%AF%E6%8C%81%E9%9B%86%E5%90%88%E6%93%8D%E4%BD%9C/">
+                        <span class="hidden-mobile">【Python • 集合】如何使复杂类型对象支持集合操作</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="twikoo"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/twikoo/1.6.8/twikoo.all.min.js', function() {
+        var options = Object.assign(
+          {"envId":"https://twikoo-comment-amber.vercel.app/","region":"ap-shanghai","path":"window.location.pathname"},
+          {
+            el: '#twikoo',
+            path: 'window.location.pathname',
+            onCommentLoaded: function() {
+              Fluid.plugins.initFancyBox('#twikoo .tk-content img:not(.tk-owo-emotion)');
+            }
+          }
+        )
+        twikoo.init(options)
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+  <!-- 备案信息 -->
+  <div class="beian">
+    <span>
+      <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+        晋ICP备19013417号-1
+      </a>
+    </span>
+    
+  </div>
+
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/cardlink@1.0.2/dist/cardlink.js" ></script>
+  
+    <script  src="https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?fb662cce851f414746e9757acbf65392";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+    <!-- Google Analytics -->
+    <script defer>
+      window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) };
+      ga.l = +new Date;
+      ga('create', '[object Object]', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+<script src="/js/enable_cardjs.js"></script>
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<!-- hexo injector body_end start --><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1485372591247153"crossorigin="anonymous"></script><ins class="adsbygoogle"style="display:block; text-align:center;"data-ad-layout="in-article"data-ad-format="fluid"data-ad-client="ca-pub-1485372591247153"data-ad-slot="3022038793"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1485372591247153"crossorigin="anonymous"></script><!--展示广告--><ins class="adsbygoogle"style="display:block"data-ad-client="ca-pub-1485372591247153"data-ad-slot="6470329219"data-ad-format="auto"data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1485372591247153"crossorigin="anonymous"></script><ins class="adsbygoogle"style="display:block"data-ad-format="fluid"data-ad-layout-key="-eo-83+c6+9n-qx"data-ad-client="ca-pub-1485372591247153"data-ad-slot="1656986235"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script><!-- hexo injector body_end end --></body>
+</html>
