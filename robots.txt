@@ -1,0 +1,2 @@
+Sitemap: https://www.iotlearn.cn/sitemap.xml
+Sitemap: https://www.iotlearn.cn/baidusitemap.xml
