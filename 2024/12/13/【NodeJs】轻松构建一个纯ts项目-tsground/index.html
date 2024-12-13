@@ -16,23 +16,23 @@
   <meta name="author" content="广龙宇">
   <meta name="keywords" content="前端,前端开发,后端,后端开发,Rust,Python,Java,PHP,Tauri,Tauri开发,Tauri2.0,Angular,JavaScript,NodeJs,Ubuntu,Fedora,单片机,esp32,Arduino,物联网,Iot,编程学习资源,初学者编程指南,编程教程">
   
-    <meta name="description" content="前言无论是在Windows上，还是Linux，或者安卓这些我们常用的操作系统上，一些应用程序的快捷方式放在桌面或者启动器，只需要简单的点击就可以启动，但是在Linux上，有相当多的程序是通过命令行启动的，这种方式对于某些人来说确实挺快，但是用惯了Windows就不太适应了，而且在桌面环境下，还是快捷图标更加友好，因此探索了一波Linux创建启动器图标。 由于本人使用的操作系统是Pop！OS，是U">
+    <meta name="description" content="tsground定位就是一个项目的脚手架，旨在快速创建各种ts的项目（目前只能创建纯ts项目），助力快速搭建ts项目，以验证你的想法。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【Linux系列】在PopOS的启动器中添加自定义程序图标">
-<meta property="og:url" content="https://www.iotlearn.cn/2024/10/16/%E3%80%90Linux%E7%B3%BB%E5%88%97%E3%80%91%E5%9C%A8PopOS%E7%9A%84%E5%90%AF%E5%8A%A8%E5%99%A8%E4%B8%AD%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%A8%8B%E5%BA%8F%E5%9B%BE%E6%A0%87/index.html">
+<meta property="og:title" content="【NodeJs】轻松构建一个纯ts项目-tsground">
+<meta property="og:url" content="https://www.iotlearn.cn/2024/12/13/%E3%80%90NodeJs%E3%80%91%E8%BD%BB%E6%9D%BE%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%BA%AFts%E9%A1%B9%E7%9B%AE-tsground/index.html">
 <meta property="og:site_name" content="广龙宇">
-<meta property="og:description" content="前言无论是在Windows上，还是Linux，或者安卓这些我们常用的操作系统上，一些应用程序的快捷方式放在桌面或者启动器，只需要简单的点击就可以启动，但是在Linux上，有相当多的程序是通过命令行启动的，这种方式对于某些人来说确实挺快，但是用惯了Windows就不太适应了，而且在桌面环境下，还是快捷图标更加友好，因此探索了一波Linux创建启动器图标。 由于本人使用的操作系统是Pop！OS，是U">
+<meta property="og:description" content="tsground定位就是一个项目的脚手架，旨在快速创建各种ts的项目（目前只能创建纯ts项目），助力快速搭建ts项目，以验证你的想法。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/a8d4969771940717f33696a79c4a715b.png#pic_center">
-<meta property="article:published_time" content="2024-10-16T07:26:29.000Z">
-<meta property="article:modified_time" content="2024-10-16T07:44:31.846Z">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/direct/50a0491aa37641fcb355c3cb9bf6bafe.png#pic_center">
+<meta property="article:published_time" content="2024-12-13T06:10:17.000Z">
+<meta property="article:modified_time" content="2024-12-13T06:13:24.714Z">
 <meta property="article:author" content="广龙宇">
-<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="前端,前端开发,后端,后端开发,Rust,Python,Java,PHP,Tauri,Tauri开发,Tauri2.0,Angular,JavaScript,NodeJs,Ubuntu,Fedora,单片机,esp32,Arduino,物联网,Iot,编程学习资源,初学者编程指南,编程教程">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://i-blog.csdnimg.cn/blog_migrate/a8d4969771940717f33696a79c4a715b.png#pic_center">
+<meta name="twitter:image" content="https://i-blog.csdnimg.cn/direct/50a0491aa37641fcb355c3cb9bf6bafe.png#pic_center">
   
   
-  <title>【Linux系列】在PopOS的启动器中添加自定义程序图标 - 广龙宇</title>
+  <title>【NodeJs】轻松构建一个纯ts项目-tsground - 广龙宇</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -202,7 +202,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="【Linux系列】在PopOS的启动器中添加自定义程序图标">
+            <span class="h2" id="subtitle" title="【NodeJs】轻松构建一个纯ts项目-tsground">
               
             </span>
 
@@ -217,8 +217,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2024-10-16 15:26" pubdate>
-        2024年10月16日 下午
+      <time datetime="2024-12-13 14:10" pubdate>
+        2024年12月13日 下午
       </time>
     </span>
   
@@ -228,7 +228,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.1k 字
+      1.3k 字
     </span>
   
 
@@ -237,7 +237,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      18 分钟
+      12 分钟
     </span>
   
 
@@ -274,80 +274,103 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">【Linux系列】在PopOS的启动器中添加自定义程序图标</h1>
+            <h1 style="display: none">【NodeJs】轻松构建一个纯ts项目-tsground</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2 个月前
+                  本文最后更新于：1 分钟前
                 
               </p>
             
             <div class="markdown-body">
-              <p><img src="https://i-blog.csdnimg.cn/blog_migrate/a8d4969771940717f33696a79c4a715b.png#pic_center" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>无论是在Windows上，还是Linux，或者安卓这些我们常用的操作系统上，一些应用程序的快捷方式放在桌面或者启动器，只需要简单的点击就可以启动，但是在Linux上，有相当多的程序是通过命令行启动的，这种方式对于某些人来说确实挺快，但是用惯了Windows就不太适应了，而且在桌面环境下，还是快捷图标更加友好，因此探索了一波Linux创建启动器图标。</p>
-<p>由于本人使用的操作系统是Pop！OS，是Ubuntu发行版的一个分支，因此基本和Ubuntu是一致的。</p>
-<hr>
-<h1 id="一、创建快捷方式"><a href="#一、创建快捷方式" class="headerlink" title="一、创建快捷方式"></a>一、创建快捷方式</h1><p>在创建快捷方式之前，创建的快捷方式是所有用户都要看到还是仅自己可见，也就是说创建系统级图标还是用户级图标。</p>
-<p>如果是用户级图标，那么路径为<code>.local/share/applications/</code>，</p>
-<p>如果是系统级图标，那么路径为<code>/usr/share/applications</code>，</p>
-<p>进入该路径以后，你会看到一堆<code>.desktop</code>文件</p>
-<p><img src="https://i-blog.csdnimg.cn/blog_migrate/b8e32c82fcb0aa1b90c3bd6358134494.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"><br>这些东西就是快捷方式的本来面目了。这里面有一些文件是需要了解一下的。</p>
-<ol>
-<li><code>context-menus</code>文件夹是存放一些右键菜单的。</li>
-<li><code>pop-mimeapps.list</code>，<code>gnome-mimeapps.list</code>， <code>defaults.list</code>以及<code>mimeapps.list</code>都是指定文件的默认执行方式的。</li>
-</ol>
-<p>你在系统级目录下新建<code>desktop</code>文件，创建的就是系统级图标，如果在用户级目录下新建<code>desktop</code>文件，那么创建的就是用户级图标。</p>
-<h1 id="二、快捷方式参数"><a href="#二、快捷方式参数" class="headerlink" title="二、快捷方式参数"></a>二、快捷方式参数</h1><p>以安装Jetbrains的Idea为例，我从官网下载了压缩包，并且解压到了<code>/home/pang/workspace/env/idea-IU-232.8660.185</code>路径，此时有个文件<code>Install-Linux-tar.txt</code>提示如何在Linux上安装，但是实际上也只说进入<code>bin</code>目录运行</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs shell">./idea.sh<br></code></pre></td></tr></table></figure>
-<p>对于这种运行方式，使用体验是比较差的，因此需要创建个快捷方式启动，我选择的是系统级快捷方式，然后创建个<code>idea.desktop</code>，内容如下</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[Desktop Entry]</span><br>Name<span class="hljs-section">[tr]</span>=idea<br>Name<span class="hljs-section">[zh_CN]</span>=idea<br><span class="hljs-attr">Exec</span>=/home/pang/workspace/env/idea-IU-<span class="hljs-number">232.8660</span>.<span class="hljs-number">185</span>/bin/idea.sh<br><span class="hljs-attr">Terminal</span>=<span class="hljs-literal">false</span><br><span class="hljs-attr">Type</span>=Application<br><span class="hljs-attr">Icon</span>=/home/pang/workspace/env/Icon/idea.png<br><span class="hljs-attr">Comment</span>=idea<br><span class="hljs-attr">Categories</span>=Utility<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
-<p><img src="https://i-blog.csdnimg.cn/blog_migrate/f3ee5ea78f22d31babab7b23976661d2.jpeg" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"><br>可见图标就创建好了，并且功能运行正常。</p>
-<p>简单介绍下这个文件中参数的作用，</p>
-<ol>
-<li><code>Name</code>代表显示名字，并且可以指定语言，比如<code>Name[zh_CN]</code>、</li>
-<li><code>Exec</code>是可执行文件，或者命令</li>
-<li><code>Terminal</code>是否显示终端</li>
-<li><code>Type</code>应用程序类型</li>
-<li><code>Icon</code>图标</li>
-<li><code>Comment</code>描述</li>
-<li><code>Categories</code>分类</li>
-</ol>
-<blockquote>
-<p>如果你想要查看所有相关的参数，建议查看大佬<a target="_blank" rel="noopener" href="https://blog.csdn.net/u011198687/article/details/121806095">玩转智能机器人</a>的文章，或者直接去官网查看（能看懂英文）。<br>官网<a target="_blank" rel="noopener" href="https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html">https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html</a></p>
+              <blockquote>
+<p>tsground定位就是一个项目的脚手架，旨在快速创建各种ts的项目（目前只能创建纯ts项目），助力快速搭建ts项目，以验证你的想法。</p>
 </blockquote>
-<h1 id="三、添加右键菜单和注册MIME"><a href="#三、添加右键菜单和注册MIME" class="headerlink" title="三、添加右键菜单和注册MIME"></a>三、添加右键菜单和注册MIME</h1><p>其实有很多功能是用不到的，所以挑两个可能用到的说一下，首先给出一份较为完整的文件例子</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[Desktop Entry]</span><br><span class="hljs-attr">Version</span>=<span class="hljs-number">1.0</span><br><span class="hljs-attr">Type</span>=Application<br><span class="hljs-attr">Name</span>=Foo Viewer<br><span class="hljs-attr">Comment</span>=The best viewer for Foo objects available!<br><span class="hljs-attr">TryExec</span>=fooview<br><span class="hljs-attr">Exec</span>=fooview %F<br><span class="hljs-attr">Icon</span>=fooview<br><span class="hljs-attr">MimeType</span>=image/x-foo<span class="hljs-comment">;</span><br><span class="hljs-attr">Actions</span>=Gallery<span class="hljs-comment">;Create;</span><br><br><span class="hljs-section">[Desktop Action Gallery]</span><br><span class="hljs-attr">Exec</span>=fooview --gallery<br><span class="hljs-attr">Name</span>=Browse Gallery<br><br><span class="hljs-section">[Desktop Action Create]</span><br><span class="hljs-attr">Exec</span>=fooview --create-new<br><span class="hljs-attr">Name</span>=Create a new Foo!<br><span class="hljs-attr">Icon</span>=fooview-new<br></code></pre></td></tr></table></figure>
-<p>在这个文件中，<code>MimeType=image/x-foo;</code>注册了MIME，然后就可以在指定默认执行程序那写了<br><img src="https://i-blog.csdnimg.cn/blog_migrate/c8cb450b5777da70771439aba04d4a7f.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"><br>以及一些右键菜单也可以看出来是怎么写的，大概影响的是这几行</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs routeros">……<br><span class="hljs-attribute">Actions</span>=Gallery;Create;<br><br>[Desktop Action Gallery]<br><span class="hljs-attribute">Exec</span>=fooview --gallery<br><span class="hljs-attribute">Name</span>=Browse Gallery<br><br>[Desktop Action Create]<br><span class="hljs-attribute">Exec</span>=fooview --create-new<br><span class="hljs-attribute">Name</span>=Create a new Foo!<br><span class="hljs-attribute">Icon</span>=fooview-new<br></code></pre></td></tr></table></figure>
+<span id="more"></span>
 
-<p>由<code>Action</code>指定有几个菜单选项，然后下面用<code>[Desktop Action ActionName]</code>来指定，且有三个参数</p>
+<hr>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本文灵感来源于此前的一篇文章<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_47754149/article/details/143159109">【NodeJs】从头到尾构建一个Typescript项目</a>,由于构建一个TS项目要经过许多步骤，比如创建项目，添加依赖，写配置文件，除此以外还要各种调试，而眼下又没找到个合适的脚手架来生成一个项目，这就导致比如我想测试某一段ts代码或者想要写个小demo就是花费很多功夫，因此就自己做一个cli来生成这种项目，替代这些前期配置的步骤，如果再有需要自定义的需求直接再生成的项目上修改就好了，tsground就这么诞生了。</p>
+<p>综上所述，tsground定位就是一个项目的脚手架，旨在快速创建各种ts的项目（目前只能创建纯ts项目），助力快速搭建ts项目，以验证你的想法。</p>
+<hr>
+<h1 id="一、安装tsground"><a href="#一、安装tsground" class="headerlink" title="一、安装tsground"></a>一、安装tsground</h1><p>安装<code>tsground</code>非常简单，跟平时使用的脚手架和cli一样，如果你安装了npm的话，只需要运行以下命令就可以安装完成</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs shell">npm install tsground -g<br></code></pre></td></tr></table></figure>
+
+<p>更加推荐使用pnpm来安装，pnpm是一个非常方便的包管理工具，安装同样是执行命令即可安装完成</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">pnpm add tsground -g<br></code></pre></td></tr></table></figure>
+
+<h1 id="二、用法"><a href="#二、用法" class="headerlink" title="二、用法"></a>二、用法</h1><p>安装好tsground后就可以正常的创建项目了，创建项目的说明如下(当你运行<code>tsground -h</code>就可以输出使用方法)</p>
+<p>使用方法：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">tsground [选项] [命令]<br></code></pre></td></tr></table></figure>
+
+<h2 id="选项如下"><a href="#选项如下" class="headerlink" title="选项如下"></a>选项如下</h2><table>
+<thead>
+<tr>
+<th>简写</th>
+<th>全拼</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-V</td>
+<td>–version</td>
+<td>查看tsground当前版本，可选</td>
+</tr>
+<tr>
+<td>-h</td>
+<td>–help</td>
+<td>查看tsground使用说明，可选</td>
+</tr>
+</tbody></table>
+<p>命令有如下</p>
+<h3 id="init"><a href="#init" class="headerlink" title="init"></a>init</h3><p>用来初始化一个新的纯typescript项目。</p>
+<p>init命令用法如下</p>
 <ul>
-<li><code>Exec</code> 执行的命令</li>
-<li><code>Name</code> 显示名字</li>
-<li><code>Icon</code> 图标</li>
+<li>name - 项目名</li>
 </ul>
-<div class="note note-info">
-            <p>本文最早发布于：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_47754149/article/details/137646973">https://blog.csdn.net/weixin_47754149/article/details/137646973</a></p>
-          </div>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">tsground init [选项] &lt;name&gt; [分支]<br></code></pre></td></tr></table></figure>
+
+<p><strong>选项</strong></p>
+<p>选项可选，可以不需要写。</p>
+<table>
+<thead>
+<tr>
+<th>简写</th>
+<th>全拼</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-h</td>
+<td>–help</td>
+<td>查看init命令的使用说明，可选</td>
+</tr>
+</tbody></table>
+<p><strong>分支</strong><br>默认即可，后期用作创建多种模板用。</p>
+<h1 id="三、创建项目"><a href="#三、创建项目" class="headerlink" title="三、创建项目"></a>三、创建项目</h1><p>安装好tsground后，比如创建<code>myproject</code>,则运行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">tsground init myproject<br></code></pre></td></tr></table></figure>
+
+<p>然后安装依赖</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd myproject<br><span class="hljs-meta prompt_"># </span><span class="language-bash">如果你是使用的pnpm</span><br>pnpm install<br><span class="hljs-meta prompt_"># </span><span class="language-bash">如果你使用的是npm</span><br>npm install<br></code></pre></td></tr></table></figure>
+
+<p>此时目录结构如下</p>
+<hr>
+<p>├── esbuild.config.js<br>├── LICENSE<br>├── node_modules<br>├── package.json<br>├── plugins<br>│   ├── autoRun.plugin.js<br>│   └── index.js<br>├── pnpm-lock.yaml<br>├── README.md<br>├── src<br>│   ├── index.ts<br>│   └── test.ts<br>└── tsconfig.json</p>
+<hr>
+<p>src下的<code>index.ts</code>是程序的入口文件，直接编写ts代码即可，支持多模块开发。</p>
+<p>此时运行以下命令可以实时看到写的程序的输出（自带热重启功能）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">如果你是pnpm</span><br>pnpm run dev<br><span class="hljs-meta prompt_"># </span><span class="language-bash">如果你是npm</span><br>npm run dev<br></code></pre></td></tr></table></figure>
+
+<p>运行效果图如下</p>
+<p><img src="https://i-blog.csdnimg.cn/direct/6fd1d77533c847d4b7c4faa3bf2a0c37.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<h1 id="四、构建项目"><a href="#四、构建项目" class="headerlink" title="四、构建项目"></a>四、构建项目</h1><p>构建项目的话直接运行build命令就好了</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">pnpm build<br></code></pre></td></tr></table></figure>
+<p>运行后就可以看到输出的文件，在<code>dist/index.js</code><br><img src="https://i-blog.csdnimg.cn/direct/1550c3e709874805996743b2407ea67f.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"><br><img src="https://i-blog.csdnimg.cn/direct/7cc0428c26624924b980958a159004ca.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"><br>如果你还需要其他配置则可以直接在这个基础上进行配置你想要的功能。</p>
+
             </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
                 
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/Linux/">Linux</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/Linux/">Linux</a>
-                    
-                  </div>
                 
               </div>
               
@@ -362,18 +385,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/10/23/%E3%80%90%E4%B8%80%E8%B5%B7%E5%AD%A6Rust%20_%20%E8%BF%9B%E9%98%B6%E7%AF%87%20_%20jni%E5%BA%93%E3%80%91JNI%E5%AE%9E%E7%8E%B0Java%E4%B8%8ERust%E8%BF%9B%E8%A1%8C%E4%BA%A4%E4%BA%92/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【一起学Rust _ 进阶篇 _ jni库】JNI实现Java与Rust进行交互</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/11/27/web3%E4%B9%8BHelloworld/">
-                        <span class="hidden-mobile">web3之Helloworld</span>
+                      <a href="/2024/11/08/%E3%80%90Linux%E7%B3%BB%E5%88%97%E3%80%91%E5%9C%A8Linux%E4%B8%8B%E5%AE%89%E8%A3%85%E5%BE%AE%E4%BF%A14.0%E6%A1%8C%E9%9D%A2%E7%89%88/">
+                        <span class="hidden-mobile">【Linux系列】在Linux下安装微信4.0桌面版</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
